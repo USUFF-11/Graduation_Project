@@ -1,0 +1,1007 @@
+OrderID,ProductCategory,ProductID,Supplier,OriginCountry,DestinationCity,ShippingMode,OrderDate,ShipDate,DeliveryDate,PromisedDate,OrderStatus,UnitsOrdered,UnitCost,UnitPrice,ManufacturingCost,TransportationCost,DamagedUnits,ReturnStatus,SatisfactionScore
+10000,Electronics,Model-A897,Supplier A,Mexico,New York,Sea,4/6/2025,4/9/2025,5/11/2025,5/11/2025,Delivered,403,25.22,54.2,10163.66,304.91,18,No,3
+10001,Electronics,Model-C260,Supplier C,China,Los Angeles,Express,5/2/2024,5/5/2024,5/7/2024,5/11/2024,Delivered,385,32.74,73.89,12604.9,1260.49,0,No,5
+10002,Apparel,SKU-8340,National Logistics,Vietnam,Chicago,Express,12/15/2024,12/16/2024,12/18/2024,12/18/2024,Delivered,462,64.17,129.04,29646.54,2964.65,0,No,5
+10003,Electronics,Model-B583,Supplier A,China,Houston,Sea,8/9/2024,8/13/2024,9/4/2024,9/8/2024,Delivered,58,39.63,98.14,2298.54,68.96,0,No,5
+10004,Home Goods,HG-753,Global Imports,Germany,Phoenix,Air,4/27/2025,4/28/2025,5/3/2025,5/5/2025,Delivered,391,30.25,56.67,11827.75,887.08,0,No,5
+10005,Electronics,Model-E903,Supplier C,USA,New York,Sea,11/21/2024,11/23/2024,12/17/2024,12/20/2024,Delivered,382,145,244.37,55390,1661.7,0,No,5
+10006,Electronics,Model-E903,Supplier A,Vietnam,Los Angeles,Sea,3/27/2025,3/31/2025,4/22/2025,4/24/2025,Delivered,53,93.02,231.57,4930.06,147.9,2,Yes,2
+10007,Apparel,SKU-6533,Supplier B,Vietnam,Chicago,Land,1/29/2024,2/2/2024,2/11/2024,2/14/2024,Delivered,132,136,235.3,17952,807.84,0,No,5
+10008,Apparel,SKU-2885,Supplier C,Vietnam,Houston,Land,12/6/2023,12/9/2023,,12/23/2023,Cancelled,98,138.18,243.36,13541.64,609.37,0,No,
+10009,Apparel,SKU-2885,National Logistics,Germany,Phoenix,Sea,5/14/2024,5/19/2024,6/26/2024,6/28/2024,Delivered,458,94.09,194.8,43093.22,1292.8,0,No,5
+10010,Apparel,SKU-7098,Supplier A,USA,New York,Air,7/30/2024,8/4/2024,8/11/2024,8/10/2024,Delayed,138,138.51,320.64,19114.38,1433.58,0,No,4
+10011,Apparel,SKU-8340,Supplier A,Mexico,Los Angeles,Air,5/22/2024,5/25/2024,5/30/2024,6/1/2024,Delivered,291,24.27,45.76,7062.57,529.69,0,No,5
+10012,Home Goods,HG-753,National Logistics,China,Chicago,Sea,9/25/2024,9/28/2024,11/1/2024,10/31/2024,Delayed,216,92.26,214.31,19928.16,597.84,0,Yes,3
+10013,Home Goods,HG-792,Global Imports,Mexico,Houston,Sea,3/25/2025,3/27/2025,5/3/2025,5/4/2025,Delivered,364,110.78,205.73,40323.92,1209.72,4,No,3
+10014,Electronics,Model-B583,Supplier B,Vietnam,Phoenix,Express,11/9/2023,11/14/2023,11/17/2023,11/20/2023,Delivered,465,144.52,232.79,67201.8,6720.18,0,No,5
+10015,Apparel,SKU-7098,Supplier C,Mexico,New York,Sea,7/27/2024,7/31/2024,9/7/2024,9/8/2024,Delivered,332,54.47,116.19,18084.04,542.52,0,No,5
+10016,Electronics,Model-E903,Supplier B,USA,Los Angeles,Sea,7/22/2025,7/26/2025,8/31/2025,9/3/2025,Delivered,235,51.73,93.74,12156.55,364.7,0,No,5
+10017,Home Goods,HG-593,Supplier B,Mexico,Chicago,Sea,4/1/2024,4/2/2024,4/28/2024,4/29/2024,Delivered,306,101.17,232.25,30958.02,928.74,0,No,5
+10018,Home Goods,HG-871,National Logistics,Mexico,Houston,Sea,3/8/2024,3/12/2024,4/5/2024,4/8/2024,Delivered,206,44.04,72.76,9072.24,272.17,0,No,5
+10019,Electronics,Model-A897,Supplier A,Mexico,Phoenix,Sea,6/3/2024,6/7/2024,7/4/2024,7/5/2024,Delivered,190,123.03,273.37,23375.7,701.27,0,No,5
+10020,Apparel,SKU-2885,Supplier C,USA,New York,Land,9/26/2024,9/30/2024,10/10/2024,10/13/2024,Delivered,203,37.38,68.27,7588.14,341.47,0,No,5
+10021,Home Goods,HG-792,National Logistics,USA,Los Angeles,Air,12/10/2023,12/13/2023,12/20/2023,12/24/2023,Delivered,149,94.2,194.22,14035.8,1052.68,5,No,3
+10022,Electronics,Model-E903,Supplier C,China,Chicago,Air,3/26/2025,3/28/2025,4/2/2025,4/4/2025,Delivered,208,44.23,103.57,9199.84,689.99,0,No,5
+10023,Apparel,SKU-1750,Supplier B,Germany,Houston,Express,5/23/2024,5/27/2024,5/29/2024,5/29/2024,Delivered,359,46.45,80.73,16675.55,1667.56,0,No,5
+10024,Home Goods,HG-792,Supplier C,Mexico,Phoenix,Air,9/30/2025,10/5/2025,10/7/2025,10/10/2025,Delivered,500,94.38,197.22,47190,3539.25,0,No,5
+10025,Home Goods,HG-871,Global Imports,China,New York,Express,8/13/2024,8/14/2024,8/15/2024,8/19/2024,Delivered,61,107.09,257.41,6532.49,653.25,0,No,5
+10026,Apparel,SKU-6533,Supplier B,USA,Los Angeles,Sea,6/25/2024,6/30/2024,,7/26/2024,Cancelled,289,49.57,91.57,14325.73,429.77,0,No,
+10027,Home Goods,HG-593,Supplier A,Germany,Chicago,Express,4/26/2025,4/30/2025,5/1/2025,5/4/2025,Delivered,305,129.63,312.09,39537.15,3953.72,0,No,5
+10028,Apparel,SKU-6533,Supplier A,USA,Houston,Express,9/7/2024,9/12/2024,9/13/2024,9/16/2024,Delivered,413,104.29,183.43,43071.77,4307.18,0,No,5
+10029,Home Goods,HG-871,Supplier C,USA,Phoenix,Land,4/27/2025,4/28/2025,5/4/2025,5/6/2025,Delivered,83,98,217.99,8134,366.03,8,No,3
+10030,Electronics,Model-C260,National Logistics,USA,New York,Express,4/30/2024,5/3/2024,5/4/2024,5/3/2024,Delayed,152,120.96,277.33,18385.92,1838.59,0,No,4
+10031,Apparel,SKU-7098,Supplier B,China,Los Angeles,Air,2/19/2024,2/21/2024,2/27/2024,3/1/2024,Delivered,391,13.65,30.12,5337.15,400.29,0,No,5
+10032,Electronics,Model-B583,Global Imports,China,Chicago,Sea,3/20/2025,3/24/2025,5/1/2025,5/1/2025,Delivered,144,73.08,148.81,10523.52,315.71,0,No,5
+10033,Home Goods,HG-871,Supplier B,Germany,Houston,Land,2/11/2024,2/14/2024,2/25/2024,2/24/2024,Delayed,286,100.32,150.87,28691.52,1291.12,0,Yes,3
+10034,Home Goods,HG-593,Supplier C,Vietnam,Phoenix,Express,7/29/2025,7/30/2025,7/31/2025,8/2/2025,Delivered,402,147.49,253.05,59290.98,5929.1,0,No,5
+10035,Home Goods,HG-792,Supplier C,Germany,New York,Land,8/4/2024,8/7/2024,8/18/2024,8/21/2024,Delivered,286,63.4,143.23,18132.4,815.96,0,No,5
+10036,Apparel,SKU-8340,National Logistics,Germany,Los Angeles,Land,1/1/2025,1/4/2025,1/9/2025,1/10/2025,Delivered,120,117.95,187.24,14154,636.93,0,No,5
+10037,Electronics,Model-C260,Supplier C,Germany,Chicago,Air,5/5/2025,5/9/2025,5/11/2025,5/10/2025,Delayed,115,43.95,100.94,5054.25,379.07,0,Yes,3
+10038,Electronics,Model-D274,National Logistics,China,Houston,Express,4/10/2025,4/13/2025,4/15/2025,4/16/2025,Delivered,52,141.01,349.93,7332.52,733.25,0,No,5
+10039,Apparel,SKU-2885,National Logistics,Vietnam,Phoenix,Air,9/10/2025,9/13/2025,9/16/2025,9/18/2025,Delivered,246,133.95,222.64,32951.7,2471.38,24,No,3
+10040,Electronics,Model-E903,Supplier B,Vietnam,New York,Express,7/28/2024,7/29/2024,7/30/2024,8/2/2024,Delivered,406,44.09,79.99,17900.54,1790.05,0,No,5
+10041,Electronics,Model-B583,Global Imports,Germany,Los Angeles,Air,10/19/2024,10/22/2024,10/29/2024,10/29/2024,Delivered,461,143.84,246.03,66310.24,4973.27,0,No,5
+10042,Electronics,Model-C260,Supplier B,China,Chicago,Land,12/19/2024,12/21/2024,12/30/2024,1/2/2025,Delivered,307,96.49,151.58,29622.43,1333.01,0,No,5
+10043,Electronics,Model-E903,Supplier A,USA,Houston,Air,2/7/2025,2/9/2025,,2/16/2025,Cancelled,259,19.22,44.33,4977.98,373.35,0,No,
+10044,Electronics,Model-A897,Supplier C,Vietnam,Phoenix,Air,1/17/2025,1/18/2025,1/25/2025,1/28/2025,Delivered,137,48.98,87.93,6710.26,503.27,0,No,5
+10045,Apparel,SKU-6533,Supplier C,USA,New York,Land,7/31/2024,8/4/2024,8/16/2024,8/17/2024,Delivered,406,126.67,225.36,51428.02,2314.26,0,No,5
+10046,Home Goods,HG-593,Supplier A,Germany,Los Angeles,Sea,3/9/2025,3/13/2025,4/9/2025,4/12/2025,Delivered,401,18.61,38.16,7462.61,223.88,0,No,5
+10047,Home Goods,HG-723,Supplier A,USA,Chicago,Sea,12/14/2023,12/18/2023,1/19/2024,1/21/2024,Delivered,76,49.96,105.23,3796.96,113.91,0,No,5
+10048,Home Goods,HG-723,Supplier C,Vietnam,Houston,Sea,4/16/2025,4/18/2025,5/10/2025,5/10/2025,Delivered,499,71.25,162.37,35553.75,1066.61,0,No,5
+10049,Electronics,Model-E903,Supplier C,Mexico,Phoenix,Land,12/2/2023,12/5/2023,12/16/2023,12/19/2023,Delivered,473,115.2,185.88,54489.6,2452.03,0,No,5
+10050,Electronics,Model-E903,National Logistics,China,New York,Land,11/18/2023,11/23/2023,,12/5/2023,Cancelled,337,118.27,177.86,39856.99,1793.56,0,No,
+10051,Home Goods,HG-871,Supplier C,Vietnam,Los Angeles,Express,1/18/2024,1/20/2024,1/22/2024,1/22/2024,Delivered,357,11.05,22.22,3944.85,394.49,0,No,5
+10052,Home Goods,HG-871,National Logistics,Mexico,Chicago,Air,10/9/2023,10/12/2023,10/19/2023,10/22/2023,Delivered,441,124.81,235.29,55041.21,4128.09,0,No,5
+10053,Electronics,Model-B583,Supplier B,Mexico,Houston,Express,8/25/2024,8/28/2024,8/30/2024,8/29/2024,Delayed,394,43.76,78.4,17241.44,1724.14,0,Yes,3
+10054,Home Goods,HG-593,Supplier B,Mexico,Phoenix,Land,6/11/2024,6/13/2024,6/24/2024,6/23/2024,Delayed,446,118.15,241.35,52694.9,2371.27,34,Yes,1
+10055,Apparel,SKU-7098,Supplier B,USA,New York,Land,10/26/2023,10/29/2023,11/7/2023,11/8/2023,Delivered,226,34.83,80.98,7871.58,354.22,0,No,5
+10056,Apparel,SKU-7098,Global Imports,China,Los Angeles,Sea,1/15/2024,1/18/2024,2/11/2024,2/11/2024,Delivered,273,146.08,241.7,39879.84,1196.4,0,No,5
+10057,Home Goods,HG-593,National Logistics,China,Chicago,Air,7/5/2025,7/7/2025,7/9/2025,7/9/2025,Delivered,184,61.1,147.12,11242.4,843.18,0,No,5
+10058,Apparel,SKU-2885,Supplier C,USA,Houston,Land,5/3/2024,5/4/2024,5/10/2024,5/9/2024,Delayed,251,21.89,37.47,5494.39,247.25,0,No,4
+10059,Electronics,Model-D274,Supplier A,USA,Phoenix,Express,7/22/2025,7/25/2025,7/26/2025,7/29/2025,Delivered,240,43.48,83.86,10435.2,1043.52,20,No,3
+10060,Home Goods,HG-723,Global Imports,Vietnam,New York,Sea,9/26/2024,9/27/2024,11/4/2024,11/3/2024,Delayed,200,35.04,68.33,7008,210.24,0,No,4
+10061,Home Goods,HG-723,Global Imports,China,Los Angeles,Land,7/12/2024,7/13/2024,7/19/2024,7/20/2024,Delivered,275,121.63,185.66,33448.25,1505.17,15,No,3
+10062,Home Goods,HG-753,Supplier B,Vietnam,Chicago,Express,10/3/2025,10/4/2025,10/6/2025,10/6/2025,Delivered,53,71.41,174.52,3784.73,378.47,0,No,5
+10063,Apparel,SKU-2885,Global Imports,USA,Houston,Land,10/27/2023,10/31/2023,11/7/2023,11/7/2023,Delivered,402,128.79,205.57,51773.58,2329.81,0,No,5
+10064,Home Goods,HG-723,Supplier C,USA,Phoenix,Land,9/6/2025,9/11/2025,9/19/2025,9/19/2025,Delivered,370,90.52,152.92,33492.4,1507.16,0,No,5
+10065,Electronics,Model-E903,Supplier A,Mexico,New York,Air,7/18/2025,7/20/2025,7/24/2025,7/28/2025,Delivered,145,81.76,139.87,11855.2,889.14,0,No,5
+10066,Apparel,SKU-8340,Supplier C,Germany,Los Angeles,Land,11/25/2023,11/27/2023,12/5/2023,12/8/2023,Delivered,127,14.03,26.56,1781.81,80.18,0,No,5
+10067,Apparel,SKU-8340,National Logistics,Vietnam,Chicago,Sea,10/19/2023,10/21/2023,11/19/2023,11/21/2023,Delivered,237,89.61,180.4,21237.57,637.13,0,No,5
+10068,Electronics,Model-A897,Supplier B,Vietnam,Houston,Air,4/7/2024,4/12/2024,4/15/2024,4/17/2024,Delivered,211,51.04,81.28,10769.44,807.71,0,No,5
+10069,Apparel,SKU-7098,Global Imports,USA,Phoenix,Express,6/8/2024,6/9/2024,6/12/2024,6/12/2024,Delivered,420,97.42,205.74,40916.4,4091.64,0,No,5
+10070,Home Goods,HG-792,Supplier B,Vietnam,New York,Land,11/19/2023,11/24/2023,12/1/2023,12/1/2023,Delivered,245,73.75,163.23,18068.75,813.09,0,No,5
+10071,Electronics,Model-A897,Supplier C,Vietnam,Los Angeles,Express,9/17/2024,9/21/2024,9/22/2024,9/25/2024,Delivered,167,130.15,319.35,21735.05,2173.51,0,No,5
+10072,Electronics,Model-D274,Supplier A,Germany,Chicago,Sea,6/22/2024,6/24/2024,7/27/2024,7/31/2024,Delivered,400,28.99,56.97,11596,347.88,0,No,5
+10073,Apparel,SKU-7098,National Logistics,Vietnam,Houston,Land,6/29/2024,6/30/2024,7/7/2024,7/9/2024,Delivered,205,70.23,146.59,14397.15,647.87,0,No,5
+10074,Electronics,Model-C260,Supplier A,Vietnam,Phoenix,Sea,11/14/2023,11/15/2023,12/9/2023,12/9/2023,Delivered,401,88.47,153.47,35476.47,1064.29,0,No,5
+10075,Home Goods,HG-792,National Logistics,Germany,New York,Sea,8/13/2025,8/18/2025,,9/29/2025,Cancelled,131,26.5,54.22,3471.5,104.15,0,No,
+10076,Apparel,SKU-1750,Global Imports,Germany,Los Angeles,Land,8/29/2024,9/1/2024,9/12/2024,9/16/2024,Delivered,312,19.67,42.46,6137.04,276.17,0,No,5
+10077,Home Goods,HG-871,Supplier B,China,Chicago,Express,9/8/2025,9/10/2025,9/11/2025,9/11/2025,Delivered,72,28.67,62.25,2064.24,206.42,3,No,3
+10078,Electronics,Model-A897,Supplier C,China,Houston,Express,4/27/2025,5/2/2025,5/4/2025,5/8/2025,Delivered,393,115.61,219.79,45434.73,4543.47,0,No,5
+10079,Apparel,SKU-1750,Supplier C,Mexico,Phoenix,Express,6/11/2025,6/13/2025,6/16/2025,6/15/2025,Delayed,294,13.04,20,3833.76,383.38,0,No,4
+10080,Electronics,Model-A897,Global Imports,Mexico,New York,Sea,11/11/2024,11/15/2024,12/24/2024,12/26/2024,Delivered,353,28.27,52.5,9979.31,299.38,0,No,5
+10081,Electronics,Model-D274,Supplier A,China,Los Angeles,Sea,7/5/2024,7/6/2024,7/27/2024,7/27/2024,Delivered,469,138.5,241.59,64956.5,1948.7,0,No,5
+10082,Electronics,Model-D274,National Logistics,Germany,Chicago,Air,3/26/2025,3/27/2025,3/31/2025,4/3/2025,Delivered,134,130.71,278.63,17515.14,1313.64,0,No,5
+10083,Apparel,SKU-2885,Supplier C,China,Houston,Air,4/8/2025,4/11/2025,4/14/2025,4/13/2025,Delayed,291,55.56,100.21,16167.96,1212.6,0,Yes,3
+10084,Electronics,Model-B583,Supplier B,USA,Phoenix,Air,9/14/2025,9/19/2025,9/22/2025,9/22/2025,Delivered,414,50.98,100.67,21105.72,1582.93,0,No,5
+10085,Home Goods,HG-723,Global Imports,Mexico,New York,Express,11/4/2024,11/9/2024,11/10/2024,11/14/2024,Delivered,240,20.78,34.36,4987.2,498.72,0,No,5
+10086,Electronics,Model-A897,Supplier A,USA,Los Angeles,Express,9/19/2024,9/22/2024,,9/24/2024,Cancelled,477,73.25,161.37,34940.25,3494.03,0,No,
+10087,Apparel,SKU-1750,National Logistics,Mexico,Chicago,Land,4/12/2025,4/17/2025,4/25/2025,4/26/2025,Delivered,185,38.83,79.27,7183.55,323.26,0,No,5
+10088,Electronics,Model-A897,Supplier C,China,Houston,Sea,6/25/2024,6/27/2024,7/24/2024,7/26/2024,Delivered,271,112.91,225.19,30598.61,917.96,0,No,5
+10089,Apparel,SKU-1750,National Logistics,Mexico,Phoenix,Air,12/22/2024,12/26/2024,12/31/2024,1/2/2025,Delivered,351,90.53,202.88,31776.03,2383.2,0,No,5
+10090,Home Goods,HG-792,National Logistics,Germany,New York,Land,10/2/2025,10/7/2025,10/12/2025,10/11/2025,Delayed,478,100.02,223.56,47809.56,2151.43,0,No,4
+10091,Home Goods,HG-593,Supplier A,Mexico,Los Angeles,Express,6/12/2024,6/14/2024,6/17/2024,6/20/2024,Delivered,256,148.45,342.71,38003.2,3800.32,0,No,5
+10092,Home Goods,HG-792,Supplier B,Mexico,Chicago,Sea,8/2/2024,8/6/2024,9/2/2024,9/1/2024,Delayed,123,116.5,191.96,14329.5,429.88,0,Yes,3
+10093,Electronics,Model-E903,Global Imports,USA,Houston,Land,1/8/2025,1/10/2025,1/19/2025,1/23/2025,Delivered,178,147.29,248.32,26217.62,1179.79,0,No,5
+10094,Electronics,Model-C260,Supplier C,Vietnam,Phoenix,Land,2/4/2024,2/8/2024,2/13/2024,2/17/2024,Delivered,387,119,240.76,46053,2072.39,0,No,5
+10095,Electronics,Model-D274,Supplier A,Mexico,New York,Land,12/9/2024,12/12/2024,12/23/2024,12/22/2024,Delayed,428,20.38,45.59,8722.64,392.52,0,Yes,3
+10096,Home Goods,HG-792,National Logistics,Mexico,Los Angeles,Sea,11/3/2023,11/4/2023,11/24/2023,11/25/2023,Delivered,365,21.73,39.63,7931.45,237.94,0,No,5
+10097,Home Goods,HG-871,Supplier C,Vietnam,Chicago,Air,12/1/2024,12/6/2024,12/12/2024,12/15/2024,Delivered,140,102.74,164.8,14383.6,1078.77,0,No,5
+10098,Electronics,Model-C260,Supplier B,China,Houston,Air,6/2/2024,6/4/2024,6/6/2024,6/7/2024,Delivered,350,43.21,72.54,15123.5,1134.26,0,No,5
+10099,Apparel,SKU-2885,Supplier B,China,Phoenix,Express,1/19/2025,1/21/2025,1/23/2025,1/27/2025,Delivered,348,67.99,166.77,23660.52,2366.05,19,Yes,2
+10100,Apparel,SKU-8340,Supplier A,Vietnam,New York,Land,9/16/2025,9/20/2025,9/30/2025,9/29/2025,Delayed,226,114.4,276.6,25854.4,1163.45,0,Yes,3
+10101,Home Goods,HG-593,Supplier C,Vietnam,Los Angeles,Express,5/10/2024,5/15/2024,5/16/2024,5/20/2024,Delivered,403,13.88,32.61,5593.64,559.36,0,No,5
+10102,Home Goods,HG-723,Supplier B,Vietnam,Chicago,Land,3/24/2024,3/26/2024,4/7/2024,4/7/2024,Delivered,262,58.22,100.12,15253.64,686.41,0,No,5
+10103,Home Goods,HG-753,Supplier C,Germany,Houston,Sea,11/19/2024,11/21/2024,12/11/2024,12/13/2024,Delivered,444,54.27,109.54,24095.88,722.88,0,No,5
+10104,Apparel,SKU-1750,Global Imports,China,Phoenix,Air,8/26/2024,8/27/2024,8/30/2024,8/31/2024,Delivered,354,111.56,250.74,39492.24,2961.92,0,No,5
+10105,Home Goods,HG-871,Global Imports,Germany,New York,Sea,10/17/2023,10/19/2023,11/16/2023,11/19/2023,Delivered,176,17.07,35.56,3004.32,90.13,0,No,5
+10106,Electronics,Model-E903,Supplier C,USA,Los Angeles,Land,6/19/2024,6/22/2024,,6/30/2024,Cancelled,493,67.31,162.17,33183.83,1493.27,0,No,
+10107,Apparel,SKU-6533,National Logistics,Mexico,Chicago,Land,4/23/2025,4/27/2025,5/5/2025,5/7/2025,Delivered,207,105.52,193.16,21842.64,982.92,0,No,5
+10108,Electronics,Model-A897,Supplier B,Germany,Houston,Air,10/3/2025,10/6/2025,10/12/2025,10/14/2025,Delivered,499,123.56,250.3,61656.44,4624.23,0,No,5
+10109,Apparel,SKU-2885,Supplier A,USA,Phoenix,Air,8/11/2024,8/12/2024,8/18/2024,8/17/2024,Delayed,122,79.98,168.1,9757.56,731.82,0,No,4
+10110,Apparel,SKU-8340,Supplier B,USA,New York,Express,7/16/2024,7/18/2024,,7/22/2024,Cancelled,268,76.29,163.03,20445.72,2044.57,0,No,
+10111,Electronics,Model-B583,Supplier B,USA,Los Angeles,Sea,11/23/2023,11/24/2023,1/3/2024,1/3/2024,Delivered,480,113.35,277.71,54408,1632.24,0,No,5
+10112,Electronics,Model-B583,Global Imports,USA,Chicago,Land,1/17/2025,1/19/2025,1/24/2025,1/27/2025,Delivered,233,18.2,41.06,4240.6,190.83,0,No,5
+10113,Home Goods,HG-593,Supplier B,USA,Houston,Land,11/28/2023,11/29/2023,12/5/2023,12/6/2023,Delivered,141,105.26,211.25,14841.66,667.87,0,No,5
+10114,Home Goods,HG-753,Supplier A,Mexico,Phoenix,Express,4/30/2025,5/2/2025,5/3/2025,5/3/2025,Delivered,449,70.11,158.26,31479.39,3147.94,0,No,5
+10115,Home Goods,HG-871,Supplier A,China,New York,Sea,9/1/2024,9/4/2024,10/6/2024,10/5/2024,Delayed,233,139.9,280.71,32596.7,977.9,2,Yes,1
+10116,Apparel,SKU-7098,Global Imports,China,Los Angeles,Air,2/16/2024,2/17/2024,2/22/2024,2/21/2024,Delayed,198,124.49,209.21,24649.02,1848.68,0,No,4
+10117,Home Goods,HG-723,Supplier A,Vietnam,Chicago,Express,9/4/2025,9/7/2025,9/8/2025,9/8/2025,Delivered,102,75.94,145.58,7745.88,774.59,0,No,5
+10118,Home Goods,HG-792,Supplier A,Mexico,Houston,Express,5/8/2025,5/13/2025,5/16/2025,5/19/2025,Delivered,209,94.81,146.74,19815.29,1981.53,0,No,5
+10119,Apparel,SKU-8340,Supplier A,China,Phoenix,Air,3/25/2025,3/26/2025,4/1/2025,4/3/2025,Delivered,460,59.75,120.42,27485,2061.38,0,No,5
+10120,Apparel,SKU-8340,Global Imports,Germany,New York,Sea,9/29/2025,10/3/2025,,11/1/2025,Cancelled,236,26.06,62.55,6150.16,184.5,0,No,
+10121,Home Goods,HG-792,Global Imports,Vietnam,Los Angeles,Land,7/17/2024,7/21/2024,8/2/2024,8/1/2024,Delayed,107,110.06,189.99,11776.42,529.94,6,No,2
+10122,Electronics,Model-D274,Global Imports,Germany,Chicago,Sea,1/23/2025,1/24/2025,3/3/2025,3/3/2025,Delivered,238,132.14,323.99,31449.32,943.48,0,No,5
+10123,Apparel,SKU-6533,Supplier A,Germany,Houston,Air,1/24/2025,1/28/2025,2/3/2025,2/3/2025,Delivered,320,78.01,128.3,24963.2,1872.24,0,No,5
+10124,Electronics,Model-E903,Supplier A,Germany,Phoenix,Air,5/26/2025,5/28/2025,6/1/2025,6/2/2025,Delivered,371,102.37,222.38,37979.27,2848.45,0,No,5
+10125,Electronics,Model-B583,Global Imports,Mexico,New York,Sea,11/6/2023,11/11/2023,12/10/2023,12/10/2023,Delivered,315,148.78,328.61,46865.7,1405.97,0,No,5
+10126,Home Goods,HG-871,Supplier B,USA,Los Angeles,Sea,2/2/2025,2/4/2025,3/2/2025,3/5/2025,Delivered,418,71.82,141.71,30020.76,900.62,0,No,5
+10127,Apparel,SKU-7098,Supplier A,Germany,Chicago,Sea,8/10/2024,8/11/2024,9/1/2024,9/5/2024,Delivered,138,82.66,168.72,11407.08,342.21,0,No,5
+10128,Electronics,Model-C260,Global Imports,Mexico,Houston,Land,10/11/2023,10/12/2023,,10/23/2023,Cancelled,310,83.77,145.57,25968.7,1168.59,0,No,
+10129,Home Goods,HG-792,Global Imports,Vietnam,Phoenix,Land,6/28/2024,7/1/2024,7/6/2024,7/5/2024,Delayed,412,84.42,180.54,34781.04,1565.15,0,Yes,3
+10130,Electronics,Model-A897,National Logistics,Germany,New York,Air,6/12/2024,6/17/2024,6/20/2024,6/21/2024,Delivered,230,106.24,235.37,24435.2,1832.64,0,No,5
+10131,Home Goods,HG-792,Supplier C,Vietnam,Los Angeles,Land,7/10/2025,7/11/2025,7/20/2025,7/22/2025,Delivered,221,129.27,250.64,28568.67,1285.59,0,No,5
+10132,Electronics,Model-D274,Supplier B,Vietnam,Chicago,Air,2/8/2025,2/10/2025,2/14/2025,2/18/2025,Delivered,393,51.17,86.38,20109.81,1508.24,0,No,5
+10133,Apparel,SKU-6533,Supplier A,China,Houston,Sea,5/19/2025,5/21/2025,6/14/2025,6/13/2025,Delayed,176,112.64,223.36,19824.64,594.74,6,No,2
+10134,Apparel,SKU-8340,National Logistics,USA,Phoenix,Express,9/11/2025,9/15/2025,9/16/2025,9/18/2025,Delivered,252,24.92,52.03,6279.84,627.98,0,No,5
+10135,Electronics,Model-E903,Supplier A,Mexico,New York,Air,1/19/2024,1/21/2024,1/28/2024,1/27/2024,Delayed,296,106.3,165.85,31464.8,2359.86,0,No,4
+10136,Electronics,Model-B583,Supplier C,Mexico,Los Angeles,Air,7/28/2024,8/1/2024,8/3/2024,8/6/2024,Delivered,309,54.48,123.08,16834.32,1262.57,0,No,5
+10137,Electronics,Model-C260,Supplier B,China,Chicago,Air,5/8/2025,5/12/2025,5/15/2025,5/19/2025,Delivered,476,141.06,322.61,67144.56,5035.84,0,No,5
+10138,Electronics,Model-B583,Supplier B,USA,Houston,Sea,4/25/2025,4/27/2025,5/18/2025,5/20/2025,Delivered,62,93.93,196.58,5823.66,174.71,0,No,5
+10139,Home Goods,HG-593,Global Imports,USA,Phoenix,Sea,1/4/2024,1/7/2024,1/29/2024,2/2/2024,Delivered,456,112,268.05,51072,1532.16,0,No,5
+10140,Apparel,SKU-8340,Supplier A,China,New York,Land,5/31/2024,6/5/2024,6/13/2024,6/16/2024,Delivered,121,83.44,131.55,10096.24,454.33,0,No,5
+10141,Home Goods,HG-792,Supplier B,Mexico,Los Angeles,Sea,4/14/2024,4/19/2024,5/18/2024,5/19/2024,Delivered,143,116.35,213.66,16638.05,499.14,0,No,5
+10142,Home Goods,HG-792,Supplier A,Vietnam,Chicago,Express,10/14/2023,10/17/2023,10/18/2023,10/18/2023,Delivered,186,140.92,249.46,26211.12,2621.11,0,No,5
+10143,Electronics,Model-C260,Supplier A,Germany,Houston,Express,4/12/2024,4/14/2024,4/15/2024,4/14/2024,Delayed,141,143.18,267.16,20188.38,2018.84,0,Yes,3
+10144,Apparel,SKU-1750,National Logistics,China,Phoenix,Air,9/2/2025,9/4/2025,9/8/2025,9/8/2025,Delivered,121,81.64,169.89,9878.44,740.88,0,No,5
+10145,Home Goods,HG-871,Supplier A,Mexico,New York,Land,7/14/2024,7/15/2024,7/22/2024,7/26/2024,Delivered,247,80.29,178.6,19831.63,892.42,0,No,5
+10146,Home Goods,HG-753,National Logistics,Germany,Los Angeles,Sea,3/8/2025,3/12/2025,4/18/2025,4/18/2025,Delivered,422,63.28,131.23,26704.16,801.12,0,No,5
+10147,Electronics,Model-C260,National Logistics,Germany,Chicago,Land,5/8/2024,5/11/2024,5/19/2024,5/21/2024,Delivered,112,120.68,254.17,13516.16,608.23,0,No,5
+10148,Electronics,Model-D274,Supplier B,Mexico,Houston,Sea,11/26/2024,12/1/2024,1/1/2025,1/2/2025,Delivered,491,142.76,300.08,70095.16,2102.85,0,No,5
+10149,Electronics,Model-C260,Supplier C,Mexico,Phoenix,Express,4/25/2025,4/29/2025,5/1/2025,5/1/2025,Delivered,70,24.27,39.15,1698.9,169.89,0,No,5
+10150,Electronics,Model-C260,National Logistics,Mexico,New York,Air,1/27/2024,1/29/2024,2/1/2024,2/5/2024,Delivered,117,86.42,180.33,10111.14,758.34,0,No,5
+10151,Home Goods,HG-792,Supplier A,China,Los Angeles,Land,7/21/2025,7/26/2025,8/3/2025,8/5/2025,Delivered,450,99.26,214.99,44667,2010.01,0,No,5
+10152,Electronics,Model-D274,Global Imports,USA,Chicago,Land,2/14/2024,2/18/2024,3/1/2024,2/29/2024,Delayed,428,22.42,48.13,9595.76,431.81,0,No,4
+10153,Electronics,Model-E903,Supplier C,China,Houston,Land,6/6/2025,6/8/2025,6/14/2025,6/16/2025,Delivered,92,85.68,145.23,7882.56,354.72,0,No,5
+10154,Home Goods,HG-723,Supplier C,Mexico,Phoenix,Express,11/10/2023,11/14/2023,11/15/2023,11/14/2023,Delayed,156,138.2,327.41,21559.2,2155.92,0,Yes,3
+10155,Apparel,SKU-2885,Global Imports,USA,New York,Sea,10/16/2023,10/17/2023,11/21/2023,11/24/2023,Delivered,422,127.36,293.16,53745.92,1612.38,0,No,5
+10156,Apparel,SKU-7098,Supplier A,China,Los Angeles,Land,10/28/2023,10/30/2023,11/10/2023,11/12/2023,Delivered,151,131.65,257.39,19879.15,894.56,0,No,5
+10157,Home Goods,HG-753,Supplier B,Mexico,Chicago,Land,8/28/2024,9/1/2024,9/9/2024,9/13/2024,Delivered,426,30.22,56.26,12873.72,579.32,40,No,3
+10158,Home Goods,HG-871,Supplier A,China,Houston,Land,8/1/2024,8/2/2024,8/8/2024,8/12/2024,Delivered,90,100.08,198.83,9007.2,405.32,4,No,3
+10159,Home Goods,HG-723,Supplier C,Germany,Phoenix,Air,1/12/2024,1/13/2024,1/17/2024,1/20/2024,Delivered,168,141.84,224.63,23829.12,1787.18,0,No,5
+10160,Apparel,SKU-6533,Supplier B,Germany,New York,Land,9/26/2025,9/30/2025,10/11/2025,10/12/2025,Delivered,373,50.91,98.58,18989.43,854.52,0,No,5
+10161,Home Goods,HG-723,Supplier B,China,Los Angeles,Express,6/3/2024,6/4/2024,6/7/2024,6/7/2024,Delivered,425,27.49,45.26,11683.25,1168.33,0,No,5
+10162,Home Goods,HG-792,Supplier B,Mexico,Chicago,Land,4/14/2025,4/19/2025,4/29/2025,4/28/2025,Delayed,483,28.17,51.35,13606.11,612.27,0,No,4
+10163,Apparel,SKU-1750,Global Imports,Mexico,Houston,Sea,9/5/2025,9/6/2025,10/12/2025,10/11/2025,Delayed,291,125.79,303.97,36604.89,1098.15,0,Yes,3
+10164,Apparel,SKU-6533,Supplier C,Vietnam,Phoenix,Land,6/4/2025,6/9/2025,6/18/2025,6/17/2025,Delayed,120,70.24,164.63,8428.8,379.3,8,No,2
+10165,Apparel,SKU-1750,National Logistics,USA,New York,Air,8/12/2024,8/15/2024,8/20/2024,8/21/2024,Delivered,252,39.2,91.9,9878.4,740.88,0,No,5
+10166,Electronics,Model-A897,Supplier A,Vietnam,Los Angeles,Sea,2/11/2025,2/13/2025,3/8/2025,3/12/2025,Delivered,341,120.28,194.4,41015.48,1230.46,0,No,5
+10167,Electronics,Model-D274,Global Imports,Germany,Chicago,Sea,9/9/2025,9/11/2025,10/21/2025,10/25/2025,Delivered,462,15.14,33.89,6994.68,209.84,0,No,5
+10168,Electronics,Model-B583,Supplier B,Mexico,Houston,Express,4/3/2025,4/8/2025,4/9/2025,4/8/2025,Delayed,142,25.24,44.85,3584.08,358.41,0,No,4
+10169,Electronics,Model-C260,Global Imports,Germany,Phoenix,Land,9/16/2024,9/21/2024,9/29/2024,9/29/2024,Delivered,252,53.42,84.54,13461.84,605.78,0,No,5
+10170,Electronics,Model-A897,Global Imports,China,New York,Land,7/3/2025,7/7/2025,7/15/2025,7/15/2025,Delivered,214,127.01,259.8,27180.14,1223.11,0,No,5
+10171,Home Goods,HG-792,Supplier C,Germany,Los Angeles,Express,7/28/2024,7/29/2024,8/1/2024,7/31/2024,Delayed,134,43.31,74.3,5803.54,580.35,0,Yes,3
+10172,Apparel,SKU-2885,Supplier C,Germany,Chicago,Air,2/5/2025,2/10/2025,2/14/2025,2/18/2025,Delivered,281,95.93,171,26956.33,2021.72,0,No,5
+10173,Electronics,Model-D274,Supplier C,Mexico,Houston,Express,8/14/2024,8/15/2024,8/16/2024,8/20/2024,Delivered,81,136.93,248.02,11091.33,1109.13,0,No,5
+10174,Home Goods,HG-753,Supplier A,Germany,Phoenix,Express,5/3/2025,5/5/2025,5/8/2025,5/8/2025,Delivered,395,51.31,102.33,20267.45,2026.75,0,No,5
+10175,Apparel,SKU-8340,Supplier A,China,New York,Air,5/16/2024,5/20/2024,5/24/2024,5/23/2024,Delayed,453,56.64,131.92,25657.92,1924.34,0,Yes,3
+10176,Home Goods,HG-753,Global Imports,Mexico,Los Angeles,Air,12/3/2023,12/8/2023,12/13/2023,12/16/2023,Delivered,168,129.97,321.53,21834.96,1637.62,0,No,5
+10177,Electronics,Model-D274,Global Imports,Germany,Chicago,Express,1/8/2024,1/13/2024,,1/17/2024,Cancelled,225,122.65,239.64,27596.25,2759.62,0,No,
+10178,Home Goods,HG-593,National Logistics,Vietnam,Houston,Sea,7/17/2024,7/18/2024,8/9/2024,8/13/2024,Delivered,127,109.04,221.74,13848.08,415.44,0,No,5
+10179,Apparel,SKU-1750,Global Imports,Mexico,Phoenix,Sea,7/26/2025,7/31/2025,9/9/2025,9/13/2025,Delivered,297,136.22,268.9,40457.34,1213.72,3,Yes,2
+10180,Apparel,SKU-2885,Supplier C,Germany,New York,Express,6/30/2024,7/3/2024,7/5/2024,7/4/2024,Delayed,269,69.22,154.54,18620.18,1862.02,0,Yes,3
+10181,Apparel,SKU-6533,Supplier A,Mexico,Los Angeles,Sea,3/31/2025,4/3/2025,5/8/2025,5/11/2025,Delivered,134,13.03,31.74,1746.02,52.38,0,No,5
+10182,Electronics,Model-D274,Supplier B,China,Chicago,Sea,2/4/2024,2/7/2024,3/8/2024,3/7/2024,Delayed,181,59.09,119.79,10695.29,320.86,0,No,4
+10183,Electronics,Model-A897,Supplier B,Germany,Houston,Sea,12/20/2024,12/23/2024,1/25/2025,1/26/2025,Delivered,317,115.96,218.07,36759.32,1102.78,5,No,3
+10184,Home Goods,HG-792,Global Imports,USA,Phoenix,Sea,4/26/2025,4/29/2025,5/28/2025,5/31/2025,Delivered,415,47.72,89.36,19803.8,594.11,0,No,5
+10185,Home Goods,HG-792,Supplier A,USA,New York,Sea,9/4/2025,9/5/2025,10/8/2025,10/8/2025,Delivered,452,149.39,265.44,67524.28,2025.73,0,No,5
+10186,Home Goods,HG-753,Supplier C,Mexico,Los Angeles,Air,12/5/2024,12/10/2024,12/16/2024,12/18/2024,Delivered,469,74.5,150.58,34940.5,2620.54,0,No,5
+10187,Home Goods,HG-593,Supplier B,Mexico,Chicago,Land,10/26/2023,10/29/2023,11/7/2023,11/8/2023,Delivered,178,134.52,210.39,23944.56,1077.51,0,No,5
+10188,Electronics,Model-E903,Supplier C,China,Houston,Express,2/18/2025,2/19/2025,2/20/2025,2/24/2025,Delivered,344,50.52,99.37,17378.88,1737.89,0,No,5
+10189,Apparel,SKU-8340,Global Imports,China,Phoenix,Sea,6/11/2025,6/16/2025,7/10/2025,7/14/2025,Delivered,345,25,41.85,8625,258.75,0,No,5
+10190,Apparel,SKU-6533,Supplier B,Germany,New York,Sea,12/8/2024,12/10/2024,1/7/2025,1/11/2025,Delivered,304,134.92,211.54,41015.68,1230.47,0,No,5
+10191,Home Goods,HG-753,National Logistics,USA,Los Angeles,Sea,1/13/2024,1/16/2024,2/17/2024,2/18/2024,Delivered,499,44.69,93.72,22300.31,669.01,0,No,5
+10192,Home Goods,HG-871,National Logistics,China,Chicago,Express,1/5/2024,1/8/2024,1/11/2024,1/14/2024,Delivered,338,138.17,284.29,46701.46,4670.15,0,No,5
+10193,Apparel,SKU-7098,National Logistics,China,Houston,Air,10/14/2023,10/16/2023,10/22/2023,10/24/2023,Delivered,336,61.8,146.3,20764.8,1557.36,0,No,5
+10194,Home Goods,HG-792,Supplier A,China,Phoenix,Land,8/1/2024,8/2/2024,8/7/2024,8/7/2024,Delivered,159,30.01,60.13,4771.59,214.72,0,No,5
+10195,Electronics,Model-C260,Supplier A,China,New York,Express,3/18/2024,3/19/2024,3/20/2024,3/24/2024,Delivered,90,36.42,82.99,3277.8,327.78,0,No,5
+10196,Apparel,SKU-6533,Supplier A,Mexico,Los Angeles,Land,4/5/2024,4/8/2024,4/15/2024,4/17/2024,Delivered,428,28.68,52.46,12275.04,552.38,0,No,5
+10197,Electronics,Model-C260,Global Imports,USA,Chicago,Air,8/18/2024,8/19/2024,8/24/2024,8/27/2024,Delivered,406,70.17,164.97,28489.02,2136.68,0,No,5
+10198,Apparel,SKU-2885,National Logistics,Mexico,Houston,Sea,9/14/2024,9/17/2024,10/15/2024,10/19/2024,Delivered,106,99.27,215.49,10522.62,315.68,0,No,5
+10199,Apparel,SKU-8340,Supplier C,Vietnam,Phoenix,Sea,4/21/2025,4/26/2025,5/29/2025,6/2/2025,Delivered,81,64.53,104.04,5226.93,156.81,0,No,5
+10200,Electronics,Model-D274,National Logistics,Vietnam,New York,Air,4/18/2025,4/21/2025,4/26/2025,4/28/2025,Delivered,477,71,109.18,33867,2540.03,0,No,5
+10201,Home Goods,HG-792,Supplier B,China,Los Angeles,Land,2/28/2025,3/5/2025,3/12/2025,3/12/2025,Delivered,91,54.66,106.49,4974.06,223.83,0,No,5
+10202,Home Goods,HG-723,Supplier C,USA,Chicago,Air,1/25/2024,1/30/2024,2/5/2024,2/7/2024,Delivered,289,52.14,80.45,15068.46,1130.13,15,Yes,2
+10203,Home Goods,HG-593,Global Imports,Germany,Houston,Express,11/13/2024,11/14/2024,11/15/2024,11/17/2024,Delivered,327,54.74,115.93,17899.98,1790,0,No,5
+10204,Apparel,SKU-2885,Global Imports,Vietnam,Phoenix,Air,11/9/2023,11/14/2023,11/20/2023,11/23/2023,Delivered,296,130.1,278.64,38509.6,2888.22,0,No,5
+10205,Electronics,Model-E903,Global Imports,Vietnam,New York,Land,5/17/2025,5/19/2025,5/31/2025,6/3/2025,Delivered,198,37.16,74.31,7357.68,331.1,0,No,5
+10206,Home Goods,HG-723,Supplier A,USA,Los Angeles,Express,4/8/2024,4/10/2024,4/11/2024,4/11/2024,Delivered,465,26.34,42.39,12248.1,1224.81,0,No,5
+10207,Electronics,Model-D274,Supplier B,Germany,Chicago,Land,4/23/2024,4/24/2024,5/2/2024,5/3/2024,Delivered,369,51.76,90.18,19099.44,859.47,0,No,5
+10208,Apparel,SKU-1750,Supplier C,Germany,Houston,Air,5/27/2024,6/1/2024,6/5/2024,6/9/2024,Delivered,297,51.89,109.67,15411.33,1155.85,0,No,5
+10209,Home Goods,HG-753,Supplier A,Germany,Phoenix,Land,9/21/2025,9/24/2025,10/5/2025,10/9/2025,Delivered,115,46.13,73.48,5304.95,238.72,0,No,5
+10210,Electronics,Model-B583,National Logistics,Germany,New York,Air,10/13/2024,10/14/2024,10/19/2024,10/18/2024,Delayed,329,18.69,36.62,6149.01,461.18,0,Yes,3
+10211,Home Goods,HG-593,Supplier C,Mexico,Los Angeles,Express,3/5/2025,3/10/2025,3/11/2025,3/14/2025,Delivered,399,69.95,146.12,27910.05,2791.01,0,No,5
+10212,Apparel,SKU-1750,National Logistics,Vietnam,Chicago,Land,8/18/2025,8/21/2025,8/27/2025,8/30/2025,Delivered,456,125.29,268.83,57132.24,2570.95,0,No,5
+10213,Electronics,Model-C260,National Logistics,Mexico,Houston,Sea,10/25/2023,10/28/2023,11/17/2023,11/16/2023,Delayed,466,54.66,111.95,25471.56,764.15,0,Yes,3
+10214,Home Goods,HG-871,Supplier C,China,Phoenix,Sea,12/23/2024,12/27/2024,1/31/2025,2/1/2025,Delivered,125,67.08,119.98,8385,251.55,0,No,5
+10215,Apparel,SKU-1750,Supplier A,USA,New York,Land,3/20/2025,3/24/2025,4/3/2025,4/7/2025,Delivered,356,124.64,220.49,44371.84,1996.73,0,No,5
+10216,Apparel,SKU-8340,Supplier A,USA,Los Angeles,Express,10/25/2024,10/26/2024,10/29/2024,10/31/2024,Delivered,365,66.74,131.91,24360.1,2436.01,0,No,5
+10217,Electronics,Model-A897,National Logistics,Vietnam,Chicago,Sea,8/23/2024,8/24/2024,9/23/2024,9/22/2024,Delayed,210,53.91,111.88,11321.1,339.63,1,Yes,1
+10218,Home Goods,HG-871,Supplier C,Germany,Houston,Land,5/29/2024,6/3/2024,6/9/2024,6/13/2024,Delivered,479,136.81,246.17,65531.99,2948.94,0,No,5
+10219,Electronics,Model-A897,Supplier C,Germany,Phoenix,Express,10/27/2023,10/30/2023,11/2/2023,11/4/2023,Delivered,314,36.04,86.3,11316.56,1131.66,0,No,5
+10220,Home Goods,HG-871,Supplier A,Germany,New York,Land,4/14/2024,4/19/2024,4/26/2024,4/27/2024,Delivered,403,15.49,37.03,6242.47,280.91,0,No,5
+10221,Apparel,SKU-8340,Supplier C,Germany,Los Angeles,Sea,2/27/2024,3/3/2024,3/29/2024,3/30/2024,Delivered,323,55.48,84.64,17920.04,537.6,0,No,5
+10222,Apparel,SKU-6533,Supplier C,Mexico,Chicago,Land,10/24/2023,10/26/2023,11/1/2023,11/2/2023,Delivered,446,42.73,81.74,19057.58,857.59,0,No,5
+10223,Home Goods,HG-792,Supplier A,Vietnam,Houston,Land,3/4/2024,3/6/2024,3/15/2024,3/14/2024,Delayed,366,125.41,281.18,45900.06,2065.5,0,No,4
+10224,Home Goods,HG-871,Global Imports,Germany,Phoenix,Land,2/7/2025,2/12/2025,2/21/2025,2/23/2025,Delivered,428,78.07,118.8,33413.96,1503.63,0,No,5
+10225,Home Goods,HG-593,Supplier A,Mexico,New York,Sea,11/1/2023,11/3/2023,12/12/2023,12/15/2023,Delivered,171,75.59,150.32,12925.89,387.78,0,No,5
+10226,Apparel,SKU-2885,Global Imports,Vietnam,Los Angeles,Express,3/9/2025,3/10/2025,3/13/2025,3/16/2025,Delivered,102,48.56,89.33,4953.12,495.31,0,No,5
+10227,Electronics,Model-B583,Supplier B,Mexico,Chicago,Express,6/27/2024,7/2/2024,7/4/2024,7/5/2024,Delivered,486,116.56,277.51,56648.16,5664.82,0,No,5
+10228,Electronics,Model-E903,Supplier C,Germany,Houston,Air,11/24/2024,11/25/2024,12/1/2024,11/30/2024,Delayed,493,141.26,292.29,69641.18,5223.09,0,Yes,3
+10229,Home Goods,HG-753,Supplier C,Germany,Phoenix,Sea,3/20/2025,3/23/2025,4/22/2025,4/22/2025,Delivered,259,56.1,126.18,14529.9,435.9,0,No,5
+10230,Home Goods,HG-792,Supplier B,China,New York,Express,4/12/2025,4/13/2025,4/14/2025,4/17/2025,Delivered,291,149.16,282.56,43405.56,4340.56,0,No,5
+10231,Electronics,Model-D274,Supplier C,Vietnam,Los Angeles,Air,4/4/2024,4/5/2024,4/12/2024,4/11/2024,Delayed,141,94.33,222.96,13300.53,997.54,0,Yes,3
+10232,Electronics,Model-D274,National Logistics,USA,Chicago,Sea,12/27/2024,12/29/2024,2/6/2025,2/8/2025,Delivered,500,130.73,235,65365,1960.95,0,No,5
+10233,Apparel,SKU-1750,Supplier C,Mexico,Houston,Sea,10/17/2023,10/18/2023,11/9/2023,11/11/2023,Delivered,94,84.42,140.51,7935.48,238.06,0,No,5
+10234,Apparel,SKU-1750,National Logistics,China,Phoenix,Land,9/9/2025,9/13/2025,9/19/2025,9/19/2025,Delivered,297,82.21,164.08,24416.37,1098.74,0,No,5
+10235,Electronics,Model-B583,National Logistics,USA,New York,Air,9/17/2025,9/19/2025,9/22/2025,9/23/2025,Delivered,192,15.31,31.66,2939.52,220.46,0,No,5
+10236,Electronics,Model-D274,National Logistics,Germany,Los Angeles,Air,4/21/2025,4/25/2025,4/29/2025,4/30/2025,Delivered,437,60.37,117.63,26381.69,1978.63,0,No,5
+10237,Electronics,Model-D274,Supplier B,China,Chicago,Sea,12/11/2023,12/14/2023,1/9/2024,1/12/2024,Delivered,56,150.14,281.46,8407.84,252.24,0,No,5
+10238,Home Goods,HG-723,Supplier A,Germany,Houston,Air,10/31/2024,11/3/2024,11/6/2024,11/5/2024,Delayed,496,106.48,228.43,52814.08,3961.06,0,No,4
+10239,Electronics,Model-C260,National Logistics,Mexico,Phoenix,Sea,4/18/2024,4/22/2024,5/20/2024,5/22/2024,Delivered,280,58.68,128.77,16430.4,492.91,0,No,5
+10240,Electronics,Model-B583,Global Imports,Mexico,New York,Sea,7/13/2025,7/17/2025,8/7/2025,8/10/2025,Delivered,465,113.4,193.99,52731,1581.93,0,No,5
+10241,Electronics,Model-E903,National Logistics,Vietnam,Los Angeles,Sea,12/25/2023,12/30/2023,,2/5/2024,Cancelled,166,83.11,201.99,13796.26,413.89,0,No,
+10242,Home Goods,HG-723,Global Imports,Vietnam,Chicago,Express,7/4/2024,7/8/2024,,7/11/2024,Cancelled,392,26.23,60.07,10282.16,1028.22,0,No,
+10243,Apparel,SKU-8340,Supplier C,China,Houston,Sea,5/27/2025,5/31/2025,,6/28/2025,Cancelled,230,33.19,72.73,7633.7,229.01,0,No,
+10244,Apparel,SKU-8340,Supplier C,Vietnam,Phoenix,Sea,9/11/2025,9/16/2025,10/7/2025,10/10/2025,Delivered,87,28.01,44.92,2436.87,73.11,0,No,5
+10245,Apparel,SKU-1750,National Logistics,Germany,New York,Land,3/11/2025,3/12/2025,3/20/2025,3/24/2025,Delivered,319,33.78,75.31,10775.82,484.91,0,No,5
+10246,Home Goods,HG-723,Supplier B,China,Los Angeles,Air,11/15/2024,11/20/2024,11/26/2024,11/29/2024,Delivered,433,76.13,129.04,32964.29,2472.32,0,No,5
+10247,Electronics,Model-B583,Supplier C,Germany,Chicago,Air,2/29/2024,3/3/2024,3/8/2024,3/12/2024,Delivered,192,76.85,120.69,14755.2,1106.64,0,No,5
+10248,Home Goods,HG-792,Supplier C,Mexico,Houston,Sea,1/12/2025,1/17/2025,2/16/2025,2/16/2025,Delivered,105,21.78,44.04,2286.9,68.61,0,No,5
+10249,Home Goods,HG-792,National Logistics,Germany,Phoenix,Land,7/26/2024,7/30/2024,8/4/2024,8/6/2024,Delivered,155,90.79,147.57,14072.45,633.26,0,No,5
+10250,Electronics,Model-B583,Supplier A,Vietnam,New York,Sea,2/25/2024,2/29/2024,3/30/2024,4/2/2024,Delivered,148,146.05,270.11,21615.4,648.46,0,No,5
+10251,Apparel,SKU-6533,National Logistics,Mexico,Los Angeles,Land,9/30/2025,10/3/2025,10/12/2025,10/14/2025,Delivered,242,25.52,62.85,6175.84,277.91,0,No,5
+10252,Home Goods,HG-871,Supplier C,Vietnam,Chicago,Land,8/30/2025,9/3/2025,9/8/2025,9/8/2025,Delivered,206,90.68,144.1,18680.08,840.6,0,No,5
+10253,Home Goods,HG-792,National Logistics,Vietnam,Houston,Express,3/10/2025,3/12/2025,3/14/2025,3/16/2025,Delivered,225,112.14,266.12,25231.5,2523.15,0,No,5
+10254,Electronics,Model-B583,National Logistics,China,Phoenix,Land,8/15/2025,8/18/2025,8/25/2025,8/27/2025,Delivered,360,87.14,141.96,31370.4,1411.67,34,No,3
+10255,Electronics,Model-B583,Global Imports,Vietnam,New York,Sea,6/13/2025,6/16/2025,7/22/2025,7/23/2025,Delivered,265,135.07,259.23,35793.55,1073.81,0,No,5
+10256,Apparel,SKU-8340,Supplier A,Vietnam,Los Angeles,Express,9/5/2024,9/8/2024,9/9/2024,9/12/2024,Delivered,344,22.32,35.94,7678.08,767.81,0,No,5
+10257,Electronics,Model-D274,Global Imports,Mexico,Chicago,Air,6/8/2025,6/13/2025,6/20/2025,6/19/2025,Delayed,182,48.65,111.65,8854.3,664.07,0,No,4
+10258,Home Goods,HG-753,Supplier B,Vietnam,Houston,Sea,6/2/2025,6/4/2025,7/4/2025,7/4/2025,Delivered,323,30.14,57.73,9735.22,292.06,0,No,5
+10259,Electronics,Model-A897,Supplier C,Germany,Phoenix,Air,2/20/2025,2/21/2025,2/27/2025,2/26/2025,Delayed,202,90.29,167.26,18238.58,1367.89,0,No,4
+10260,Home Goods,HG-753,Supplier B,Germany,New York,Land,9/20/2024,9/25/2024,10/4/2024,10/5/2024,Delivered,91,150.51,349.83,13696.41,616.34,0,No,5
+10261,Apparel,SKU-2885,Supplier B,USA,Los Angeles,Sea,12/13/2024,12/14/2024,1/23/2025,1/23/2025,Delivered,99,24.5,41.98,2425.5,72.77,0,No,5
+10262,Apparel,SKU-7098,Supplier B,Germany,Chicago,Sea,7/11/2025,7/14/2025,8/22/2025,8/25/2025,Delivered,497,141.03,271.8,70091.91,2102.76,0,No,5
+10263,Electronics,Model-E903,Global Imports,Vietnam,Houston,Land,1/9/2024,1/14/2024,1/19/2024,1/23/2024,Delivered,142,94.52,171.01,13421.84,603.98,0,No,5
+10264,Electronics,Model-E903,Supplier A,Germany,Phoenix,Air,7/3/2024,7/4/2024,7/9/2024,7/13/2024,Delivered,96,110.26,230.51,10584.96,793.87,0,No,5
+10265,Electronics,Model-C260,Supplier A,USA,New York,Air,7/19/2024,7/20/2024,7/27/2024,7/28/2024,Delivered,198,88.78,138.45,17578.44,1318.38,0,No,5
+10266,Apparel,SKU-6533,Supplier A,Germany,Los Angeles,Express,5/30/2024,5/31/2024,6/2/2024,6/3/2024,Delivered,246,100.01,175.2,24602.46,2460.25,0,No,5
+10267,Home Goods,HG-753,Supplier A,Vietnam,Chicago,Land,12/20/2024,12/25/2024,1/5/2025,1/7/2025,Delivered,157,53.32,117.21,8371.24,376.71,0,No,5
+10268,Home Goods,HG-593,National Logistics,China,Houston,Express,3/6/2025,3/9/2025,3/11/2025,3/13/2025,Delivered,246,91.27,155.54,22452.42,2245.24,0,No,5
+10269,Home Goods,HG-753,Supplier A,China,Phoenix,Sea,9/26/2025,9/28/2025,11/2/2025,11/6/2025,Delivered,99,44.43,85.64,4398.57,131.96,0,No,5
+10270,Apparel,SKU-8340,National Logistics,USA,New York,Land,6/20/2025,6/24/2025,7/6/2025,7/8/2025,Delivered,102,10.59,18.45,1080.18,48.61,0,No,5
+10271,Home Goods,HG-871,Global Imports,Vietnam,Los Angeles,Express,10/17/2023,10/22/2023,10/23/2023,10/25/2023,Delivered,406,75.21,153.3,30535.26,3053.53,0,No,5
+10272,Apparel,SKU-2885,Supplier B,Germany,Chicago,Air,1/8/2025,1/13/2025,1/17/2025,1/17/2025,Delivered,127,76.42,154.25,9705.34,727.9,0,No,5
+10273,Apparel,SKU-8340,Global Imports,USA,Houston,Air,2/18/2025,2/23/2025,2/28/2025,2/28/2025,Delivered,331,122.37,231.89,40504.47,3037.84,0,No,5
+10274,Apparel,SKU-2885,Supplier A,USA,Phoenix,Air,11/14/2023,11/17/2023,11/22/2023,11/26/2023,Delivered,361,18.72,35.67,6757.92,506.84,0,No,5
+10275,Apparel,SKU-8340,Global Imports,USA,New York,Sea,3/1/2025,3/4/2025,4/1/2025,4/3/2025,Delivered,268,56.67,89.74,15187.56,455.63,3,Yes,2
+10276,Apparel,SKU-2885,National Logistics,Mexico,Los Angeles,Land,4/24/2024,4/28/2024,,5/13/2024,Cancelled,469,41.28,66.8,19360.32,871.21,0,No,
+10277,Home Goods,HG-871,Supplier B,Germany,Chicago,Land,2/5/2025,2/8/2025,2/16/2025,2/16/2025,Delivered,387,43.93,93.51,17000.91,765.04,0,No,5
+10278,Home Goods,HG-723,Global Imports,Vietnam,Houston,Air,5/8/2024,5/10/2024,5/16/2024,5/20/2024,Delivered,396,112.41,274.6,44514.36,3338.58,0,No,5
+10279,Electronics,Model-D274,National Logistics,Mexico,Phoenix,Air,5/2/2025,5/6/2025,5/8/2025,5/11/2025,Delivered,192,11.56,19.77,2219.52,166.46,0,No,5
+10280,Apparel,SKU-7098,Supplier A,Mexico,New York,Land,10/16/2024,10/18/2024,10/27/2024,10/27/2024,Delivered,301,105.49,251.47,31752.49,1428.86,0,No,5
+10281,Apparel,SKU-8340,Supplier B,Vietnam,Los Angeles,Land,4/12/2025,4/17/2025,4/26/2025,4/30/2025,Delivered,309,108.99,223.28,33677.91,1515.51,0,No,5
+10282,Apparel,SKU-2885,Supplier A,USA,Chicago,Express,12/30/2023,1/1/2024,1/2/2024,1/6/2024,Delivered,248,89.32,172.39,22151.36,2215.14,0,No,5
+10283,Electronics,Model-D274,Supplier B,USA,Houston,Sea,8/13/2025,8/17/2025,9/7/2025,9/8/2025,Delivered,142,140.67,335.78,19975.14,599.25,0,No,5
+10284,Home Goods,HG-753,National Logistics,China,Phoenix,Air,7/10/2025,7/15/2025,7/22/2025,7/26/2025,Delivered,297,48,114.82,14256,1069.2,0,No,5
+10285,Electronics,Model-D274,Supplier A,USA,New York,Air,8/14/2025,8/18/2025,8/23/2025,8/26/2025,Delivered,417,106.41,262.23,44372.97,3327.97,0,No,5
+10286,Home Goods,HG-723,National Logistics,USA,Los Angeles,Land,9/15/2024,9/18/2024,9/27/2024,9/26/2024,Delayed,375,142,347.05,53250,2396.25,0,No,4
+10287,Home Goods,HG-753,Supplier C,China,Chicago,Express,12/31/2024,1/3/2025,,1/9/2025,Cancelled,326,91.1,185.46,29698.6,2969.86,0,No,
+10288,Home Goods,HG-753,Supplier B,Germany,Houston,Land,3/4/2025,3/6/2025,3/13/2025,3/14/2025,Delivered,476,73.91,172.88,35181.16,1583.15,0,No,5
+10289,Home Goods,HG-871,National Logistics,Vietnam,Phoenix,Air,12/16/2024,12/17/2024,12/23/2024,12/22/2024,Delayed,456,41.16,62.44,18768.96,1407.67,0,No,4
+10290,Apparel,SKU-8340,Global Imports,USA,New York,Air,9/29/2024,10/2/2024,10/9/2024,10/13/2024,Delivered,384,131.19,296,50376.96,3778.27,0,No,5
+10291,Home Goods,HG-871,Supplier C,China,Los Angeles,Express,8/1/2025,8/3/2025,8/4/2025,8/7/2025,Delivered,92,60.12,121.47,5531.04,553.1,0,No,5
+10292,Apparel,SKU-7098,Global Imports,Mexico,Chicago,Express,4/5/2024,4/10/2024,4/12/2024,4/12/2024,Delivered,310,128.22,286.99,39748.2,3974.82,0,No,5
+10293,Home Goods,HG-723,Supplier C,Mexico,Houston,Land,6/25/2024,6/30/2024,7/12/2024,7/13/2024,Delivered,139,104.51,251.98,14526.89,653.71,0,No,5
+10294,Electronics,Model-A897,National Logistics,Germany,Phoenix,Express,9/19/2024,9/21/2024,9/22/2024,9/25/2024,Delivered,294,87.1,155.33,25607.4,2560.74,0,No,5
+10295,Home Goods,HG-753,Global Imports,Germany,New York,Sea,1/30/2024,1/31/2024,3/6/2024,3/9/2024,Delivered,420,135.49,266.89,56905.8,1707.17,0,No,5
+10296,Electronics,Model-C260,Supplier B,China,Los Angeles,Sea,4/23/2025,4/28/2025,5/19/2025,5/20/2025,Delivered,244,14.11,23.14,3442.84,103.29,0,No,5
+10297,Apparel,SKU-2885,Supplier B,Vietnam,Chicago,Land,10/28/2024,11/2/2024,11/11/2024,11/12/2024,Delivered,346,95.29,229.42,32970.34,1483.67,14,No,3
+10298,Home Goods,HG-792,Global Imports,Germany,Houston,Air,2/15/2025,2/20/2025,2/23/2025,2/22/2025,Delayed,377,36.56,66.63,13783.12,1033.73,0,No,4
+10299,Home Goods,HG-753,National Logistics,Vietnam,Phoenix,Land,4/26/2025,4/27/2025,,5/12/2025,Cancelled,76,133.84,327.78,10171.84,457.73,0,No,
+10300,Home Goods,HG-753,Supplier B,Mexico,New York,Express,3/16/2025,3/19/2025,3/22/2025,3/25/2025,Delivered,151,100.94,224.96,15241.94,1524.19,2,No,3
+10301,Home Goods,HG-723,Supplier C,USA,Los Angeles,Sea,2/26/2025,2/28/2025,,4/6/2025,Cancelled,424,105.36,200.23,44672.64,1340.18,0,No,
+10302,Home Goods,HG-792,Supplier C,Vietnam,Chicago,Land,1/15/2025,1/16/2025,,1/23/2025,Cancelled,156,24.31,50.67,3792.36,170.66,0,No,
+10303,Home Goods,HG-723,Global Imports,Vietnam,Houston,Land,1/10/2025,1/11/2025,,1/22/2025,Cancelled,295,86.11,187.81,25402.45,1143.11,0,No,
+10304,Electronics,Model-A897,Global Imports,Germany,Phoenix,Sea,10/19/2023,10/20/2023,11/17/2023,11/16/2023,Delayed,152,33.5,74.08,5092,152.76,13,Yes,1
+10305,Apparel,SKU-8340,Global Imports,China,New York,Express,1/24/2025,1/25/2025,1/26/2025,1/25/2025,Delayed,259,122.45,275.14,31714.55,3171.45,0,No,4
+10306,Electronics,Model-D274,Global Imports,Vietnam,Los Angeles,Air,4/30/2025,5/5/2025,5/8/2025,5/7/2025,Delayed,173,92.82,227.16,16057.86,1204.34,0,Yes,3
+10307,Home Goods,HG-593,National Logistics,USA,Chicago,Air,4/6/2024,4/7/2024,4/12/2024,4/13/2024,Delivered,367,97.84,179.69,35907.28,2693.05,0,No,5
+10308,Electronics,Model-C260,Global Imports,China,Houston,Land,10/2/2024,10/5/2024,10/17/2024,10/20/2024,Delivered,273,124.26,292.71,33922.98,1526.53,0,No,5
+10309,Home Goods,HG-871,National Logistics,Mexico,Phoenix,Express,5/20/2025,5/21/2025,5/22/2025,5/22/2025,Delivered,97,62.71,144.8,6082.87,608.29,0,No,5
+10310,Electronics,Model-A897,Supplier A,USA,New York,Sea,8/28/2024,9/1/2024,9/27/2024,9/28/2024,Delivered,56,55.74,95.68,3121.44,93.64,0,No,5
+10311,Apparel,SKU-2885,Global Imports,Vietnam,Los Angeles,Land,6/24/2025,6/26/2025,7/8/2025,7/10/2025,Delivered,466,114.12,204.27,53179.92,2393.1,0,No,5
+10312,Electronics,Model-E903,Supplier B,USA,Chicago,Air,5/4/2025,5/8/2025,5/15/2025,5/16/2025,Delivered,108,96.2,186.27,10389.6,779.22,0,No,5
+10313,Electronics,Model-B583,Supplier C,USA,Houston,Air,6/26/2024,6/29/2024,7/5/2024,7/8/2024,Delivered,107,138.01,271.54,14767.07,1107.53,0,No,5
+10314,Home Goods,HG-871,Supplier B,China,Phoenix,Air,3/13/2025,3/17/2025,3/23/2025,3/23/2025,Delivered,434,123.85,253.01,53750.9,4031.32,24,Yes,2
+10315,Electronics,Model-C260,Supplier A,China,New York,Sea,6/24/2025,6/27/2025,7/22/2025,7/22/2025,Delivered,298,133.87,241.1,39893.26,1196.8,0,No,5
+10316,Apparel,SKU-8340,Supplier A,Vietnam,Los Angeles,Land,10/9/2023,10/12/2023,10/23/2023,10/23/2023,Delivered,150,133.66,289.37,20049,902.21,0,No,5
+10317,Home Goods,HG-723,Supplier A,Germany,Chicago,Sea,5/18/2025,5/20/2025,6/29/2025,7/3/2025,Delivered,346,140.19,299.03,48505.74,1455.17,0,No,5
+10318,Apparel,SKU-8340,Supplier C,USA,Houston,Land,8/31/2024,9/2/2024,9/7/2024,9/10/2024,Delivered,485,135.07,238.12,65508.95,2947.9,0,No,5
+10319,Apparel,SKU-1750,Supplier B,USA,Phoenix,Air,12/11/2024,12/14/2024,,12/16/2024,Cancelled,275,110.01,213.78,30252.75,2268.96,0,No,
+10320,Home Goods,HG-593,Supplier B,Vietnam,New York,Sea,4/10/2025,4/14/2025,5/16/2025,5/20/2025,Delivered,492,111.68,213.24,54946.56,1648.4,0,No,5
+10321,Home Goods,HG-593,Supplier B,China,Los Angeles,Land,1/5/2025,1/6/2025,1/11/2025,1/14/2025,Delivered,243,91.61,170.91,22261.23,1001.76,0,No,5
+10322,Home Goods,HG-792,Supplier C,Vietnam,Chicago,Air,5/2/2025,5/5/2025,5/11/2025,5/13/2025,Delivered,344,90.6,173.51,31166.4,2337.48,0,No,5
+10323,Electronics,Model-B583,National Logistics,USA,Houston,Land,11/23/2024,11/28/2024,12/6/2024,12/5/2024,Delayed,112,103.79,183.41,11624.48,523.1,0,No,4
+10324,Electronics,Model-E903,Supplier C,Germany,Phoenix,Express,3/31/2025,4/2/2025,4/4/2025,4/4/2025,Delivered,458,98.89,173.34,45291.62,4529.16,0,No,5
+10325,Home Goods,HG-871,Global Imports,USA,New York,Sea,6/25/2024,6/30/2024,7/25/2024,7/28/2024,Delivered,390,132.46,204.25,51659.4,1549.78,0,No,5
+10326,Electronics,Model-A897,Supplier B,Mexico,Los Angeles,Land,8/4/2025,8/9/2025,8/20/2025,8/20/2025,Delivered,324,123.67,240.6,40069.08,1803.11,23,Yes,2
+10327,Home Goods,HG-753,Supplier B,USA,Chicago,Express,3/23/2025,3/27/2025,3/29/2025,3/29/2025,Delivered,412,78.1,188.9,32177.2,3217.72,0,No,5
+10328,Electronics,Model-D274,Supplier B,Vietnam,Houston,Land,7/13/2024,7/18/2024,7/24/2024,7/24/2024,Delivered,112,66.84,131.21,7486.08,336.87,0,No,5
+10329,Home Goods,HG-593,National Logistics,Vietnam,Phoenix,Air,10/4/2025,10/7/2025,10/10/2025,10/12/2025,Delivered,172,104.81,180,18027.32,1352.05,0,No,5
+10330,Apparel,SKU-7098,Supplier C,China,New York,Air,3/25/2025,3/27/2025,4/3/2025,4/3/2025,Delivered,405,51.3,118.57,20776.5,1558.24,0,No,5
+10331,Home Goods,HG-753,Supplier C,Germany,Los Angeles,Express,4/16/2025,4/20/2025,4/21/2025,4/25/2025,Delivered,219,147.94,291.57,32398.86,3239.89,0,No,5
+10332,Apparel,SKU-8340,National Logistics,Mexico,Chicago,Sea,2/1/2025,2/6/2025,3/15/2025,3/15/2025,Delivered,70,44.66,73.99,3126.2,93.79,0,No,5
+10333,Home Goods,HG-792,Supplier B,Germany,Houston,Sea,3/16/2025,3/21/2025,4/25/2025,4/26/2025,Delivered,239,40.01,78.92,9562.39,286.87,0,No,5
+10334,Apparel,SKU-2885,Global Imports,Mexico,Phoenix,Land,9/11/2025,9/16/2025,9/21/2025,9/20/2025,Delayed,98,85.56,173.35,8384.88,377.32,0,Yes,3
+10335,Electronics,Model-C260,Global Imports,Mexico,New York,Land,8/18/2024,8/23/2024,9/4/2024,9/4/2024,Delivered,246,46.68,76.79,11483.28,516.75,0,No,5
+10336,Home Goods,HG-753,Global Imports,Germany,Los Angeles,Sea,1/3/2024,1/6/2024,2/5/2024,2/9/2024,Delivered,300,22.54,40.92,6762,202.86,0,No,5
+10337,Electronics,Model-E903,Supplier C,Vietnam,Chicago,Express,11/3/2023,11/8/2023,11/10/2023,11/10/2023,Delivered,88,76.44,158.02,6726.72,672.67,0,No,5
+10338,Electronics,Model-A897,Supplier B,Mexico,Houston,Land,7/17/2024,7/21/2024,8/1/2024,8/4/2024,Delivered,229,40.26,85.71,9219.54,414.88,0,No,5
+10339,Electronics,Model-C260,National Logistics,USA,Phoenix,Sea,11/11/2023,11/12/2023,12/18/2023,12/21/2023,Delivered,453,41.62,90.14,18853.86,565.62,0,No,5
+10340,Apparel,SKU-2885,Global Imports,Mexico,New York,Sea,2/26/2025,2/27/2025,3/30/2025,3/29/2025,Delayed,400,42.25,90.88,16900,507,0,No,4
+10341,Apparel,SKU-7098,Supplier B,USA,Los Angeles,Sea,3/26/2024,3/28/2024,5/7/2024,5/11/2024,Delivered,251,67.25,104.39,16879.75,506.39,0,No,5
+10342,Electronics,Model-B583,Supplier C,Germany,Chicago,Air,6/18/2025,6/21/2025,,6/28/2025,Cancelled,437,102.3,195.72,44705.1,3352.88,0,No,
+10343,Home Goods,HG-753,Supplier B,China,Houston,Sea,5/1/2025,5/5/2025,6/14/2025,6/15/2025,Delivered,252,18.01,43.09,4538.52,136.16,0,No,5
+10344,Electronics,Model-C260,National Logistics,Vietnam,Phoenix,Air,8/28/2024,8/29/2024,9/4/2024,9/6/2024,Delivered,179,58.88,139.75,10539.52,790.46,0,No,5
+10345,Apparel,SKU-2885,National Logistics,Vietnam,New York,Air,9/8/2025,9/11/2025,9/13/2025,9/16/2025,Delivered,236,21.01,43.52,4958.36,371.88,0,No,5
+10346,Apparel,SKU-7098,Global Imports,USA,Los Angeles,Sea,11/11/2023,11/15/2023,12/25/2023,12/26/2023,Delivered,221,82.78,170.81,18294.38,548.83,0,No,5
+10347,Home Goods,HG-792,Supplier B,Vietnam,Chicago,Express,10/11/2024,10/15/2024,10/16/2024,10/20/2024,Delivered,76,30.67,63.98,2330.92,233.09,0,No,5
+10348,Home Goods,HG-792,Supplier B,USA,Houston,Air,6/27/2024,6/30/2024,7/6/2024,7/10/2024,Delivered,481,132.65,213.66,63804.65,4785.35,0,No,5
+10349,Electronics,Model-D274,Supplier B,Vietnam,Phoenix,Air,4/17/2024,4/21/2024,4/25/2024,4/27/2024,Delivered,95,50.24,80.12,4772.8,357.96,0,No,5
+10350,Electronics,Model-E903,Global Imports,Germany,New York,Land,1/23/2025,1/28/2025,2/6/2025,2/10/2025,Delivered,462,18.63,41.36,8607.06,387.32,0,No,5
+10351,Apparel,SKU-2885,National Logistics,Mexico,Los Angeles,Air,9/18/2024,9/20/2024,,9/24/2024,Cancelled,348,96.05,190.75,33425.4,2506.91,0,No,
+10352,Home Goods,HG-871,Supplier C,Germany,Chicago,Air,1/28/2025,1/29/2025,2/3/2025,2/5/2025,Delivered,434,87.35,183.48,37909.9,2843.24,0,No,5
+10353,Apparel,SKU-2885,Supplier A,Vietnam,Houston,Sea,4/17/2025,4/22/2025,5/25/2025,5/24/2025,Delayed,316,96.88,216.85,30614.08,918.42,0,No,4
+10354,Electronics,Model-C260,National Logistics,Vietnam,Phoenix,Express,8/18/2024,8/21/2024,8/22/2024,8/25/2024,Delivered,144,85.67,177.1,12336.48,1233.65,0,No,5
+10355,Apparel,SKU-1750,National Logistics,China,New York,Air,3/22/2024,3/23/2024,,4/1/2024,Cancelled,67,137.32,295.54,9200.44,690.03,0,No,
+10356,Home Goods,HG-792,Supplier A,Vietnam,Los Angeles,Sea,10/13/2023,10/17/2023,11/26/2023,11/29/2023,Delivered,306,53.54,84.82,16383.24,491.5,0,No,5
+10357,Home Goods,HG-753,Supplier A,Germany,Chicago,Express,12/3/2023,12/4/2023,12/7/2023,12/6/2023,Delayed,242,15.04,29.3,3639.68,363.97,0,Yes,3
+10358,Electronics,Model-A897,Global Imports,China,Houston,Air,10/13/2024,10/15/2024,10/17/2024,10/17/2024,Delivered,371,84.44,160.21,31327.24,2349.54,0,No,5
+10359,Apparel,SKU-6533,Supplier B,USA,Phoenix,Express,12/4/2023,12/9/2023,12/12/2023,12/14/2023,Delivered,160,148.34,350.93,23734.4,2373.44,0,No,5
+10360,Apparel,SKU-8340,National Logistics,USA,New York,Sea,8/23/2024,8/26/2024,9/23/2024,9/22/2024,Delayed,362,86.62,177.65,31356.44,940.69,0,No,4
+10361,Electronics,Model-B583,National Logistics,Mexico,Los Angeles,Sea,3/29/2025,3/30/2025,4/30/2025,4/29/2025,Delayed,255,106.83,233.53,27241.65,817.25,0,No,4
+10362,Electronics,Model-D274,Supplier C,China,Chicago,Air,9/22/2024,9/26/2024,9/28/2024,10/2/2024,Delivered,168,109.15,270.13,18337.2,1375.29,0,No,5
+10363,Home Goods,HG-871,Supplier A,China,Houston,Air,7/18/2024,7/20/2024,7/25/2024,7/27/2024,Delivered,430,101.78,164.93,43765.4,3282.4,0,No,5
+10364,Electronics,Model-B583,Global Imports,Vietnam,Phoenix,Land,7/3/2025,7/6/2025,7/17/2025,7/18/2025,Delivered,295,145.19,333.77,42831.05,1927.4,0,No,5
+10365,Apparel,SKU-8340,Supplier B,Germany,New York,Sea,6/8/2024,6/9/2024,7/7/2024,7/11/2024,Delivered,92,52.76,79.38,4853.92,145.62,0,No,5
+10366,Apparel,SKU-1750,Supplier C,Mexico,Los Angeles,Express,7/15/2024,7/17/2024,7/20/2024,7/24/2024,Delivered,271,64.31,99.04,17428.01,1742.8,23,Yes,2
+10367,Home Goods,HG-871,Global Imports,Mexico,Chicago,Air,9/7/2025,9/10/2025,9/13/2025,9/14/2025,Delivered,221,78.33,131.33,17310.93,1298.32,0,No,5
+10368,Apparel,SKU-8340,Supplier A,USA,Houston,Express,11/2/2024,11/6/2024,,11/9/2024,Cancelled,497,67.04,148.18,33318.88,3331.89,0,No,
+10369,Electronics,Model-D274,Global Imports,USA,Phoenix,Express,2/29/2024,3/2/2024,,3/6/2024,Cancelled,342,59.57,98.75,20372.94,2037.29,0,No,
+10370,Apparel,SKU-1750,Global Imports,Vietnam,New York,Sea,6/26/2024,6/30/2024,7/21/2024,7/20/2024,Delayed,306,145.98,267.62,44669.88,1340.1,0,No,4
+10371,Electronics,Model-D274,Supplier B,Vietnam,Los Angeles,Sea,1/5/2024,1/10/2024,2/1/2024,1/31/2024,Delayed,428,35.08,78.29,15014.24,450.43,0,Yes,3
+10372,Electronics,Model-E903,Supplier A,USA,Chicago,Sea,12/10/2023,12/15/2023,1/13/2024,1/17/2024,Delivered,495,49.73,119.38,24616.35,738.49,33,No,3
+10373,Electronics,Model-C260,Supplier B,USA,Houston,Land,3/20/2024,3/22/2024,4/2/2024,4/1/2024,Delayed,148,38.07,59.09,5634.36,253.55,14,No,2
+10374,Apparel,SKU-8340,Supplier C,Mexico,Phoenix,Air,5/23/2024,5/27/2024,5/31/2024,6/1/2024,Delivered,266,147.85,295.84,39328.1,2949.61,0,No,5
+10375,Apparel,SKU-7098,National Logistics,China,New York,Express,4/11/2024,4/13/2024,4/15/2024,4/17/2024,Delivered,342,111.09,184.4,37992.78,3799.28,0,No,5
+10376,Home Goods,HG-593,Supplier A,Mexico,Los Angeles,Air,12/27/2023,1/1/2024,1/7/2024,1/10/2024,Delivered,157,37.73,66.13,5923.61,444.27,0,No,5
+10377,Electronics,Model-C260,Global Imports,USA,Chicago,Express,10/6/2024,10/7/2024,10/10/2024,10/12/2024,Delivered,191,64.75,129.34,12367.25,1236.73,0,No,5
+10378,Electronics,Model-E903,Supplier B,Mexico,Houston,Express,2/25/2024,2/29/2024,3/1/2024,3/5/2024,Delivered,454,77.93,145.96,35380.22,3538.02,4,Yes,2
+10379,Electronics,Model-B583,Supplier B,China,Phoenix,Air,1/22/2024,1/24/2024,,1/28/2024,Cancelled,475,95.61,228.95,45414.75,3406.11,0,No,
+10380,Electronics,Model-A897,National Logistics,Vietnam,New York,Express,9/1/2024,9/4/2024,9/7/2024,9/10/2024,Delivered,469,77.22,138.87,36216.18,3621.62,0,No,5
+10381,Apparel,SKU-2885,Supplier C,Germany,Los Angeles,Express,4/18/2025,4/19/2025,4/22/2025,4/22/2025,Delivered,371,75.26,140.65,27921.46,2792.15,0,No,5
+10382,Apparel,SKU-2885,Supplier A,USA,Chicago,Express,6/22/2025,6/23/2025,6/24/2025,6/27/2025,Delivered,144,30.21,47.96,4350.24,435.02,0,No,5
+10383,Apparel,SKU-6533,Supplier A,Vietnam,Houston,Land,2/17/2025,2/18/2025,2/23/2025,2/26/2025,Delivered,154,23.44,51.53,3609.76,162.44,0,No,5
+10384,Apparel,SKU-7098,Supplier A,Vietnam,Phoenix,Express,3/3/2024,3/8/2024,3/11/2024,3/10/2024,Delayed,203,20.88,38.42,4238.64,423.86,0,No,4
+10385,Home Goods,HG-723,National Logistics,Vietnam,New York,Express,11/17/2023,11/19/2023,11/21/2023,11/24/2023,Delivered,378,44.49,91.79,16817.22,1681.72,0,No,5
+10386,Apparel,SKU-8340,Supplier A,USA,Los Angeles,Express,9/30/2025,10/2/2025,10/3/2025,10/4/2025,Delivered,359,146.83,274.63,52711.97,5271.2,0,No,5
+10387,Electronics,Model-D274,Supplier C,China,Chicago,Land,9/14/2024,9/15/2024,9/24/2024,9/27/2024,Delivered,364,42.27,64.94,15386.28,692.38,0,No,5
+10388,Home Goods,HG-792,National Logistics,Vietnam,Houston,Express,11/23/2024,11/25/2024,11/28/2024,11/28/2024,Delivered,475,30.6,72.81,14535,1453.5,0,No,5
+10389,Electronics,Model-A897,Supplier B,Vietnam,Phoenix,Express,10/28/2024,10/30/2024,10/31/2024,11/1/2024,Delivered,453,40.29,64.27,18251.37,1825.14,0,No,5
+10390,Home Goods,HG-871,National Logistics,China,New York,Air,10/18/2024,10/23/2024,10/27/2024,10/26/2024,Delayed,379,62.05,104.02,23516.95,1763.77,0,No,4
+10391,Apparel,SKU-7098,Supplier B,USA,Los Angeles,Land,2/18/2025,2/23/2025,3/2/2025,3/1/2025,Delayed,202,109.84,268.99,22187.68,998.45,0,No,4
+10392,Electronics,Model-D274,Supplier C,Vietnam,Chicago,Express,8/2/2024,8/3/2024,8/4/2024,8/5/2024,Delivered,424,45.39,85.15,19245.36,1924.54,0,No,5
+10393,Apparel,SKU-6533,Supplier A,China,Houston,Air,4/17/2025,4/19/2025,4/22/2025,4/24/2025,Delivered,173,143.74,309.93,24867.02,1865.03,0,No,5
+10394,Home Goods,HG-871,National Logistics,USA,Phoenix,Air,4/20/2025,4/23/2025,4/25/2025,4/27/2025,Delivered,212,138.34,327.61,29328.08,2199.61,0,No,5
+10395,Apparel,SKU-2885,Global Imports,Mexico,New York,Express,12/27/2024,12/29/2024,12/30/2024,1/2/2025,Delivered,399,54.34,115.58,21681.66,2168.17,0,No,5
+10396,Electronics,Model-C260,Supplier B,Vietnam,Los Angeles,Express,10/18/2023,10/23/2023,10/24/2023,10/26/2023,Delivered,480,12.04,26.06,5779.2,577.92,0,No,5
+10397,Apparel,SKU-1750,Supplier B,USA,Chicago,Air,7/30/2024,8/3/2024,8/9/2024,8/13/2024,Delivered,150,45.19,81.13,6778.5,508.39,0,No,5
+10398,Home Goods,HG-723,Supplier A,Mexico,Houston,Sea,1/17/2024,1/19/2024,2/16/2024,2/15/2024,Delayed,54,118.31,286.47,6388.74,191.66,0,Yes,3
+10399,Apparel,SKU-6533,Supplier B,China,Phoenix,Sea,12/9/2024,12/12/2024,1/13/2025,1/15/2025,Delivered,466,59.64,95.76,27792.24,833.77,0,No,5
+10400,Apparel,SKU-8340,Supplier A,Vietnam,New York,Express,11/27/2024,11/28/2024,11/30/2024,12/4/2024,Delivered,204,105.54,172.33,21530.16,2153.02,0,No,5
+10401,Apparel,SKU-6533,Supplier C,Mexico,Los Angeles,Air,7/8/2024,7/13/2024,7/20/2024,7/21/2024,Delivered,363,15.5,36.81,5626.5,421.99,16,No,3
+10402,Home Goods,HG-792,Global Imports,Vietnam,Chicago,Air,10/19/2024,10/24/2024,10/26/2024,10/28/2024,Delivered,122,79.1,149.93,9650.2,723.77,0,No,5
+10403,Apparel,SKU-2885,Supplier C,USA,Houston,Sea,6/20/2024,6/24/2024,7/26/2024,7/28/2024,Delivered,366,16.49,24.86,6035.34,181.06,0,No,5
+10404,Electronics,Model-A897,Supplier A,Vietnam,Phoenix,Sea,1/8/2025,1/11/2025,2/16/2025,2/18/2025,Delivered,401,18.42,32.01,7386.42,221.59,0,No,5
+10405,Apparel,SKU-1750,Supplier C,USA,New York,Land,3/7/2024,3/11/2024,3/22/2024,3/23/2024,Delivered,66,48.25,96.48,3184.5,143.3,0,No,5
+10406,Home Goods,HG-753,Global Imports,Germany,Los Angeles,Express,2/24/2024,2/25/2024,2/28/2024,2/29/2024,Delivered,403,52.25,85.35,21056.75,2105.68,0,No,5
+10407,Apparel,SKU-7098,Supplier B,China,Chicago,Land,5/3/2025,5/6/2025,5/12/2025,5/11/2025,Delayed,104,28.09,45.92,2921.36,131.46,0,Yes,3
+10408,Apparel,SKU-2885,National Logistics,Germany,Houston,Air,10/15/2024,10/16/2024,10/20/2024,10/22/2024,Delivered,500,129.84,311.32,64920,4869,0,No,5
+10409,Electronics,Model-D274,Supplier A,China,Phoenix,Land,5/1/2024,5/3/2024,5/11/2024,5/15/2024,Delivered,50,80.64,125.77,4032,181.44,0,No,5
+10410,Apparel,SKU-7098,National Logistics,USA,New York,Sea,12/15/2023,12/18/2023,1/14/2024,1/16/2024,Delivered,96,92,154.83,8832,264.96,0,No,5
+10411,Apparel,SKU-1750,Supplier A,Germany,Los Angeles,Sea,9/29/2024,10/1/2024,11/9/2024,11/12/2024,Delivered,227,70.14,126.02,15921.78,477.65,0,No,5
+10412,Home Goods,HG-753,Global Imports,Mexico,Chicago,Sea,11/24/2024,11/27/2024,1/2/2025,1/2/2025,Delivered,133,40.45,94.52,5379.85,161.4,0,No,5
+10413,Apparel,SKU-8340,Global Imports,Mexico,Houston,Express,8/19/2024,8/24/2024,8/25/2024,8/24/2024,Delayed,486,15.16,36.09,7367.76,736.78,0,No,4
+10414,Home Goods,HG-593,Supplier C,USA,Phoenix,Land,7/22/2025,7/26/2025,8/4/2025,8/5/2025,Delivered,378,80.83,122.05,30553.74,1374.92,0,No,5
+10415,Apparel,SKU-8340,Supplier B,Mexico,New York,Express,2/6/2024,2/11/2024,2/14/2024,2/15/2024,Delivered,333,109.6,245.5,36496.8,3649.68,0,No,5
+10416,Electronics,Model-E903,Supplier B,Germany,Los Angeles,Air,9/10/2025,9/12/2025,9/14/2025,9/17/2025,Delivered,246,123.31,291.98,30334.26,2275.07,9,No,3
+10417,Electronics,Model-A897,National Logistics,Mexico,Chicago,Sea,2/11/2025,2/16/2025,3/9/2025,3/12/2025,Delivered,68,30.77,61.77,2092.36,62.77,0,No,5
+10418,Home Goods,HG-792,Supplier C,Vietnam,Houston,Air,6/6/2024,6/8/2024,6/10/2024,6/11/2024,Delivered,440,83.44,173.75,36713.6,2753.52,0,No,5
+10419,Electronics,Model-A897,Global Imports,Vietnam,Phoenix,Land,1/3/2024,1/8/2024,1/19/2024,1/22/2024,Delivered,256,124.41,237.55,31848.96,1433.2,11,No,3
+10420,Electronics,Model-D274,National Logistics,USA,New York,Sea,3/15/2024,3/16/2024,4/14/2024,4/15/2024,Delivered,212,124.64,300.56,26423.68,792.71,0,No,5
+10421,Electronics,Model-C260,Global Imports,China,Los Angeles,Sea,11/18/2024,11/22/2024,12/26/2024,12/27/2024,Delivered,130,14.22,21.98,1848.6,55.46,0,No,5
+10422,Apparel,SKU-7098,Supplier B,Vietnam,Chicago,Express,7/5/2025,7/8/2025,7/9/2025,7/8/2025,Delayed,413,142.89,303.46,59013.57,5901.36,0,Yes,3
+10423,Apparel,SKU-1750,Supplier A,Mexico,Houston,Air,10/29/2024,11/1/2024,11/4/2024,11/5/2024,Delivered,184,40.43,99.94,7439.12,557.93,0,No,5
+10424,Apparel,SKU-7098,Supplier C,Germany,Phoenix,Sea,9/15/2025,9/20/2025,10/23/2025,10/26/2025,Delivered,204,69.65,118.24,14208.6,426.26,0,No,5
+10425,Electronics,Model-E903,Supplier C,Germany,New York,Air,4/26/2024,4/30/2024,5/3/2024,5/7/2024,Delivered,140,128.26,237.4,17956.4,1346.73,0,No,5
+10426,Home Goods,HG-792,National Logistics,Mexico,Los Angeles,Land,3/20/2024,3/22/2024,3/31/2024,4/2/2024,Delivered,265,28.8,69.96,7632,343.44,2,Yes,2
+10427,Electronics,Model-D274,National Logistics,China,Chicago,Air,7/10/2024,7/11/2024,7/13/2024,7/14/2024,Delivered,156,49.72,122,7756.32,581.72,0,No,5
+10428,Apparel,SKU-8340,Global Imports,USA,Houston,Sea,5/20/2024,5/22/2024,6/20/2024,6/21/2024,Delivered,329,27.53,45.98,9057.37,271.72,0,No,5
+10429,Home Goods,HG-593,Supplier B,Vietnam,Phoenix,Air,2/18/2024,2/21/2024,,2/23/2024,Cancelled,242,109.19,191.61,26423.98,1981.8,0,No,
+10430,Apparel,SKU-7098,Supplier B,Vietnam,New York,Air,11/9/2024,11/10/2024,11/17/2024,11/16/2024,Delayed,247,33.02,63.37,8155.94,611.7,0,Yes,3
+10431,Apparel,SKU-7098,Global Imports,USA,Los Angeles,Air,12/4/2024,12/9/2024,12/14/2024,12/16/2024,Delivered,230,46.88,98.69,10782.4,808.68,0,No,5
+10432,Home Goods,HG-593,Supplier A,Mexico,Chicago,Express,10/24/2024,10/28/2024,10/30/2024,11/2/2024,Delivered,287,114.41,217.57,32835.67,3283.57,5,No,3
+10433,Home Goods,HG-871,Global Imports,Vietnam,Houston,Land,1/16/2025,1/21/2025,1/30/2025,2/3/2025,Delivered,83,101.19,248.82,8398.77,377.94,1,Yes,2
+10434,Electronics,Model-E903,Supplier A,China,Phoenix,Land,8/20/2024,8/22/2024,8/28/2024,8/29/2024,Delivered,469,109.56,171.96,51383.64,2312.26,0,No,5
+10435,Electronics,Model-D274,Global Imports,China,New York,Sea,7/24/2025,7/27/2025,8/22/2025,8/22/2025,Delivered,102,94.85,195.26,9674.7,290.24,0,No,5
+10436,Home Goods,HG-871,National Logistics,China,Los Angeles,Express,7/3/2025,7/8/2025,7/10/2025,7/13/2025,Delivered,498,116.9,266.13,58216.2,5821.62,0,No,5
+10437,Apparel,SKU-1750,National Logistics,China,Chicago,Air,8/17/2024,8/22/2024,8/27/2024,8/29/2024,Delivered,308,64.29,111.26,19801.32,1485.1,0,No,5
+10438,Home Goods,HG-753,National Logistics,China,Houston,Express,8/8/2025,8/11/2025,8/12/2025,8/11/2025,Delayed,480,11.26,26.31,5404.8,540.48,43,Yes,1
+10439,Electronics,Model-D274,National Logistics,Vietnam,Phoenix,Land,6/3/2024,6/4/2024,6/10/2024,6/10/2024,Delivered,239,76.37,157.34,18252.43,821.36,0,No,5
+10440,Home Goods,HG-871,Supplier C,Vietnam,New York,Sea,11/11/2023,11/16/2023,12/16/2023,12/18/2023,Delivered,306,13.28,26.48,4063.68,121.91,0,No,5
+10441,Electronics,Model-D274,Supplier B,Vietnam,Los Angeles,Land,3/22/2025,3/23/2025,3/29/2025,3/29/2025,Delivered,221,150.32,301.73,33220.72,1494.93,0,No,5
+10442,Electronics,Model-B583,Supplier A,China,Chicago,Air,10/5/2025,10/7/2025,10/10/2025,10/12/2025,Delivered,419,100.58,159.3,42143.02,3160.73,0,No,5
+10443,Home Goods,HG-593,Supplier C,China,Houston,Sea,3/17/2024,3/19/2024,,4/24/2024,Cancelled,362,78.32,130.25,28351.84,850.56,0,No,
+10444,Electronics,Model-B583,Global Imports,Germany,Phoenix,Express,10/7/2025,10/8/2025,10/10/2025,10/13/2025,Delivered,355,97.36,229.83,34562.8,3456.28,0,No,5
+10445,Electronics,Model-C260,Supplier B,Vietnam,New York,Land,4/1/2024,4/5/2024,4/13/2024,4/13/2024,Delivered,158,149.84,264.23,23674.72,1065.36,0,No,5
+10446,Home Goods,HG-753,National Logistics,Germany,Los Angeles,Sea,2/23/2025,2/25/2025,3/24/2025,3/25/2025,Delivered,354,129.15,269.76,45719.1,1371.57,0,No,5
+10447,Electronics,Model-B583,Supplier A,Mexico,Chicago,Air,8/25/2025,8/26/2025,8/29/2025,8/28/2025,Delayed,244,119.88,281.7,29250.72,2193.8,0,No,4
+10448,Apparel,SKU-2885,National Logistics,China,Houston,Air,7/6/2024,7/8/2024,7/14/2024,7/16/2024,Delivered,235,147.4,266.51,34639,2597.93,9,Yes,2
+10449,Home Goods,HG-871,Global Imports,China,Phoenix,Express,2/11/2025,2/15/2025,,2/16/2025,Cancelled,102,44.56,80.94,4545.12,454.51,0,No,
+10450,Electronics,Model-E903,Supplier A,Vietnam,New York,Land,4/29/2025,5/1/2025,5/13/2025,5/14/2025,Delivered,253,55.32,104.12,13995.96,629.82,0,No,5
+10451,Electronics,Model-E903,Supplier B,USA,Los Angeles,Sea,12/18/2024,12/22/2024,1/30/2025,2/1/2025,Delivered,161,147.96,318.47,23821.56,714.65,0,No,5
+10452,Home Goods,HG-792,National Logistics,USA,Chicago,Sea,6/24/2024,6/28/2024,8/5/2024,8/9/2024,Delivered,171,38.31,61.54,6551.01,196.53,0,No,5
+10453,Electronics,Model-B583,National Logistics,Vietnam,Houston,Express,7/28/2025,8/2/2025,8/3/2025,8/7/2025,Delivered,192,25.17,47.72,4832.64,483.26,0,No,5
+10454,Home Goods,HG-753,Supplier A,USA,Phoenix,Land,12/25/2024,12/27/2024,1/7/2025,1/7/2025,Delivered,281,62.57,114.71,17582.17,791.2,0,No,5
+10455,Electronics,Model-C260,Supplier A,USA,New York,Sea,9/7/2025,9/8/2025,10/3/2025,10/7/2025,Delivered,164,59.49,93.71,9756.36,292.69,0,No,5
+10456,Home Goods,HG-723,Global Imports,Mexico,Los Angeles,Sea,5/18/2025,5/20/2025,6/19/2025,6/22/2025,Delivered,137,89.38,146.99,12245.06,367.35,0,No,5
+10457,Apparel,SKU-1750,Supplier A,China,Chicago,Express,6/17/2025,6/19/2025,6/21/2025,6/23/2025,Delivered,247,34.46,65.99,8511.62,851.16,0,No,5
+10458,Electronics,Model-E903,Supplier A,Vietnam,Houston,Air,1/5/2025,1/10/2025,1/17/2025,1/18/2025,Delivered,104,83.65,177.61,8699.6,652.47,0,No,5
+10459,Home Goods,HG-792,Supplier B,Vietnam,Phoenix,Air,7/2/2024,7/7/2024,7/10/2024,7/13/2024,Delivered,66,134.07,298.12,8848.62,663.65,0,No,5
+10460,Apparel,SKU-6533,Supplier A,China,New York,Air,2/29/2024,3/5/2024,3/10/2024,3/13/2024,Delivered,455,13.08,32.46,5951.4,446.36,0,No,5
+10461,Apparel,SKU-8340,Supplier C,Vietnam,Los Angeles,Express,2/25/2025,3/1/2025,3/4/2025,3/6/2025,Delivered,484,20.69,39.66,10013.96,1001.4,0,No,5
+10462,Apparel,SKU-8340,National Logistics,Vietnam,Chicago,Land,3/1/2025,3/6/2025,3/18/2025,3/19/2025,Delivered,203,40.19,85.18,8158.57,367.14,0,No,5
+10463,Home Goods,HG-753,Supplier C,Vietnam,Houston,Air,5/30/2025,6/4/2025,,6/11/2025,Cancelled,111,53.03,102.92,5886.33,441.47,0,No,
+10464,Home Goods,HG-753,National Logistics,USA,Phoenix,Land,8/22/2024,8/24/2024,9/4/2024,9/8/2024,Delivered,281,39.33,90,11051.73,497.33,15,No,3
+10465,Apparel,SKU-2885,Global Imports,USA,New York,Air,11/19/2023,11/23/2023,11/29/2023,11/28/2023,Delayed,340,93.65,145.34,31841,2388.08,5,No,2
+10466,Electronics,Model-D274,Global Imports,Vietnam,Los Angeles,Air,11/7/2024,11/12/2024,11/17/2024,11/18/2024,Delivered,409,76.6,121.48,31329.4,2349.71,0,No,5
+10467,Apparel,SKU-7098,Supplier A,Mexico,Chicago,Air,8/3/2025,8/8/2025,8/15/2025,8/19/2025,Delivered,218,132.16,329.57,28810.88,2160.82,0,No,5
+10468,Home Goods,HG-593,Global Imports,Vietnam,Houston,Land,11/29/2024,12/1/2024,12/8/2024,12/7/2024,Delayed,328,39.17,64.6,12847.76,578.15,0,Yes,3
+10469,Apparel,SKU-7098,Supplier B,USA,Phoenix,Land,8/20/2024,8/22/2024,8/29/2024,9/1/2024,Delivered,311,55.41,109.72,17232.51,775.46,0,No,5
+10470,Electronics,Model-D274,Global Imports,Germany,New York,Air,1/21/2024,1/26/2024,2/2/2024,2/3/2024,Delivered,88,96.69,238.06,8508.72,638.15,0,No,5
+10471,Home Goods,HG-593,Supplier B,USA,Los Angeles,Express,11/24/2024,11/29/2024,12/1/2024,12/1/2024,Delivered,366,144.59,244.31,52919.94,5291.99,0,No,5
+10472,Home Goods,HG-753,Global Imports,Mexico,Chicago,Sea,3/17/2025,3/19/2025,4/26/2025,4/29/2025,Delivered,74,62.01,106.71,4588.74,137.66,0,No,5
+10473,Electronics,Model-B583,National Logistics,Mexico,Houston,Air,9/3/2024,9/4/2024,9/10/2024,9/12/2024,Delivered,471,73.03,131.39,34397.13,2579.78,0,No,5
+10474,Apparel,SKU-8340,National Logistics,Germany,Phoenix,Sea,10/1/2024,10/5/2024,10/30/2024,10/30/2024,Delivered,279,115.36,220.04,32185.44,965.56,0,No,5
+10475,Apparel,SKU-6533,Supplier B,Vietnam,New York,Sea,1/19/2024,1/22/2024,2/20/2024,2/20/2024,Delivered,388,114.58,230.2,44457.04,1333.71,0,No,5
+10476,Home Goods,HG-723,Global Imports,Vietnam,Los Angeles,Air,5/17/2024,5/18/2024,5/24/2024,5/25/2024,Delivered,410,62.58,134.29,25657.8,1924.34,0,No,5
+10477,Home Goods,HG-593,Supplier A,Germany,Chicago,Express,12/2/2023,12/6/2023,,12/10/2023,Cancelled,250,139.79,256.38,34947.5,3494.75,0,No,
+10478,Home Goods,HG-753,Supplier A,Vietnam,Houston,Sea,9/11/2025,9/14/2025,10/15/2025,10/16/2025,Delivered,240,43.62,82.72,10468.8,314.06,0,No,5
+10479,Apparel,SKU-6533,National Logistics,Vietnam,Phoenix,Air,10/16/2023,10/19/2023,10/25/2023,10/27/2023,Delivered,162,51.38,102.58,8323.56,624.27,0,No,5
+10480,Electronics,Model-B583,Supplier C,China,New York,Air,4/8/2024,4/10/2024,4/14/2024,4/15/2024,Delivered,265,16.67,36.81,4417.55,331.32,0,No,5
+10481,Electronics,Model-D274,Supplier A,Mexico,Los Angeles,Sea,2/4/2025,2/8/2025,3/15/2025,3/15/2025,Delivered,364,150.48,322.67,54774.72,1643.24,0,No,5
+10482,Home Goods,HG-593,National Logistics,Mexico,Chicago,Air,9/27/2025,9/29/2025,10/1/2025,10/3/2025,Delivered,357,100.43,240.38,35853.51,2689.01,25,No,3
+10483,Home Goods,HG-723,Supplier A,USA,Houston,Sea,6/14/2024,6/18/2024,7/16/2024,7/17/2024,Delivered,384,36.65,64.16,14073.6,422.21,0,No,5
+10484,Electronics,Model-A897,National Logistics,China,Phoenix,Land,7/11/2024,7/16/2024,,7/21/2024,Cancelled,269,101.28,162.99,27244.32,1225.99,0,No,
+10485,Apparel,SKU-1750,Supplier C,Germany,New York,Air,8/31/2024,9/2/2024,9/8/2024,9/9/2024,Delivered,376,118.36,198.68,44503.36,3337.75,0,No,5
+10486,Apparel,SKU-7098,Supplier A,Vietnam,Los Angeles,Land,4/16/2024,4/21/2024,4/30/2024,4/29/2024,Delayed,229,139.4,338.34,31922.6,1436.52,9,No,2
+10487,Electronics,Model-A897,Supplier C,Mexico,Chicago,Sea,2/13/2025,2/18/2025,3/23/2025,3/23/2025,Delivered,402,73.35,180.3,29486.7,884.6,16,No,3
+10488,Apparel,SKU-2885,National Logistics,Vietnam,Houston,Air,11/10/2023,11/13/2023,11/16/2023,11/16/2023,Delivered,348,94.66,158.03,32941.68,2470.63,0,No,5
+10489,Home Goods,HG-753,Global Imports,Vietnam,Phoenix,Land,8/21/2025,8/23/2025,8/30/2025,8/29/2025,Delayed,280,54.86,104.55,15360.8,691.24,0,No,4
+10490,Home Goods,HG-593,National Logistics,Vietnam,New York,Air,7/21/2025,7/26/2025,8/1/2025,8/5/2025,Delivered,214,96.02,167.63,20548.28,1541.12,0,No,5
+10491,Electronics,Model-E903,National Logistics,USA,Los Angeles,Express,3/14/2024,3/16/2024,3/17/2024,3/18/2024,Delivered,155,113.18,249.15,17542.9,1754.29,0,No,5
+10492,Apparel,SKU-7098,Supplier B,Vietnam,Chicago,Express,11/7/2023,11/8/2023,11/10/2023,11/9/2023,Delayed,182,137.79,283.2,25077.78,2507.78,0,No,4
+10493,Apparel,SKU-7098,Supplier B,Mexico,Houston,Sea,12/8/2023,12/12/2023,1/4/2024,1/7/2024,Delivered,91,41.07,71.14,3737.37,112.12,0,No,5
+10494,Home Goods,HG-723,Global Imports,Germany,Phoenix,Land,2/14/2025,2/19/2025,2/24/2025,2/28/2025,Delivered,253,81,182.96,20493,922.19,0,No,5
+10495,Apparel,SKU-6533,National Logistics,Germany,New York,Sea,12/22/2024,12/27/2024,,1/31/2025,Cancelled,58,122.36,238.89,7096.88,212.91,0,No,
+10496,Apparel,SKU-1750,Supplier A,Vietnam,Los Angeles,Air,5/16/2024,5/19/2024,5/22/2024,5/23/2024,Delivered,454,44.46,103.76,20184.84,1513.86,18,No,3
+10497,Apparel,SKU-6533,National Logistics,USA,Chicago,Express,7/19/2025,7/22/2025,7/24/2025,7/24/2025,Delivered,397,28.33,55.43,11247.01,1124.7,0,No,5
+10498,Home Goods,HG-723,Supplier A,USA,Houston,Air,4/26/2024,4/28/2024,5/5/2024,5/7/2024,Delivered,448,124.62,281.3,55829.76,4187.23,0,No,5
+10499,Apparel,SKU-1750,National Logistics,USA,Phoenix,Express,2/25/2025,2/27/2025,3/1/2025,3/1/2025,Delivered,247,24.63,56.18,6083.61,608.36,0,No,5
+10500,Electronics,Model-A897,Supplier B,Vietnam,New York,Sea,11/20/2024,11/24/2024,12/25/2024,12/27/2024,Delivered,205,103.11,205.18,21137.55,634.13,0,No,5
+10501,Apparel,SKU-1750,Supplier A,USA,Los Angeles,Sea,5/7/2024,5/11/2024,6/14/2024,6/18/2024,Delivered,492,122.41,301.45,60225.72,1806.77,0,No,5
+10502,Apparel,SKU-1750,Supplier B,Vietnam,Chicago,Express,9/7/2025,9/11/2025,9/13/2025,9/17/2025,Delivered,55,34.42,67.49,1893.1,189.31,0,No,5
+10503,Electronics,Model-D274,Global Imports,USA,Houston,Land,4/12/2024,4/15/2024,4/22/2024,4/24/2024,Delivered,195,132.64,299.35,25864.8,1163.92,0,No,5
+10504,Apparel,SKU-8340,Supplier C,Vietnam,Phoenix,Express,9/27/2024,10/2/2024,10/4/2024,10/5/2024,Delivered,260,139,331.55,36140,3614,0,No,5
+10505,Electronics,Model-A897,National Logistics,China,New York,Express,3/4/2024,3/9/2024,3/10/2024,3/14/2024,Delivered,261,61.74,97.04,16114.14,1611.41,0,No,5
+10506,Apparel,SKU-7098,Global Imports,Vietnam,Los Angeles,Land,4/27/2024,5/1/2024,5/11/2024,5/12/2024,Delivered,116,106.01,175.66,12297.16,553.37,0,No,5
+10507,Electronics,Model-D274,Global Imports,Vietnam,Chicago,Express,9/14/2025,9/19/2025,9/22/2025,9/24/2025,Delivered,417,44.89,108.43,18719.13,1871.91,0,No,5
+10508,Electronics,Model-D274,National Logistics,Germany,Houston,Express,11/28/2023,11/29/2023,12/1/2023,12/1/2023,Delivered,74,88.1,145.35,6519.4,651.94,0,No,5
+10509,Electronics,Model-D274,Supplier A,Mexico,Phoenix,Air,1/6/2024,1/9/2024,1/16/2024,1/18/2024,Delivered,419,46.35,78.46,19420.65,1456.55,0,No,5
+10510,Apparel,SKU-1750,Global Imports,China,New York,Sea,6/1/2025,6/2/2025,,7/11/2025,Cancelled,378,67.82,125.48,25635.96,769.08,0,No,
+10511,Electronics,Model-A897,National Logistics,Vietnam,Los Angeles,Sea,8/12/2024,8/15/2024,9/13/2024,9/13/2024,Delivered,118,17.46,39.64,2060.28,61.81,0,No,5
+10512,Apparel,SKU-2885,Global Imports,Mexico,Chicago,Land,10/11/2024,10/13/2024,10/23/2024,10/27/2024,Delivered,117,40.22,66.51,4705.74,211.76,0,No,5
+10513,Electronics,Model-C260,Supplier A,Mexico,Houston,Express,2/19/2025,2/21/2025,2/23/2025,2/22/2025,Delayed,395,110.67,166.91,43714.65,4371.47,0,No,4
+10514,Home Goods,HG-723,Supplier A,China,Phoenix,Land,7/14/2024,7/18/2024,7/23/2024,7/27/2024,Delivered,430,47.69,77.25,20506.7,922.8,0,No,5
+10515,Apparel,SKU-1750,Supplier A,USA,New York,Air,12/10/2024,12/15/2024,12/18/2024,12/22/2024,Delivered,218,25.26,41.04,5506.68,413,0,No,5
+10516,Electronics,Model-B583,Supplier A,Vietnam,Los Angeles,Air,12/10/2023,12/14/2023,12/16/2023,12/16/2023,Delivered,360,95.37,236.11,34333.2,2574.99,0,No,5
+10517,Apparel,SKU-6533,Supplier B,China,Chicago,Express,4/27/2025,5/1/2025,5/3/2025,5/6/2025,Delivered,486,98.63,150.41,47934.18,4793.42,0,No,5
+10518,Electronics,Model-B583,Supplier A,China,Houston,Land,1/26/2025,1/28/2025,2/2/2025,2/2/2025,Delivered,173,14.27,24.56,2468.71,111.09,0,No,5
+10519,Electronics,Model-E903,Global Imports,Vietnam,Phoenix,Land,12/15/2023,12/18/2023,12/25/2023,12/27/2023,Delivered,496,51.8,129.24,25692.8,1156.18,17,No,3
+10520,Electronics,Model-D274,National Logistics,China,New York,Land,12/3/2024,12/8/2024,12/13/2024,12/17/2024,Delivered,297,16.01,37.19,4754.97,213.97,0,No,5
+10521,Apparel,SKU-8340,Global Imports,Germany,Los Angeles,Express,7/8/2025,7/13/2025,7/16/2025,7/16/2025,Delivered,67,34.21,84.23,2292.07,229.21,0,No,5
+10522,Home Goods,HG-871,Supplier C,Germany,Chicago,Air,10/13/2024,10/17/2024,10/20/2024,10/23/2024,Delivered,210,133.38,206.04,28009.8,2100.74,0,No,5
+10523,Apparel,SKU-2885,Supplier A,China,Houston,Express,1/8/2025,1/13/2025,1/16/2025,1/16/2025,Delivered,128,30.57,54.11,3912.96,391.3,0,No,5
+10524,Apparel,SKU-7098,National Logistics,Vietnam,Phoenix,Sea,12/9/2023,12/12/2023,,1/15/2024,Cancelled,354,139.34,273.74,49326.36,1479.79,0,No,
+10525,Apparel,SKU-1750,Supplier B,Vietnam,New York,Sea,12/21/2023,12/24/2023,1/21/2024,1/22/2024,Delivered,262,23.97,45.79,6280.14,188.4,4,No,3
+10526,Apparel,SKU-8340,Global Imports,Germany,Los Angeles,Sea,8/5/2024,8/10/2024,9/7/2024,9/6/2024,Delayed,216,35.22,81.8,7607.52,228.23,0,No,4
+10527,Electronics,Model-C260,Supplier C,USA,Chicago,Express,6/4/2024,6/5/2024,6/8/2024,6/10/2024,Delivered,168,17.6,39.09,2956.8,295.68,0,No,5
+10528,Electronics,Model-D274,Supplier A,Mexico,Houston,Air,7/31/2025,8/2/2025,8/8/2025,8/10/2025,Delivered,405,124.16,270.31,50284.8,3771.36,0,No,5
+10529,Apparel,SKU-1750,Supplier B,China,Phoenix,Sea,5/30/2025,6/2/2025,7/9/2025,7/12/2025,Delivered,205,134.22,220.18,27515.1,825.45,0,No,5
+10530,Apparel,SKU-2885,National Logistics,USA,New York,Sea,3/1/2025,3/5/2025,4/8/2025,4/7/2025,Delayed,354,86.69,181.09,30688.26,920.65,0,No,4
+10531,Electronics,Model-D274,Supplier A,USA,Los Angeles,Sea,8/6/2025,8/8/2025,9/2/2025,9/6/2025,Delivered,311,132.96,318.03,41350.56,1240.52,15,No,3
+10532,Home Goods,HG-723,Global Imports,Germany,Chicago,Air,6/21/2025,6/23/2025,6/27/2025,7/1/2025,Delivered,93,80.07,186.03,7446.51,558.49,0,No,5
+10533,Home Goods,HG-792,Supplier A,Mexico,Houston,Air,5/21/2024,5/22/2024,,6/1/2024,Cancelled,400,127.97,218.7,51188,3839.1,0,No,
+10534,Home Goods,HG-723,Supplier A,Germany,Phoenix,Air,11/8/2024,11/10/2024,11/17/2024,11/19/2024,Delivered,455,32.01,49.86,14564.55,1092.34,0,No,5
+10535,Apparel,SKU-6533,Global Imports,Germany,New York,Air,3/11/2024,3/14/2024,3/17/2024,3/16/2024,Delayed,359,40.21,69.49,14435.39,1082.65,0,Yes,3
+10536,Home Goods,HG-792,Supplier B,Germany,Los Angeles,Land,9/21/2025,9/24/2025,9/30/2025,9/29/2025,Delayed,313,107.68,246.07,33703.84,1516.67,0,No,4
+10537,Electronics,Model-D274,Supplier C,Mexico,Chicago,Sea,8/29/2024,8/31/2024,9/29/2024,10/3/2024,Delivered,336,108.35,200.16,36405.6,1092.17,23,No,3
+10538,Home Goods,HG-792,National Logistics,China,Houston,Air,7/27/2024,8/1/2024,8/8/2024,8/8/2024,Delivered,355,88.84,182.8,31538.2,2365.37,0,No,5
+10539,Apparel,SKU-8340,Supplier A,Vietnam,Phoenix,Air,8/14/2024,8/16/2024,8/21/2024,8/21/2024,Delivered,395,97.86,230.31,38654.7,2899.1,0,No,5
+10540,Electronics,Model-B583,National Logistics,Mexico,New York,Air,6/17/2024,6/20/2024,6/24/2024,6/27/2024,Delivered,219,40.23,79.13,8810.37,660.78,0,No,5
+10541,Electronics,Model-A897,Global Imports,Vietnam,Los Angeles,Sea,4/14/2025,4/17/2025,5/21/2025,5/21/2025,Delivered,325,35.63,64.63,11579.75,347.39,0,No,5
+10542,Electronics,Model-D274,Supplier B,Germany,Chicago,Land,6/15/2025,6/18/2025,6/29/2025,6/30/2025,Delivered,83,28.12,45.65,2333.96,105.03,0,No,5
+10543,Electronics,Model-B583,Supplier C,China,Houston,Sea,6/26/2024,6/30/2024,7/28/2024,7/31/2024,Delivered,471,23.33,36.91,10988.43,329.65,0,No,5
+10544,Home Goods,HG-723,Supplier B,Germany,Phoenix,Express,4/5/2025,4/6/2025,4/9/2025,4/10/2025,Delivered,474,117.02,194.05,55467.48,5546.75,0,No,5
+10545,Electronics,Model-A897,Supplier A,USA,New York,Express,10/6/2025,10/7/2025,10/8/2025,10/12/2025,Delivered,382,59.96,112.04,22904.72,2290.47,0,No,5
+10546,Apparel,SKU-6533,National Logistics,Vietnam,Los Angeles,Air,5/28/2024,6/2/2024,6/8/2024,6/8/2024,Delivered,166,66.09,155.12,10970.94,822.82,0,No,5
+10547,Home Goods,HG-723,National Logistics,Mexico,Chicago,Sea,1/1/2025,1/3/2025,2/11/2025,2/10/2025,Delayed,478,95.97,184.29,45873.66,1376.21,0,No,4
+10548,Electronics,Model-D274,Global Imports,Mexico,Houston,Land,12/23/2024,12/28/2024,1/5/2025,1/9/2025,Delivered,450,12.68,26.29,5706,256.77,1,No,3
+10549,Home Goods,HG-723,Supplier B,USA,Phoenix,Sea,6/24/2024,6/29/2024,8/7/2024,8/10/2024,Delivered,475,65.08,103.52,30913,927.39,0,No,5
+10550,Home Goods,HG-593,Global Imports,Vietnam,New York,Land,12/31/2023,1/1/2024,1/9/2024,1/13/2024,Delivered,487,26.64,50.97,12973.68,583.82,0,No,5
+10551,Electronics,Model-A897,National Logistics,Germany,Los Angeles,Sea,10/20/2023,10/21/2023,11/20/2023,11/20/2023,Delivered,436,13.62,28.59,5938.32,178.15,16,Yes,2
+10552,Apparel,SKU-8340,National Logistics,China,Chicago,Sea,6/25/2024,6/27/2024,7/30/2024,8/1/2024,Delivered,420,117.15,260.41,49203,1476.09,0,No,5
+10553,Home Goods,HG-792,Global Imports,China,Houston,Sea,7/26/2025,7/31/2025,9/7/2025,9/10/2025,Delivered,333,79.46,183.9,26460.18,793.81,0,No,5
+10554,Electronics,Model-B583,Supplier B,Mexico,Phoenix,Air,6/29/2024,7/3/2024,7/5/2024,7/6/2024,Delivered,287,102.96,187.53,29549.52,2216.21,0,No,5
+10555,Home Goods,HG-723,Global Imports,China,New York,Sea,5/6/2024,5/8/2024,6/10/2024,6/9/2024,Delayed,177,148.72,366.78,26323.44,789.7,0,No,4
+10556,Electronics,Model-D274,National Logistics,China,Los Angeles,Sea,9/27/2024,9/29/2024,10/25/2024,10/29/2024,Delivered,410,74.36,145.83,30487.6,914.63,0,No,5
+10557,Electronics,Model-D274,Supplier C,Mexico,Chicago,Land,8/8/2025,8/11/2025,8/21/2025,8/20/2025,Delayed,471,60.62,118.49,28552.02,1284.84,0,No,4
+10558,Apparel,SKU-2885,Supplier A,China,Houston,Sea,1/17/2024,1/21/2024,,2/22/2024,Cancelled,76,35.84,64.82,2723.84,81.72,0,No,
+10559,Apparel,SKU-6533,Global Imports,USA,Phoenix,Express,10/5/2024,10/6/2024,10/8/2024,10/12/2024,Delivered,190,93.3,174.74,17727,1772.7,0,No,5
+10560,Apparel,SKU-1750,Global Imports,Germany,New York,Air,8/11/2024,8/14/2024,8/20/2024,8/23/2024,Delivered,313,124.82,264.99,39068.66,2930.15,12,Yes,2
+10561,Home Goods,HG-871,Global Imports,USA,Los Angeles,Express,6/29/2024,6/30/2024,7/3/2024,7/5/2024,Delivered,197,14.37,28.88,2830.89,283.09,0,No,5
+10562,Electronics,Model-C260,Supplier B,Mexico,Chicago,Air,1/26/2025,1/29/2025,,2/3/2025,Cancelled,375,87.91,148.34,32966.25,2472.47,0,No,
+10563,Home Goods,HG-593,Supplier B,USA,Houston,Air,12/20/2024,12/21/2024,12/26/2024,12/27/2024,Delivered,347,113.09,259.98,39242.23,2943.17,0,No,5
+10564,Home Goods,HG-723,Supplier A,USA,Phoenix,Express,9/22/2025,9/23/2025,9/24/2025,9/24/2025,Delivered,441,87.83,175.88,38733.03,3873.3,0,No,5
+10565,Electronics,Model-A897,Supplier B,USA,New York,Air,8/29/2024,9/1/2024,9/6/2024,9/6/2024,Delivered,258,12.02,24.16,3101.16,232.59,0,No,5
+10566,Home Goods,HG-792,National Logistics,Vietnam,Los Angeles,Sea,8/20/2024,8/25/2024,9/23/2024,9/24/2024,Delivered,256,62.58,129,16020.48,480.61,8,No,3
+10567,Electronics,Model-C260,Supplier B,USA,Chicago,Sea,12/9/2024,12/11/2024,1/15/2025,1/15/2025,Delivered,373,46.7,97.61,17419.1,522.57,0,No,5
+10568,Home Goods,HG-792,Supplier B,Germany,Houston,Sea,7/1/2024,7/2/2024,7/25/2024,7/28/2024,Delivered,133,33.17,65.06,4411.61,132.35,0,No,5
+10569,Home Goods,HG-871,Supplier B,Germany,Phoenix,Air,7/4/2025,7/9/2025,7/12/2025,7/11/2025,Delayed,364,109.06,255.78,39697.84,2977.34,0,Yes,3
+10570,Apparel,SKU-6533,Supplier B,USA,New York,Express,3/26/2024,3/27/2024,3/30/2024,3/29/2024,Delayed,127,64.28,155.35,8163.56,816.36,0,Yes,3
+10571,Home Goods,HG-723,Supplier A,Mexico,Los Angeles,Express,9/26/2024,10/1/2024,10/4/2024,10/7/2024,Delivered,322,51.24,94.7,16499.28,1649.93,0,No,5
+10572,Electronics,Model-A897,Supplier B,Vietnam,Chicago,Express,10/12/2023,10/16/2023,10/18/2023,10/21/2023,Delivered,206,121.61,275.13,25051.66,2505.17,0,No,5
+10573,Apparel,SKU-7098,National Logistics,Germany,Houston,Land,8/3/2024,8/7/2024,8/14/2024,8/17/2024,Delivered,402,128.88,312.13,51809.76,2331.44,0,No,5
+10574,Apparel,SKU-6533,Global Imports,USA,Phoenix,Land,12/29/2024,12/30/2024,1/7/2025,1/9/2025,Delivered,271,66.03,106.56,17894.13,805.24,0,No,5
+10575,Home Goods,HG-723,National Logistics,Mexico,New York,Land,11/6/2024,11/10/2024,11/18/2024,11/22/2024,Delivered,157,66.29,109.91,10407.53,468.34,0,No,5
+10576,Electronics,Model-C260,Supplier A,China,Los Angeles,Land,1/12/2025,1/17/2025,1/22/2025,1/25/2025,Delivered,68,123.5,292.66,8398,377.91,0,No,5
+10577,Home Goods,HG-792,National Logistics,China,Chicago,Air,7/16/2025,7/18/2025,7/24/2025,7/28/2025,Delivered,264,114.54,184.49,30238.56,2267.89,0,No,5
+10578,Home Goods,HG-792,Global Imports,USA,Houston,Express,4/12/2025,4/17/2025,4/19/2025,4/22/2025,Delivered,100,149.11,332.53,14911,1491.1,0,No,5
+10579,Electronics,Model-D274,Supplier A,Mexico,Phoenix,Express,6/30/2025,7/5/2025,7/6/2025,7/7/2025,Delivered,108,136.5,233.48,14742,1474.2,0,No,5
+10580,Apparel,SKU-7098,Supplier A,China,New York,Land,8/25/2024,8/26/2024,8/31/2024,8/30/2024,Delayed,103,104.56,200.33,10769.68,484.64,0,No,4
+10581,Apparel,SKU-2885,Global Imports,China,Los Angeles,Sea,10/31/2024,11/4/2024,12/3/2024,12/7/2024,Delivered,494,49.99,115.86,24695.06,740.85,0,No,5
+10582,Apparel,SKU-6533,National Logistics,China,Chicago,Sea,3/26/2024,3/31/2024,5/7/2024,5/10/2024,Delivered,272,144.99,355.36,39437.28,1183.12,0,No,5
+10583,Home Goods,HG-753,Global Imports,Mexico,Houston,Sea,5/27/2024,5/31/2024,6/26/2024,6/27/2024,Delivered,60,84.65,200.52,5079,152.37,0,No,5
+10584,Home Goods,HG-723,Supplier B,USA,Phoenix,Air,2/3/2024,2/4/2024,,2/13/2024,Cancelled,163,119.29,206.96,19444.27,1458.32,0,No,
+10585,Apparel,SKU-2885,Supplier B,Vietnam,New York,Air,3/22/2024,3/25/2024,,4/1/2024,Cancelled,456,111.45,191.19,50821.2,3811.59,0,No,
+10586,Electronics,Model-D274,National Logistics,Mexico,Los Angeles,Air,7/24/2025,7/26/2025,7/30/2025,8/3/2025,Delivered,71,63.5,98.62,4508.5,338.14,0,No,5
+10587,Apparel,SKU-6533,Supplier A,Vietnam,Chicago,Land,6/18/2025,6/19/2025,6/30/2025,7/3/2025,Delivered,190,78.89,168.48,14989.1,674.51,0,No,5
+10588,Apparel,SKU-6533,National Logistics,USA,Houston,Land,7/13/2025,7/16/2025,7/26/2025,7/26/2025,Delivered,449,15.06,36.77,6761.94,304.29,0,No,5
+10589,Electronics,Model-B583,National Logistics,Mexico,Phoenix,Express,8/22/2025,8/27/2025,8/28/2025,8/28/2025,Delivered,490,52.82,124.53,25881.8,2588.18,0,No,5
+10590,Apparel,SKU-6533,Supplier B,Vietnam,New York,Air,2/6/2024,2/9/2024,2/13/2024,2/13/2024,Delivered,199,22.31,38.25,4439.69,332.98,0,No,5
+10591,Home Goods,HG-871,Supplier B,China,Los Angeles,Land,6/15/2024,6/18/2024,6/23/2024,6/22/2024,Delayed,350,146.74,311.7,51359,2311.16,0,No,4
+10592,Apparel,SKU-6533,National Logistics,Mexico,Chicago,Land,8/5/2025,8/10/2025,8/21/2025,8/22/2025,Delivered,414,142.03,288.86,58800.42,2646.02,0,No,5
+10593,Home Goods,HG-871,Supplier C,USA,Houston,Land,4/28/2024,5/2/2024,5/9/2024,5/8/2024,Delayed,186,126.14,272.4,23462.04,1055.79,0,No,4
+10594,Home Goods,HG-871,Supplier A,China,Phoenix,Land,1/6/2025,1/9/2025,1/20/2025,1/20/2025,Delivered,485,21.58,33.06,10466.3,470.98,0,No,5
+10595,Apparel,SKU-8340,Global Imports,Germany,New York,Land,9/23/2024,9/26/2024,10/2/2024,10/4/2024,Delivered,101,139.91,262.44,14130.91,635.89,0,No,5
+10596,Home Goods,HG-792,National Logistics,Vietnam,Los Angeles,Sea,6/11/2025,6/12/2025,7/15/2025,7/18/2025,Delivered,282,143.66,253.09,40512.12,1215.36,5,Yes,2
+10597,Electronics,Model-D274,Supplier C,Mexico,Chicago,Air,1/3/2025,1/4/2025,,1/8/2025,Cancelled,426,142.03,340.34,60504.78,4537.86,0,No,
+10598,Electronics,Model-C260,Global Imports,China,Houston,Sea,7/27/2024,7/29/2024,8/20/2024,8/21/2024,Delivered,115,138.1,209.84,15881.5,476.44,0,No,5
+10599,Apparel,SKU-2885,Supplier A,China,Phoenix,Land,11/16/2023,11/20/2023,11/30/2023,12/4/2023,Delivered,161,45.04,96.95,7251.44,326.31,0,No,5
+10600,Apparel,SKU-6533,Supplier C,USA,New York,Air,11/5/2024,11/9/2024,11/16/2024,11/16/2024,Delivered,496,38.67,61.85,19180.32,1438.52,0,No,5
+10601,Apparel,SKU-1750,Global Imports,China,Los Angeles,Land,11/28/2023,11/30/2023,12/6/2023,12/7/2023,Delivered,266,46.95,95.43,12488.7,561.99,0,No,5
+10602,Home Goods,HG-593,Global Imports,Germany,Chicago,Air,10/27/2024,11/1/2024,11/6/2024,11/10/2024,Delivered,93,59.92,106.89,5572.56,417.94,4,Yes,2
+10603,Apparel,SKU-8340,Global Imports,Mexico,Houston,Express,11/30/2023,12/4/2023,12/6/2023,12/7/2023,Delivered,233,49.61,112.41,11559.13,1155.91,0,No,5
+10604,Electronics,Model-C260,Supplier A,Mexico,Phoenix,Sea,2/5/2025,2/9/2025,3/1/2025,3/2/2025,Delivered,324,133.59,242.28,43283.16,1298.49,0,No,5
+10605,Electronics,Model-B583,Supplier C,Vietnam,New York,Express,1/27/2024,1/31/2024,2/1/2024,2/4/2024,Delivered,499,34.86,83.8,17395.14,1739.51,0,No,5
+10606,Electronics,Model-B583,Supplier A,Vietnam,Los Angeles,Sea,5/29/2025,6/1/2025,7/10/2025,7/14/2025,Delivered,300,103.23,251.37,30969,929.07,0,No,5
+10607,Home Goods,HG-593,Supplier C,USA,Chicago,Land,12/25/2024,12/29/2024,1/5/2025,1/9/2025,Delivered,412,68.31,168.76,28143.72,1266.47,0,No,5
+10608,Home Goods,HG-753,Supplier B,Germany,Houston,Air,7/9/2024,7/10/2024,7/15/2024,7/19/2024,Delivered,219,36.98,55.62,8098.62,607.4,0,No,5
+10609,Apparel,SKU-1750,Supplier A,Germany,Phoenix,Sea,4/24/2024,4/25/2024,5/24/2024,5/27/2024,Delivered,257,30.52,67.07,7843.64,235.31,0,No,5
+10610,Electronics,Model-D274,Supplier B,Germany,New York,Express,10/26/2023,10/29/2023,11/1/2023,10/31/2023,Delayed,126,11.34,24.84,1428.84,142.88,0,Yes,3
+10611,Apparel,SKU-6533,Global Imports,USA,Los Angeles,Land,1/28/2025,1/29/2025,,2/8/2025,Cancelled,456,65.61,133.17,29918.16,1346.32,0,No,
+10612,Apparel,SKU-6533,National Logistics,Vietnam,Chicago,Air,8/29/2024,9/2/2024,9/8/2024,9/10/2024,Delivered,442,26.14,47.33,11553.88,866.54,0,No,5
+10613,Apparel,SKU-2885,Supplier B,Vietnam,Houston,Air,3/18/2024,3/23/2024,3/25/2024,3/28/2024,Delivered,424,96.38,205.58,40865.12,3064.88,0,No,5
+10614,Home Goods,HG-723,Supplier C,Vietnam,Phoenix,Express,9/28/2025,9/29/2025,10/2/2025,10/5/2025,Delivered,227,118.38,253.78,26872.26,2687.23,1,No,3
+10615,Home Goods,HG-753,Supplier A,Germany,New York,Air,10/25/2023,10/29/2023,11/1/2023,11/1/2023,Delivered,399,51.58,84.84,20580.42,1543.53,0,No,5
+10616,Apparel,SKU-6533,Supplier A,China,Los Angeles,Sea,8/21/2024,8/23/2024,9/18/2024,9/19/2024,Delivered,225,129.57,282.14,29153.25,874.6,0,No,5
+10617,Home Goods,HG-723,Supplier A,Mexico,Chicago,Air,9/13/2025,9/16/2025,9/18/2025,9/20/2025,Delivered,259,117.83,279.87,30517.97,2288.85,0,No,5
+10618,Electronics,Model-E903,Global Imports,Mexico,Houston,Express,2/6/2025,2/10/2025,2/11/2025,2/13/2025,Delivered,183,134.99,272.8,24703.17,2470.32,0,No,5
+10619,Apparel,SKU-8340,Supplier A,Germany,Phoenix,Express,1/30/2024,2/3/2024,2/6/2024,2/5/2024,Delayed,70,75.46,119.12,5282.2,528.22,0,No,4
+10620,Apparel,SKU-6533,National Logistics,China,New York,Sea,3/25/2025,3/26/2025,4/30/2025,4/29/2025,Delayed,161,65.49,126.69,10543.89,316.32,0,No,4
+10621,Electronics,Model-D274,Supplier A,Germany,Los Angeles,Express,4/12/2025,4/14/2025,4/16/2025,4/17/2025,Delivered,494,111.45,256.35,55056.3,5505.63,0,No,5
+10622,Apparel,SKU-2885,Supplier B,China,Chicago,Air,3/4/2024,3/9/2024,3/15/2024,3/17/2024,Delivered,198,81.1,148.64,16057.8,1204.34,0,No,5
+10623,Electronics,Model-A897,Supplier B,Germany,Houston,Air,5/2/2025,5/5/2025,5/9/2025,5/11/2025,Delivered,65,85.83,171.46,5578.95,418.42,0,No,5
+10624,Electronics,Model-A897,Supplier A,Mexico,Phoenix,Air,1/12/2025,1/17/2025,,1/26/2025,Cancelled,170,18.76,33.2,3189.2,239.19,0,No,
+10625,Electronics,Model-A897,Supplier B,Germany,New York,Land,2/10/2025,2/15/2025,2/20/2025,2/24/2025,Delivered,170,20.66,40.41,3512.2,158.05,7,No,3
+10626,Home Goods,HG-753,Supplier B,China,Los Angeles,Air,2/2/2025,2/4/2025,2/6/2025,2/7/2025,Delivered,196,16.43,31.1,3220.28,241.52,0,No,5
+10627,Home Goods,HG-723,National Logistics,Germany,Chicago,Sea,4/8/2024,4/12/2024,5/2/2024,5/5/2024,Delivered,218,19.91,33.21,4340.38,130.21,0,No,5
+10628,Electronics,Model-C260,Supplier C,China,Houston,Sea,2/4/2024,2/7/2024,3/2/2024,3/5/2024,Delivered,470,81.72,144.58,38408.4,1152.25,0,No,5
+10629,Apparel,SKU-2885,Supplier A,Vietnam,Phoenix,Sea,9/19/2024,9/23/2024,10/21/2024,10/22/2024,Delivered,273,91.91,154.84,25091.43,752.74,0,No,5
+10630,Apparel,SKU-1750,Supplier B,USA,New York,Air,8/24/2024,8/27/2024,8/31/2024,9/1/2024,Delivered,352,83.97,175.2,29557.44,2216.81,0,No,5
+10631,Apparel,SKU-7098,Supplier C,USA,Los Angeles,Sea,4/18/2025,4/23/2025,6/2/2025,6/2/2025,Delivered,126,135.48,236.22,17070.48,512.11,6,Yes,2
+10632,Electronics,Model-E903,Supplier B,Vietnam,Chicago,Land,3/2/2025,3/3/2025,3/9/2025,3/10/2025,Delivered,200,51.73,84.67,10346,465.57,0,No,5
+10633,Home Goods,HG-723,Supplier C,Germany,Houston,Air,5/14/2025,5/18/2025,5/23/2025,5/22/2025,Delayed,335,111.68,176.76,37412.8,2805.96,0,Yes,3
+10634,Home Goods,HG-753,National Logistics,China,Phoenix,Land,12/4/2023,12/8/2023,12/19/2023,12/22/2023,Delivered,139,66.28,141.61,9212.92,414.58,0,No,5
+10635,Home Goods,HG-871,Global Imports,China,New York,Express,5/6/2025,5/9/2025,5/10/2025,5/12/2025,Delivered,217,80.64,181.07,17498.88,1749.89,2,No,3
+10636,Apparel,SKU-6533,Supplier A,USA,Los Angeles,Sea,11/26/2023,11/29/2023,1/5/2024,1/7/2024,Delivered,465,87.19,211.53,40543.35,1216.3,0,No,5
+10637,Apparel,SKU-2885,Global Imports,Vietnam,Chicago,Land,6/6/2024,6/7/2024,6/14/2024,6/13/2024,Delayed,209,61.95,106.62,12947.55,582.64,0,Yes,3
+10638,Apparel,SKU-8340,Supplier B,USA,Houston,Express,2/29/2024,3/5/2024,3/6/2024,3/9/2024,Delivered,423,42.44,93.04,17952.12,1795.21,0,No,5
+10639,Apparel,SKU-6533,Supplier B,Germany,Phoenix,Sea,4/29/2025,5/4/2025,6/13/2025,6/16/2025,Delivered,150,146.09,297.68,21913.5,657.4,3,No,3
+10640,Apparel,SKU-8340,Supplier B,USA,New York,Sea,1/23/2025,1/27/2025,2/18/2025,2/21/2025,Delivered,235,100.58,157.21,23636.3,709.09,0,No,5
+10641,Apparel,SKU-8340,Supplier C,USA,Los Angeles,Sea,5/31/2024,6/2/2024,7/7/2024,7/8/2024,Delivered,183,66.6,124.22,12187.8,365.63,0,No,5
+10642,Electronics,Model-B583,National Logistics,Germany,Chicago,Sea,8/29/2025,8/30/2025,9/24/2025,9/23/2025,Delayed,204,122.33,210.58,24955.32,748.66,0,No,4
+10643,Electronics,Model-A897,Global Imports,Vietnam,Houston,Air,5/2/2024,5/7/2024,5/12/2024,5/11/2024,Delayed,423,63.17,141.9,26720.91,2004.07,0,No,4
+10644,Electronics,Model-B583,Supplier B,Mexico,Phoenix,Air,4/24/2025,4/26/2025,5/1/2025,4/30/2025,Delayed,241,134.86,308.4,32501.26,2437.59,0,No,4
+10645,Electronics,Model-E903,Supplier A,USA,New York,Air,9/16/2025,9/20/2025,9/27/2025,9/30/2025,Delivered,487,44.64,80.16,21739.68,1630.48,36,No,3
+10646,Apparel,SKU-7098,Supplier C,Germany,Los Angeles,Express,6/14/2025,6/17/2025,6/20/2025,6/20/2025,Delivered,261,125.7,212.83,32807.7,3280.77,0,No,5
+10647,Apparel,SKU-1750,Supplier A,Vietnam,Chicago,Express,9/15/2024,9/17/2024,9/18/2024,9/18/2024,Delivered,158,75.05,143.56,11857.9,1185.79,0,No,5
+10648,Electronics,Model-B583,Supplier A,China,Houston,Express,10/3/2025,10/5/2025,10/7/2025,10/9/2025,Delivered,427,66.23,124.73,28280.21,2828.02,0,No,5
+10649,Home Goods,HG-753,Supplier A,USA,Phoenix,Land,12/25/2023,12/27/2023,1/8/2024,1/8/2024,Delivered,194,45.26,94.47,8780.44,395.12,6,No,3
+10650,Home Goods,HG-593,Supplier C,China,New York,Express,3/1/2024,3/4/2024,3/5/2024,3/9/2024,Delivered,179,61.29,112.7,10970.91,1097.09,0,No,5
+10651,Apparel,SKU-1750,Global Imports,Germany,Los Angeles,Sea,9/27/2025,10/1/2025,10/22/2025,10/25/2025,Delivered,448,134.98,273.23,60471.04,1814.13,0,No,5
+10652,Electronics,Model-E903,Global Imports,Vietnam,Chicago,Land,10/28/2023,11/1/2023,11/10/2023,11/14/2023,Delivered,314,68.5,163.97,21509,967.91,0,No,5
+10653,Electronics,Model-D274,Supplier C,China,Houston,Sea,2/16/2025,2/19/2025,3/13/2025,3/16/2025,Delivered,242,55.97,89.79,13544.74,406.34,0,No,5
+10654,Electronics,Model-D274,Supplier B,China,Phoenix,Express,4/4/2025,4/8/2025,,4/14/2025,Cancelled,320,33.12,70.13,10598.4,1059.84,0,No,
+10655,Electronics,Model-B583,Supplier C,USA,New York,Express,9/23/2025,9/25/2025,9/26/2025,9/26/2025,Delivered,118,138.72,269.47,16368.96,1636.9,0,No,5
+10656,Apparel,SKU-1750,Supplier A,China,Los Angeles,Land,2/12/2024,2/15/2024,2/25/2024,2/26/2024,Delivered,333,76.49,120.63,25471.17,1146.2,0,No,5
+10657,Home Goods,HG-792,National Logistics,Germany,Chicago,Sea,12/31/2024,1/3/2025,2/11/2025,2/13/2025,Delivered,291,87.17,213.78,25366.47,760.99,0,No,5
+10658,Electronics,Model-E903,Supplier C,USA,Houston,Land,2/15/2024,2/20/2024,3/3/2024,3/2/2024,Delayed,486,39.93,78.83,19405.98,873.27,0,Yes,3
+10659,Apparel,SKU-6533,Global Imports,USA,Phoenix,Sea,2/8/2024,2/10/2024,3/1/2024,3/4/2024,Delivered,263,28.07,68.36,7382.41,221.47,0,No,5
+10660,Apparel,SKU-2885,Supplier A,Germany,New York,Sea,6/3/2024,6/8/2024,7/9/2024,7/8/2024,Delayed,494,115.11,222.31,56864.34,1705.93,0,No,4
+10661,Electronics,Model-C260,Global Imports,Germany,Los Angeles,Sea,8/4/2025,8/6/2025,8/31/2025,8/31/2025,Delivered,248,14.77,35.58,3662.96,109.89,0,No,5
+10662,Home Goods,HG-723,Global Imports,USA,Chicago,Land,11/11/2024,11/12/2024,11/20/2024,11/20/2024,Delivered,341,54.4,110.94,18550.4,834.77,0,No,5
+10663,Electronics,Model-B583,Supplier A,Mexico,Houston,Air,3/21/2024,3/25/2024,3/31/2024,4/4/2024,Delivered,95,124.53,301.1,11830.35,887.28,0,No,5
+10664,Home Goods,HG-593,Supplier A,China,Phoenix,Air,5/13/2025,5/18/2025,5/24/2025,5/25/2025,Delivered,129,88.22,210.29,11380.38,853.53,0,No,5
+10665,Apparel,SKU-2885,Supplier B,Germany,New York,Express,12/9/2024,12/13/2024,12/15/2024,12/18/2024,Delivered,237,148.06,352.18,35090.22,3509.02,0,No,5
+10666,Home Goods,HG-753,Supplier C,Germany,Los Angeles,Express,12/23/2024,12/24/2024,12/25/2024,12/25/2024,Delivered,363,83.56,157.2,30332.28,3033.23,0,No,5
+10667,Apparel,SKU-6533,National Logistics,Vietnam,Chicago,Air,11/9/2023,11/12/2023,11/19/2023,11/20/2023,Delivered,155,40.8,86.29,6324,474.3,0,No,5
+10668,Electronics,Model-D274,Global Imports,USA,Houston,Express,12/6/2024,12/11/2024,12/14/2024,12/13/2024,Delayed,366,131.64,311.64,48180.24,4818.02,0,No,4
+10669,Home Goods,HG-871,Supplier A,Vietnam,Phoenix,Air,5/12/2024,5/16/2024,5/21/2024,5/24/2024,Delivered,126,29.08,53.29,3664.08,274.81,0,No,5
+10670,Electronics,Model-D274,Supplier A,Mexico,New York,Air,4/11/2025,4/13/2025,4/15/2025,4/17/2025,Delivered,331,105.32,189.19,34860.92,2614.57,0,No,5
+10671,Electronics,Model-C260,Supplier A,USA,Los Angeles,Air,2/22/2024,2/23/2024,2/27/2024,2/29/2024,Delivered,235,100.94,238.91,23720.9,1779.07,0,No,5
+10672,Apparel,SKU-6533,Supplier A,USA,Chicago,Land,10/26/2024,10/30/2024,11/7/2024,11/10/2024,Delivered,53,53.18,86.77,2818.54,126.83,0,No,5
+10673,Apparel,SKU-1750,Global Imports,USA,Houston,Air,3/12/2025,3/15/2025,3/20/2025,3/22/2025,Delivered,323,90.83,204.19,29338.09,2200.36,1,No,3
+10674,Home Goods,HG-593,Supplier A,Mexico,Phoenix,Land,12/15/2023,12/17/2023,12/26/2023,12/27/2023,Delivered,138,46.88,106.77,6469.44,291.12,0,No,5
+10675,Home Goods,HG-723,Global Imports,USA,New York,Sea,1/14/2025,1/18/2025,,3/1/2025,Cancelled,59,91.38,223.97,5391.42,161.74,0,No,
+10676,Apparel,SKU-6533,Supplier C,Mexico,Los Angeles,Express,11/26/2023,11/27/2023,11/29/2023,11/29/2023,Delivered,473,44.64,78.9,21114.72,2111.47,0,No,5
+10677,Home Goods,HG-723,Global Imports,USA,Chicago,Land,8/16/2024,8/19/2024,8/30/2024,9/3/2024,Delivered,390,121.86,217.41,47525.4,2138.64,0,No,5
+10678,Home Goods,HG-753,Supplier C,USA,Houston,Express,10/1/2024,10/5/2024,10/6/2024,10/5/2024,Delayed,52,43.77,106.16,2276.04,227.6,0,Yes,3
+10679,Electronics,Model-B583,Supplier A,China,Phoenix,Express,7/5/2024,7/10/2024,7/13/2024,7/14/2024,Delivered,496,105.78,253.91,52466.88,5246.69,0,No,5
+10680,Apparel,SKU-1750,Supplier A,Mexico,New York,Air,6/12/2025,6/14/2025,6/21/2025,6/20/2025,Delayed,181,121.77,209,22040.37,1653.03,0,No,4
+10681,Home Goods,HG-593,Supplier B,USA,Los Angeles,Express,11/12/2024,11/16/2024,11/19/2024,11/22/2024,Delivered,74,53.64,92.41,3969.36,396.94,0,No,5
+10682,Apparel,SKU-7098,Supplier C,China,Chicago,Land,12/27/2023,1/1/2024,1/9/2024,1/10/2024,Delivered,242,112.19,265.71,27149.98,1221.75,0,No,5
+10683,Electronics,Model-E903,National Logistics,China,Houston,Air,4/10/2024,4/13/2024,4/15/2024,4/14/2024,Delayed,484,148.76,355.02,71999.84,5399.99,0,Yes,3
+10684,Apparel,SKU-8340,Supplier B,USA,Phoenix,Air,10/8/2024,10/13/2024,10/19/2024,10/21/2024,Delivered,83,145.07,234.47,12040.81,903.06,0,No,5
+10685,Electronics,Model-A897,National Logistics,Germany,New York,Sea,4/11/2024,4/14/2024,5/20/2024,5/20/2024,Delivered,98,13.23,24.32,1296.54,38.9,0,No,5
+10686,Electronics,Model-B583,Global Imports,USA,Los Angeles,Sea,5/26/2025,5/29/2025,6/20/2025,6/23/2025,Delivered,483,69.64,167.49,33636.12,1009.08,0,No,5
+10687,Electronics,Model-D274,Supplier B,USA,Chicago,Express,4/17/2025,4/18/2025,4/21/2025,4/20/2025,Delayed,50,52.61,80.54,2630.5,263.05,0,No,4
+10688,Home Goods,HG-593,Global Imports,USA,Houston,Land,6/19/2024,6/24/2024,7/2/2024,7/5/2024,Delivered,164,88.8,209.27,14563.2,655.34,0,No,5
+10689,Apparel,SKU-7098,Supplier B,Mexico,,Express,3/5/2025,3/10/2025,3/11/2025,3/12/2025,Delivered,129,118.12,203.14,15237.48,1523.75,0,No,5
+10690,Home Goods,HG-753,Supplier B,Germany,New York,Express,12/4/2024,12/6/2024,12/7/2024,12/6/2024,Delayed,352,47.36,109.81,16670.72,1667.07,0,Yes,3
+10691,Apparel,SKU-8340,Global Imports,USA,Los Angeles,Land,8/30/2025,9/2/2025,9/10/2025,9/13/2025,Delivered,110,11.64,22.49,1280.4,57.62,0,No,5
+10692,Home Goods,HG-871,National Logistics,USA,Chicago,Land,4/17/2024,4/18/2024,4/30/2024,4/30/2024,Delivered,425,16.79,33.18,7135.75,321.11,0,No,5
+10693,Electronics,Model-C260,Global Imports,Germany,Houston,Express,2/13/2025,2/14/2025,2/15/2025,2/18/2025,Delivered,461,26.58,49.7,12253.38,1225.34,0,No,5
+10694,Electronics,Model-C260,Supplier B,China,Phoenix,Express,5/10/2024,5/15/2024,5/18/2024,5/18/2024,Delivered,74,121.23,220.21,8971.02,897.1,0,No,5
+10695,Apparel,SKU-2885,Supplier B,USA,New York,Sea,9/27/2024,9/29/2024,11/3/2024,11/6/2024,Delivered,232,96.69,173.26,22432.08,672.96,0,No,5
+10696,Home Goods,HG-792,Supplier B,Germany,Los Angeles,Air,5/11/2025,5/16/2025,5/23/2025,5/22/2025,Delayed,296,64.42,126.36,19068.32,1430.12,0,No,4
+10697,Home Goods,HG-792,Global Imports,USA,Chicago,Express,1/11/2024,1/12/2024,1/14/2024,1/16/2024,Delivered,125,60.73,127.08,7591.25,759.12,0,No,5
+10698,Apparel,SKU-7098,Supplier C,Germany,Houston,Land,3/27/2025,3/29/2025,4/9/2025,4/13/2025,Delivered,367,17.32,40.32,6356.44,286.04,0,No,5
+10699,Electronics,Model-B583,Global Imports,Mexico,Phoenix,Air,11/28/2024,12/1/2024,12/7/2024,12/11/2024,Delivered,439,35.74,88.73,15689.86,1176.74,0,No,5
+10700,Home Goods,HG-723,Supplier B,China,New York,Express,12/2/2024,12/4/2024,12/6/2024,12/7/2024,Delivered,158,114.94,226.27,18160.52,1816.05,0,No,5
+10701,Home Goods,HG-593,Supplier B,China,Los Angeles,Air,6/12/2025,6/16/2025,6/23/2025,6/24/2025,Delivered,210,24.55,52.72,5155.5,386.66,0,No,5
+10702,Electronics,Model-B583,Supplier B,China,Chicago,Express,8/1/2024,8/4/2024,8/5/2024,8/8/2024,Delivered,324,147.93,239.37,47929.32,4792.93,0,No,5
+10703,Electronics,Model-D274,Supplier C,Vietnam,Houston,Air,7/22/2025,7/26/2025,7/29/2025,8/2/2025,Delivered,441,106.13,181.38,46803.33,3510.25,0,No,5
+10704,Home Goods,HG-753,Global Imports,China,Phoenix,Sea,11/2/2023,11/3/2023,12/2/2023,12/1/2023,Delayed,429,19.74,47.71,8468.46,254.05,0,No,4
+10705,Electronics,Model-A897,Global Imports,USA,New York,Express,10/2/2024,10/5/2024,10/6/2024,10/5/2024,Delayed,278,55.8,110.38,15512.4,1551.24,0,Yes,3
+10706,Home Goods,HG-871,Supplier C,Germany,Los Angeles,Land,2/18/2025,2/20/2025,2/25/2025,2/25/2025,Delivered,65,48.21,112.47,3133.65,141.01,0,No,5
+10707,Electronics,Model-B583,Supplier B,USA,Chicago,Sea,11/25/2023,11/28/2023,,1/5/2024,Cancelled,102,21.56,44.25,2199.12,65.97,0,No,
+10708,Home Goods,HG-871,Supplier C,Vietnam,Houston,Land,2/25/2024,2/26/2024,3/9/2024,3/13/2024,Delivered,255,80.79,147.14,20601.45,927.07,0,No,5
+10709,Electronics,Model-D274,Supplier B,Germany,Phoenix,Land,12/16/2024,12/21/2024,1/2/2025,1/5/2025,Delivered,214,150.15,282.03,32132.1,1445.94,0,No,5
+10710,Apparel,SKU-2885,Supplier C,Vietnam,New York,Land,3/24/2025,3/29/2025,,4/7/2025,Cancelled,136,142.59,252.87,19392.24,872.65,0,No,
+10711,Electronics,Model-B583,Supplier C,Germany,Los Angeles,Land,1/2/2024,1/5/2024,1/10/2024,1/10/2024,Delivered,293,105.95,212.55,31043.35,1396.95,0,No,5
+10712,Apparel,SKU-2885,Supplier A,China,Chicago,Land,10/6/2024,10/8/2024,10/14/2024,10/13/2024,Delayed,243,81.28,165.12,19751.04,888.8,0,No,4
+10713,Electronics,Model-B583,Supplier C,Vietnam,Houston,Sea,7/15/2025,7/17/2025,8/6/2025,8/8/2025,Delivered,288,36.56,60.59,10529.28,315.88,0,No,5
+10714,Home Goods,HG-753,Supplier C,USA,Phoenix,Land,2/8/2025,2/9/2025,2/20/2025,2/22/2025,Delivered,56,125.85,265.43,7047.6,317.14,0,No,5
+10715,Electronics,Model-B583,Supplier C,Mexico,New York,Sea,5/2/2024,5/7/2024,6/9/2024,6/9/2024,Delivered,71,107.73,198.64,7648.83,229.46,0,No,5
+10716,Home Goods,HG-723,Supplier A,Mexico,Los Angeles,Air,6/19/2025,6/22/2025,6/28/2025,6/29/2025,Delivered,426,65.92,130.69,28081.92,2106.14,0,No,5
+10717,Home Goods,HG-593,Supplier B,China,Chicago,Land,9/18/2024,9/22/2024,10/3/2024,10/4/2024,Delivered,246,42.69,67.26,10501.74,472.58,0,No,5
+10718,Apparel,SKU-7098,National Logistics,Germany,Houston,Sea,10/4/2025,10/5/2025,11/8/2025,11/8/2025,Delivered,181,34.63,65.08,6268.03,188.04,0,No,5
+10719,Home Goods,HG-593,Supplier C,Vietnam,Phoenix,Air,2/11/2024,2/14/2024,2/20/2024,2/22/2024,Delivered,335,26.51,57.47,8880.85,666.06,0,No,5
+10720,Electronics,Model-C260,Global Imports,Germany,New York,Air,4/2/2025,4/6/2025,4/11/2025,4/10/2025,Delayed,173,38.32,95.08,6629.36,497.2,0,Yes,3
+10721,Home Goods,HG-753,Supplier C,Mexico,Los Angeles,Land,1/7/2024,1/11/2024,1/19/2024,1/22/2024,Delivered,243,104.89,185.15,25488.27,1146.97,0,No,5
+10722,Electronics,Model-D274,Global Imports,Germany,Chicago,Express,9/29/2025,10/2/2025,,10/4/2025,Cancelled,56,110.42,266.69,6183.52,618.35,0,No,
+10723,Electronics,Model-D274,Supplier A,USA,Houston,Land,6/24/2024,6/28/2024,7/3/2024,7/6/2024,Delivered,200,25.53,43,5106,229.77,0,No,5
+10724,Apparel,SKU-6533,Supplier B,China,Phoenix,Sea,1/24/2024,1/28/2024,3/1/2024,3/3/2024,Delivered,303,102.27,235.58,30987.81,929.63,0,No,5
+10725,Apparel,SKU-2885,Supplier B,Vietnam,New York,Land,4/11/2024,4/16/2024,4/22/2024,4/22/2024,Delivered,330,94.39,150.1,31148.7,1401.69,0,No,5
+10726,Electronics,Model-A897,Supplier B,Mexico,Los Angeles,Air,11/21/2024,11/22/2024,11/27/2024,11/30/2024,Delivered,106,71.84,159.63,7615.04,571.13,0,No,5
+10727,Home Goods,HG-753,Supplier B,Vietnam,Chicago,Express,10/31/2024,11/4/2024,11/6/2024,11/9/2024,Delivered,454,99.63,243.56,45232.02,4523.2,0,No,5
+10728,Apparel,SKU-2885,Supplier A,Vietnam,Houston,Express,3/13/2025,3/15/2025,3/18/2025,3/19/2025,Delivered,480,33,72.62,15840,1584,0,No,5
+10729,Electronics,Model-C260,Global Imports,China,Phoenix,Sea,4/16/2024,4/20/2024,,5/12/2024,Cancelled,191,124.54,244.52,23787.14,713.61,0,No,
+10730,Electronics,Model-B583,Global Imports,Vietnam,New York,Air,7/4/2024,7/7/2024,7/12/2024,7/15/2024,Delivered,237,24.6,40.42,5830.2,437.26,0,No,5
+10731,Electronics,Model-C260,National Logistics,Germany,Los Angeles,Air,2/15/2025,2/20/2025,2/26/2025,3/1/2025,Delivered,476,69.01,154.86,32848.76,2463.66,11,No,3
+10732,Electronics,Model-E903,Supplier A,China,Chicago,Sea,12/5/2024,12/10/2024,1/2/2025,1/3/2025,Delivered,293,64.81,159.37,18989.33,569.68,0,No,5
+10733,Electronics,Model-B583,Supplier A,Germany,Houston,Air,7/6/2025,7/8/2025,7/10/2025,7/10/2025,Delivered,138,30.8,67.32,4250.4,318.78,0,No,5
+10734,Apparel,SKU-7098,National Logistics,Germany,Phoenix,Sea,9/19/2025,9/23/2025,10/27/2025,10/31/2025,Delivered,461,97.25,157.85,44832.25,1344.97,0,No,5
+10735,Apparel,SKU-7098,Supplier A,Vietnam,New York,Air,6/11/2025,6/16/2025,6/18/2025,6/17/2025,Delayed,253,125.52,229.2,31756.56,2381.74,0,Yes,3
+10736,Home Goods,HG-723,Supplier C,China,Los Angeles,Land,9/27/2025,9/30/2025,10/9/2025,10/9/2025,Delivered,128,45.95,97.98,5881.6,264.67,11,Yes,2
+10737,Home Goods,HG-753,Supplier C,USA,Chicago,Express,8/31/2025,9/2/2025,9/4/2025,9/4/2025,Delivered,458,68.05,114.32,31166.9,3116.69,0,No,5
+10738,Electronics,Model-D274,National Logistics,China,Houston,Land,6/5/2024,6/10/2024,6/18/2024,6/19/2024,Delivered,117,37.58,,4396.86,197.86,0,No,5
+10739,Apparel,SKU-2885,Supplier A,Vietnam,Phoenix,Sea,7/23/2025,7/28/2025,9/3/2025,9/3/2025,Delivered,120,122.73,237.28,14727.6,441.83,0,No,5
+10740,Electronics,Model-B583,Supplier A,Mexico,New York,Sea,12/20/2024,12/25/2024,1/16/2025,1/16/2025,Delivered,414,95.52,177,39545.28,1186.36,0,No,5
+10741,Apparel,SKU-7098,National Logistics,Vietnam,Los Angeles,Sea,8/2/2025,8/7/2025,9/1/2025,9/4/2025,Delivered,444,88.62,190.44,39347.28,1180.42,0,No,5
+10742,Apparel,SKU-2885,National Logistics,Vietnam,Chicago,Air,4/7/2025,4/11/2025,4/18/2025,4/21/2025,Delivered,150,119.9,283.85,17985,1348.88,0,No,5
+10743,Electronics,Model-B583,Supplier A,Mexico,Houston,Land,11/30/2024,12/3/2024,12/13/2024,12/16/2024,Delivered,339,81.96,180.45,27784.44,1250.3,0,No,5
+10744,Electronics,Model-C260,Supplier C,Vietnam,Phoenix,Land,4/6/2025,4/7/2025,4/12/2025,4/16/2025,Delivered,177,52.38,87.57,9271.26,417.21,0,No,5
+10745,Electronics,Model-C260,Global Imports,Mexico,New York,Express,11/10/2023,11/14/2023,11/16/2023,11/18/2023,Delivered,470,21.34,42.46,10029.8,1002.98,0,No,5
+10746,Home Goods,HG-871,Supplier B,Vietnam,Los Angeles,Sea,8/10/2024,8/15/2024,9/4/2024,9/4/2024,Delivered,334,24.01,51.13,8019.34,240.58,0,No,5
+10747,Apparel,SKU-7098,National Logistics,Vietnam,Chicago,Sea,4/2/2024,4/6/2024,4/29/2024,4/30/2024,Delivered,382,35,72.76,13370,401.1,0,No,5
+10748,Home Goods,HG-723,National Logistics,Germany,Houston,Express,12/30/2024,1/1/2025,,1/7/2025,Cancelled,69,73.18,139.57,5049.42,504.94,0,No,
+10749,Home Goods,HG-593,National Logistics,China,Phoenix,Land,9/25/2024,9/28/2024,10/6/2024,10/8/2024,Delivered,342,65.19,156.24,22294.98,1003.27,0,No,5
+10750,Home Goods,HG-723,National Logistics,Germany,New York,Land,2/14/2025,2/17/2025,2/23/2025,2/26/2025,Delivered,161,148,291.4,23828,1072.26,0,No,5
+10751,Electronics,Model-E903,Supplier B,China,Los Angeles,Land,7/24/2024,7/29/2024,8/8/2024,8/7/2024,Delayed,52,24.33,54.38,1265.16,56.93,0,Yes,3
+10752,Apparel,SKU-1750,National Logistics,China,Chicago,Land,2/16/2025,2/18/2025,2/28/2025,2/28/2025,Delivered,99,133.89,269.91,13255.11,596.48,0,No,5
+10753,Apparel,SKU-2885,Supplier B,Vietnam,Houston,Land,6/13/2024,6/16/2024,6/21/2024,6/25/2024,Delivered,488,109.28,174.16,53328.64,2399.79,0,No,5
+10754,Electronics,Model-B583,Supplier B,USA,Phoenix,Land,2/8/2024,2/10/2024,2/20/2024,2/24/2024,Delivered,281,45.8,76.53,12869.8,579.14,0,No,5
+10755,Electronics,Model-D274,Supplier B,USA,New York,Land,9/12/2025,9/14/2025,9/25/2025,9/29/2025,Delivered,84,141.52,338.05,11887.68,534.95,0,No,5
+10756,Electronics,Model-A897,Global Imports,Germany,Los Angeles,Air,12/27/2024,12/29/2024,1/4/2025,1/6/2025,Delivered,175,73.81,140.1,12916.75,968.76,0,No,5
+10757,Electronics,Model-D274,Supplier A,Mexico,Chicago,Express,11/3/2023,11/5/2023,11/7/2023,11/10/2023,Delivered,371,11.36,20.96,4214.56,421.46,0,No,5
+10758,Home Goods,HG-871,Supplier C,China,Houston,Air,2/4/2025,2/9/2025,2/13/2025,2/17/2025,Delivered,237,89.64,199.8,21244.68,1593.35,16,Yes,2
+10759,Apparel,SKU-1750,National Logistics,Germany,Phoenix,Express,3/7/2025,3/10/2025,3/13/2025,3/16/2025,Delivered,283,120.55,278.42,34115.65,3411.57,0,No,5
+10760,Home Goods,HG-871,Supplier C,USA,New York,Air,7/29/2024,8/3/2024,8/5/2024,8/9/2024,Delivered,215,106.98,188.93,23000.7,1725.05,0,No,5
+10761,Home Goods,HG-792,Supplier B,Germany,Los Angeles,Sea,7/16/2025,7/18/2025,,8/23/2025,Cancelled,413,118.26,263.88,48841.38,1465.24,0,No,
+10762,Electronics,Model-B583,National Logistics,USA,Chicago,Land,11/17/2024,11/20/2024,11/25/2024,11/26/2024,Delivered,209,43.31,65.31,9051.79,407.33,0,No,5
+10763,Home Goods,HG-871,National Logistics,Germany,Houston,Sea,12/13/2024,12/16/2024,1/8/2025,1/8/2025,Delivered,405,17.04,40.26,6901.2,207.04,0,No,5
+10764,Electronics,Model-C260,Supplier A,Mexico,Phoenix,Air,6/6/2024,6/8/2024,6/15/2024,6/19/2024,Delivered,444,85.12,139.74,37793.28,2834.5,0,No,5
+10765,Home Goods,HG-753,Supplier A,China,New York,Sea,6/20/2024,6/21/2024,7/15/2024,7/17/2024,Delivered,259,73.06,180.92,18922.54,567.68,0,No,5
+10766,Apparel,SKU-7098,Supplier C,Mexico,Los Angeles,Sea,6/27/2025,6/30/2025,7/29/2025,8/1/2025,Delivered,289,111.92,210.66,32344.88,970.35,0,No,5
+10767,Home Goods,HG-593,National Logistics,Vietnam,Chicago,Air,12/22/2024,12/25/2024,12/29/2024,12/30/2024,Delivered,250,150.63,232.56,37657.5,2824.31,0,No,5
+10768,Electronics,Model-D274,Global Imports,Vietnam,Houston,Air,11/14/2023,11/17/2023,11/23/2023,11/26/2023,Delivered,218,44.96,83.17,9801.28,735.1,0,No,5
+10769,Apparel,SKU-1750,Supplier A,Germany,Phoenix,Land,11/26/2024,11/28/2024,12/5/2024,12/7/2024,Delivered,266,82.7,180.38,21998.2,989.92,0,No,5
+10770,Home Goods,HG-723,National Logistics,Vietnam,New York,Sea,2/18/2024,2/20/2024,3/14/2024,3/14/2024,Delivered,61,113.22,224.05,6906.42,207.19,0,No,5
+10771,Apparel,SKU-2885,National Logistics,Mexico,Los Angeles,Air,3/25/2025,3/29/2025,4/5/2025,4/9/2025,Delivered,280,44.57,100.25,12479.6,935.97,0,No,5
+10772,Home Goods,HG-593,Supplier A,USA,Chicago,Air,6/27/2025,6/30/2025,7/3/2025,7/3/2025,Delivered,226,118.04,225.19,26677.04,2000.78,0,No,5
+10773,Electronics,Model-E903,Supplier A,Germany,,Express,11/8/2023,11/10/2023,11/13/2023,11/13/2023,Delivered,429,28.73,62.39,12325.17,1232.52,0,No,5
+10774,Home Goods,HG-593,Supplier A,Mexico,Phoenix,Express,9/13/2024,9/18/2024,9/19/2024,9/22/2024,Delivered,190,138.16,264.58,26250.4,2625.04,0,No,5
+10775,Home Goods,HG-792,Supplier A,Mexico,New York,Air,7/17/2024,7/19/2024,7/24/2024,7/27/2024,Delivered,194,22.8,46.09,4423.2,331.74,0,No,5
+10776,Electronics,Model-B583,Supplier B,China,Los Angeles,Land,11/19/2023,11/21/2023,11/29/2023,11/30/2023,Delivered,138,17.37,31.2,2397.06,107.87,0,No,5
+10777,Home Goods,HG-753,Supplier B,Vietnam,Chicago,Land,11/3/2023,11/7/2023,11/17/2023,11/18/2023,Delivered,117,125.45,228.74,14677.65,660.49,4,No,3
+10778,Apparel,SKU-2885,Supplier C,Germany,Houston,Express,3/26/2024,3/28/2024,3/31/2024,3/30/2024,Delayed,369,79.92,198.36,29490.48,2949.05,0,Yes,3
+10779,Home Goods,HG-792,Global Imports,Germany,Phoenix,Sea,3/6/2025,3/10/2025,4/16/2025,4/20/2025,Delivered,241,12.83,26.02,3092.03,92.76,0,No,5
+10780,Apparel,SKU-8340,Supplier A,Germany,New York,Sea,11/26/2024,11/28/2024,12/22/2024,12/23/2024,Delivered,308,34.04,76.97,10484.32,314.53,0,No,5
+10781,Home Goods,HG-593,National Logistics,Mexico,Los Angeles,Air,6/14/2024,6/17/2024,6/19/2024,6/21/2024,Delivered,274,136.67,280.06,37447.58,2808.57,0,No,5
+10782,Apparel,SKU-2885,Supplier A,Mexico,Chicago,Express,1/28/2024,1/31/2024,2/1/2024,2/2/2024,Delivered,133,101.32,251.15,13475.56,1347.56,0,No,5
+10783,Electronics,Model-D274,Supplier C,China,Houston,Land,5/2/2025,5/6/2025,5/14/2025,5/14/2025,Delivered,383,143.24,217.1,54860.92,2468.74,0,No,5
+10784,Apparel,SKU-7098,Supplier C,Vietnam,Phoenix,Express,10/4/2024,10/7/2024,10/9/2024,10/11/2024,Delivered,266,142.44,233.52,37889.04,3788.9,0,No,5
+10785,Apparel,SKU-1750,Supplier B,Vietnam,New York,Air,5/10/2024,5/14/2024,5/20/2024,5/22/2024,Delivered,58,83.74,189.43,4856.92,364.27,0,No,5
+10786,Home Goods,HG-792,Supplier C,Mexico,Los Angeles,Land,5/25/2025,5/29/2025,6/10/2025,6/14/2025,Delivered,219,108.18,256.53,23691.42,1066.11,0,No,5
+10787,Home Goods,HG-723,National Logistics,Vietnam,Chicago,Land,2/5/2025,2/8/2025,2/15/2025,2/15/2025,Delivered,400,43.91,83.52,17564,790.38,0,No,5
+10788,Home Goods,HG-723,National Logistics,Mexico,Houston,Land,5/20/2024,5/21/2024,5/27/2024,5/28/2024,Delivered,53,130.65,249.17,6924.45,311.6,0,No,5
+10789,Electronics,Model-B583,Supplier A,Vietnam,Phoenix,Land,3/2/2024,3/6/2024,3/13/2024,3/14/2024,Delivered,238,142.76,337.55,33976.88,1528.96,12,No,3
+10790,Electronics,Model-D274,Global Imports,USA,New York,Express,11/27/2024,11/29/2024,11/30/2024,12/4/2024,Delivered,482,15.37,24.08,7408.34,740.83,0,No,5
+10791,Apparel,SKU-2885,National Logistics,China,Los Angeles,Air,11/19/2024,11/24/2024,12/1/2024,12/2/2024,Delivered,227,72.62,115.78,16484.74,1236.36,0,No,5
+10792,Home Goods,HG-792,National Logistics,USA,Chicago,Express,6/27/2025,7/1/2025,7/2/2025,7/4/2025,Delivered,199,69.42,153.23,13814.58,1381.46,0,No,5
+10793,Electronics,Model-B583,Supplier A,Vietnam,Houston,Express,4/4/2025,4/6/2025,4/9/2025,4/12/2025,Delivered,179,108.86,246.94,19485.94,1948.59,0,No,5
+10794,Apparel,SKU-6533,Supplier B,USA,Phoenix,Air,7/15/2024,7/18/2024,7/22/2024,7/26/2024,Delivered,466,115.19,265.44,53678.54,4025.89,0,No,5
+10795,Home Goods,HG-792,Supplier A,Mexico,New York,Air,5/28/2024,6/1/2024,6/4/2024,6/8/2024,Delivered,131,61.09,134.5,8002.79,600.21,0,No,5
+10796,Home Goods,HG-871,Supplier A,USA,Los Angeles,Express,12/13/2024,12/18/2024,,12/19/2024,Cancelled,327,122.62,228.05,40096.74,4009.67,0,No,
+10797,Electronics,Model-A897,National Logistics,Mexico,Chicago,Sea,9/8/2025,9/12/2025,10/22/2025,10/22/2025,Delivered,101,50.82,80.57,5132.82,153.98,0,No,5
+10798,Apparel,SKU-1750,Supplier A,China,Houston,Express,3/27/2024,3/29/2024,4/1/2024,4/4/2024,Delivered,300,85.7,207.18,25710,2571,0,No,5
+10799,Apparel,SKU-7098,National Logistics,China,Phoenix,Land,3/26/2025,3/30/2025,4/11/2025,4/12/2025,Delivered,386,138.89,312.04,53611.54,2412.52,11,Yes,2
+10800,Electronics,Model-D274,Supplier C,USA,New York,Land,4/5/2024,4/7/2024,4/18/2024,4/20/2024,Delivered,274,37.41,69.48,10250.34,461.27,0,No,5
+10801,Apparel,SKU-6533,Global Imports,Germany,Los Angeles,Air,7/26/2025,7/28/2025,8/2/2025,8/2/2025,Delivered,180,95.26,196.97,17146.8,1286.01,0,No,5
+10802,Electronics,Model-A897,Supplier A,USA,Chicago,Air,6/14/2025,6/17/2025,6/21/2025,6/20/2025,Delayed,450,135.67,317.87,61051.5,4578.86,28,No,2
+10803,Apparel,SKU-7098,Supplier B,USA,Houston,Land,9/15/2024,9/19/2024,9/29/2024,10/1/2024,Delivered,237,113.75,201.99,26958.75,1213.14,0,No,5
+10804,Apparel,SKU-8340,Global Imports,Vietnam,Phoenix,Air,2/28/2024,2/29/2024,3/4/2024,3/6/2024,Delivered,149,51.08,104.76,7610.92,570.82,5,No,3
+10805,Home Goods,HG-871,Supplier C,Mexico,New York,Sea,2/17/2024,2/18/2024,3/23/2024,3/27/2024,Delivered,216,124.5,274.25,26892,806.76,0,No,5
+10806,Home Goods,HG-593,Supplier B,Mexico,Los Angeles,Express,4/11/2025,4/16/2025,4/19/2025,4/23/2025,Delivered,94,147.73,308.97,13886.62,1388.66,0,No,5
+10807,Home Goods,HG-753,National Logistics,USA,Chicago,Sea,1/14/2025,1/16/2025,,2/15/2025,Cancelled,255,25.46,41.45,6492.3,194.77,0,No,
+10808,Apparel,SKU-6533,Supplier A,USA,Houston,Sea,6/13/2025,6/14/2025,7/5/2025,7/9/2025,Delivered,497,114.24,271.43,56777.28,1703.32,0,No,5
+10809,Electronics,Model-B583,Supplier B,Germany,Phoenix,Air,3/19/2024,3/23/2024,3/25/2024,3/27/2024,Delivered,158,96.58,199.8,15259.64,1144.47,0,No,5
+10810,Home Goods,HG-723,Supplier B,Germany,New York,Land,9/24/2024,9/25/2024,10/6/2024,10/10/2024,Delivered,465,106.58,209.89,,2230.19,0,No,5
+10811,Home Goods,HG-792,Global Imports,USA,Los Angeles,Sea,6/10/2025,6/11/2025,7/13/2025,7/12/2025,Delayed,443,62.67,101.21,27762.81,832.88,0,No,4
+10812,Apparel,SKU-6533,Supplier C,USA,Chicago,Sea,12/16/2024,12/17/2024,1/8/2025,1/10/2025,Delivered,205,81.73,179.18,16754.65,502.64,0,No,5
+10813,Home Goods,HG-593,Global Imports,Germany,Houston,Land,8/24/2025,8/29/2025,9/10/2025,9/14/2025,Delivered,456,142.68,263.01,65062.08,2927.79,0,No,5
+10814,Home Goods,HG-753,Supplier C,USA,Phoenix,Air,12/13/2023,12/18/2023,12/25/2023,12/28/2023,Delivered,430,50.74,81.71,21818.2,1636.37,0,No,5
+10815,Electronics,Model-B583,Global Imports,Vietnam,New York,Express,10/20/2023,10/22/2023,10/24/2023,10/24/2023,Delivered,293,99.87,205.51,29261.91,2926.19,0,No,5
+10816,Electronics,Model-B583,Supplier C,USA,Los Angeles,Air,10/3/2025,10/6/2025,10/10/2025,10/9/2025,Delayed,86,49.32,104.19,4241.52,318.11,0,No,4
+10817,Apparel,SKU-7098,National Logistics,Germany,Chicago,Express,8/12/2024,8/16/2024,8/19/2024,8/22/2024,Delivered,396,65.46,123.44,25922.16,2592.22,0,No,5
+10818,Electronics,Model-A897,Global Imports,USA,Houston,Express,5/18/2024,5/21/2024,5/22/2024,5/26/2024,Delivered,363,44.17,80.71,16033.71,1603.37,0,No,5
+10819,Electronics,Model-A897,Supplier A,USA,Phoenix,Sea,10/2/2025,10/7/2025,11/1/2025,11/4/2025,Delivered,432,139.94,278.47,60454.08,1813.62,0,No,5
+10820,Apparel,SKU-6533,Supplier B,Germany,New York,Land,11/4/2023,11/7/2023,11/19/2023,11/21/2023,Delivered,275,21.88,48.74,6017,270.77,0,No,5
+10821,Electronics,Model-B583,Supplier A,Vietnam,Los Angeles,Express,1/26/2025,1/29/2025,1/31/2025,2/1/2025,Delivered,220,52.28,97.9,11501.6,1150.16,0,No,5
+10822,Electronics,Model-C260,National Logistics,Mexico,Chicago,Land,11/2/2023,11/5/2023,,11/14/2023,Cancelled,135,139.78,303.41,18870.3,849.16,0,No,
+10823,Apparel,SKU-8340,National Logistics,USA,Houston,Air,5/4/2024,5/7/2024,5/9/2024,5/10/2024,Delivered,211,91.65,214.86,19338.15,1450.36,0,No,5
+10824,Apparel,SKU-8340,Global Imports,USA,Phoenix,Sea,8/30/2025,8/31/2025,9/30/2025,10/1/2025,Delivered,281,130.9,320.75,36782.9,1103.49,0,No,5
+10825,Home Goods,HG-753,Global Imports,Vietnam,New York,Express,1/20/2025,1/21/2025,1/24/2025,1/27/2025,Delivered,322,74.49,140.47,23985.78,2398.58,0,No,5
+10826,Apparel,SKU-2885,Supplier B,Vietnam,Los Angeles,Air,7/14/2025,7/15/2025,7/20/2025,7/24/2025,Delivered,,67.69,141.55,22270.01,1670.25,0,No,5
+10827,Home Goods,HG-723,Supplier B,Mexico,Chicago,Sea,1/8/2024,1/12/2024,2/4/2024,2/4/2024,Delivered,302,76.78,124.76,23187.56,695.63,0,No,5
+10828,Home Goods,HG-753,Supplier C,Mexico,Houston,Land,8/18/2025,8/19/2025,8/24/2025,8/25/2025,Delivered,422,102.47,161.53,43242.34,1945.91,16,No,3
+10829,Electronics,Model-B583,Supplier B,USA,Phoenix,Air,12/26/2023,12/27/2023,1/2/2024,1/6/2024,Delivered,98,63.6,136.24,6232.8,467.46,0,No,5
+10830,Apparel,SKU-7098,Supplier A,China,New York,Land,8/30/2024,8/31/2024,9/5/2024,9/4/2024,Delayed,357,146.85,242.71,52425.45,2359.15,0,No,4
+10831,Apparel,SKU-7098,Global Imports,Vietnam,Los Angeles,Express,9/2/2025,9/4/2025,9/5/2025,9/8/2025,Delivered,429,32.16,50.95,13796.64,1379.66,0,No,5
+10832,Apparel,SKU-1750,Global Imports,Germany,Chicago,Express,7/18/2024,7/20/2024,7/23/2024,7/25/2024,Delivered,270,97.13,199.83,26225.1,2622.51,0,No,5
+10833,Home Goods,HG-593,Global Imports,USA,Houston,Express,1/16/2024,1/18/2024,1/21/2024,1/23/2024,Delivered,54,91.83,168.09,4958.82,495.88,0,No,5
+10834,Electronics,Model-C260,Supplier B,Germany,Phoenix,Express,2/1/2025,2/2/2025,2/4/2025,2/8/2025,Delivered,452,24.08,41.72,10884.16,1088.42,0,No,5
+10835,Home Goods,HG-792,National Logistics,Germany,New York,Sea,6/10/2025,6/12/2025,7/3/2025,7/5/2025,Delivered,402,113.56,226.16,45651.12,1369.53,4,Yes,2
+10836,Electronics,Model-D274,Global Imports,Mexico,Los Angeles,Express,10/30/2024,11/3/2024,11/4/2024,11/5/2024,Delivered,459,80.93,182.12,37146.87,3714.69,0,No,5
+10837,Electronics,Model-E903,Supplier B,Mexico,Chicago,Express,6/20/2025,6/22/2025,6/23/2025,6/22/2025,Delayed,426,64.43,157.87,27447.18,2744.72,0,No,4
+10838,Home Goods,HG-593,Supplier B,Vietnam,Houston,Express,8/19/2024,8/22/2024,8/23/2024,8/24/2024,Delivered,444,85.41,206.6,37922.04,3792.2,0,No,5
+10839,Home Goods,HG-593,Supplier C,China,Phoenix,Land,7/22/2025,7/24/2025,7/30/2025,8/2/2025,Delivered,70,69.76,131.02,4883.2,219.74,0,No,5
+10840,Electronics,Model-E903,Global Imports,Vietnam,New York,Express,1/23/2024,1/24/2024,1/26/2024,1/25/2024,Delayed,228,129.02,307.32,29416.56,2941.66,0,No,4
+10841,,Model-C260,Supplier C,Vietnam,Los Angeles,Land,10/10/2023,10/11/2023,10/16/2023,10/17/2023,Delivered,236,46.68,109.12,11016.48,495.74,0,No,5
+10842,Electronics,Model-B583,National Logistics,Mexico,Chicago,Air,12/5/2024,12/9/2024,12/16/2024,12/20/2024,Delivered,486,97.51,168.3,47389.86,3554.24,0,No,5
+10843,Home Goods,HG-792,Global Imports,Mexico,Houston,Land,6/16/2024,6/17/2024,,6/26/2024,Cancelled,391,31.16,75.06,12183.56,548.26,0,No,
+10844,Electronics,Model-D274,Supplier C,Germany,Phoenix,Express,11/10/2023,11/11/2023,11/14/2023,11/17/2023,Delivered,465,127.37,201.22,59227.05,5922.71,0,No,5
+10845,Electronics,Model-B583,Global Imports,USA,New York,Express,1/16/2025,1/19/2025,1/20/2025,1/21/2025,Delivered,449,53.88,82.75,24192.12,2419.21,0,No,5
+10846,Home Goods,HG-792,National Logistics,Germany,Los Angeles,Express,9/11/2025,9/15/2025,9/18/2025,9/18/2025,Delivered,410,41.17,89.35,16879.7,1687.97,0,No,5
+10847,Apparel,SKU-2885,Supplier B,Germany,Chicago,Land,6/23/2024,6/28/2024,7/5/2024,7/7/2024,Delivered,364,43.16,104.9,15710.24,706.96,0,No,5
+10848,Electronics,Model-E903,Supplier B,USA,Houston,Express,12/31/2024,1/2/2025,1/3/2025,1/6/2025,Delivered,339,70.31,150.44,23835.09,2383.51,0,No,5
+10849,Home Goods,HG-593,Supplier C,Mexico,Phoenix,Express,2/3/2024,2/8/2024,2/10/2024,2/13/2024,Delivered,100,29,50.75,2900,290,0,No,5
+10850,Apparel,SKU-7098,Global Imports,Vietnam,New York,Air,8/16/2024,8/19/2024,8/25/2024,8/26/2024,Delivered,98,102.68,206.3,10062.64,754.7,0,No,5
+10851,Home Goods,HG-593,National Logistics,Mexico,Los Angeles,Land,11/8/2023,11/9/2023,11/19/2023,11/21/2023,Delivered,450,100.41,191.18,45184.5,2033.3,0,No,5
+10852,Apparel,SKU-8340,Supplier C,USA,Chicago,Land,5/7/2024,5/11/2024,5/17/2024,5/21/2024,Delivered,204,48.11,77.03,9814.44,441.65,0,No,5
+10853,Electronics,Model-D274,Supplier A,USA,Houston,Air,1/3/2024,1/7/2024,1/9/2024,1/10/2024,Delivered,313,68.21,155.5,21349.73,1601.23,0,No,5
+10854,Apparel,SKU-7098,Supplier B,Vietnam,Phoenix,Land,5/31/2024,6/3/2024,6/10/2024,6/11/2024,Delivered,102,78.84,141.73,8041.68,361.88,4,No,3
+10855,Apparel,SKU-1750,Supplier C,Vietnam,New York,Air,11/22/2024,11/23/2024,11/27/2024,11/28/2024,Delivered,466,48.92,86.43,22796.72,1709.75,0,No,5
+10856,Apparel,SKU-1750,Global Imports,USA,Los Angeles,Sea,11/25/2023,11/29/2023,12/25/2023,12/29/2023,Delivered,295,85.38,187.34,25187.1,755.61,0,No,5
+10857,Electronics,Model-A897,Global Imports,Mexico,Chicago,Sea,7/16/2025,7/21/2025,8/14/2025,8/14/2025,Delivered,494,26.5,60.01,13091,392.73,0,No,5
+10858,Apparel,SKU-8340,Supplier A,Mexico,Houston,Air,6/16/2024,6/21/2024,6/25/2024,6/27/2024,Delivered,306,42.74,70.64,13078.44,980.88,0,No,5
+10859,Apparel,SKU-1750,Supplier B,Vietnam,Phoenix,Sea,6/24/2024,6/29/2024,7/26/2024,7/29/2024,Delivered,400,50.06,124.55,20024,600.72,0,No,5
+10860,Home Goods,HG-593,Supplier A,China,New York,Air,5/29/2024,6/2/2024,6/5/2024,6/8/2024,Delivered,479,89.5,208.78,42870.5,3215.29,0,No,5
+10861,Electronics,Model-E903,Supplier B,China,Los Angeles,Express,2/21/2024,2/26/2024,2/27/2024,3/1/2024,Delivered,479,67.72,159.11,32437.88,3243.79,0,No,5
+10862,Home Goods,HG-792,Supplier A,Germany,Chicago,Express,7/30/2024,7/31/2024,8/1/2024,8/5/2024,Delivered,447,127.27,308.21,56889.69,5688.97,0,No,5
+10863,Electronics,Model-B583,Supplier A,USA,Houston,Express,11/21/2024,11/25/2024,11/26/2024,11/29/2024,Delivered,145,100.47,152.14,14568.15,1456.82,0,No,5
+10864,Home Goods,HG-792,Global Imports,USA,Phoenix,Land,12/24/2023,12/26/2023,1/2/2024,1/3/2024,Delivered,162,35.65,70.8,5775.3,259.89,0,No,5
+10865,Home Goods,HG-792,Supplier B,Vietnam,New York,Express,8/15/2025,8/16/2025,8/18/2025,8/21/2025,Delivered,64,76.65,134.11,4905.6,490.56,0,No,5
+10866,Apparel,SKU-6533,Supplier C,China,Los Angeles,Express,8/22/2024,8/25/2024,8/26/2024,8/30/2024,Delivered,214,61.2,136.53,13096.8,1309.68,0,No,5
+10867,Home Goods,HG-753,Supplier A,USA,Chicago,Air,3/13/2024,3/18/2024,3/20/2024,3/21/2024,Delivered,145,109.34,169.95,15854.3,1189.07,0,No,5
+10868,Apparel,SKU-1750,Global Imports,Vietnam,Houston,Sea,1/23/2025,1/27/2025,2/25/2025,2/26/2025,Delivered,436,123.18,208.14,53706.48,1611.19,0,No,5
+10869,Apparel,SKU-8340,Global Imports,USA,Phoenix,Sea,7/29/2025,8/1/2025,8/24/2025,8/24/2025,Delivered,411,111.5,226.09,45826.5,1374.8,0,No,5
+10870,Apparel,SKU-7098,Supplier C,Vietnam,New York,Air,6/10/2025,6/15/2025,6/18/2025,6/21/2025,Delivered,422,146.04,288.39,61628.88,4622.17,0,No,5
+10871,Electronics,Model-C260,Supplier C,Vietnam,Los Angeles,Land,12/22/2024,12/25/2024,1/6/2025,1/7/2025,Delivered,201,64.99,124.08,13062.99,587.83,0,No,5
+10872,Apparel,SKU-1750,National Logistics,Mexico,Chicago,Land,9/16/2025,9/20/2025,10/2/2025,10/6/2025,Delivered,160,10.78,26.03,1724.8,77.62,0,No,5
+10873,Apparel,SKU-8340,Supplier A,China,Houston,Express,2/20/2025,2/22/2025,2/23/2025,2/22/2025,Delayed,466,44.79,75.95,20872.14,2087.21,0,Yes,3
+10874,Electronics,,Supplier A,Germany,Phoenix,Land,8/17/2025,8/21/2025,8/31/2025,8/30/2025,Delayed,173,76.1,174.19,13165.3,592.44,0,Yes,3
+10875,Electronics,Model-B583,National Logistics,USA,New York,Express,6/28/2025,7/1/2025,7/3/2025,7/3/2025,Delivered,183,99.91,209.34,18283.53,1828.35,0,No,5
+10876,Apparel,SKU-7098,National Logistics,Vietnam,Los Angeles,Air,1/22/2025,1/25/2025,1/31/2025,1/30/2025,Delayed,453,53.46,126.53,24217.38,1816.3,0,No,4
+10877,Home Goods,HG-753,Supplier B,Germany,Chicago,Express,5/21/2024,5/22/2024,5/25/2024,5/27/2024,Delivered,204,110.36,241.06,22513.44,2251.34,0,No,5
+10878,Electronics,Model-A897,Supplier C,Vietnam,Houston,Air,3/31/2025,4/1/2025,4/3/2025,4/4/2025,Delivered,271,91.16,153.37,24704.36,1852.83,0,No,5
+10879,Apparel,SKU-7098,Supplier A,China,Phoenix,Express,5/14/2024,5/16/2024,5/19/2024,5/21/2024,Delivered,382,47.51,103.49,18148.82,1814.88,0,No,5
+10880,Electronics,Model-B583,Supplier B,Vietnam,New York,Land,10/12/2024,10/13/2024,10/24/2024,10/27/2024,Delivered,127,54.94,117.11,6977.38,313.98,0,No,5
+10881,Electronics,Model-A897,Supplier B,Germany,Los Angeles,Land,12/20/2024,12/21/2024,12/28/2024,12/28/2024,Delivered,270,97.26,228.16,26260.2,1181.71,0,No,5
+10882,Electronics,Model-C260,Supplier A,USA,Chicago,Sea,8/3/2024,8/4/2024,9/4/2024,9/7/2024,Delivered,161,14.03,21.15,2258.83,67.76,0,No,5
+10883,Home Goods,HG-792,Supplier B,Mexico,Houston,Air,3/4/2024,3/9/2024,3/15/2024,3/14/2024,Delayed,182,129.98,245.69,23656.36,1774.23,0,Yes,3
+10884,Home Goods,HG-723,Global Imports,USA,Phoenix,Land,11/19/2024,11/21/2024,12/3/2024,12/3/2024,Delivered,63,20.56,34.98,1295.28,58.29,0,No,5
+10885,Electronics,Model-B583,Supplier B,Mexico,New York,Air,3/28/2025,3/29/2025,3/31/2025,4/1/2025,Delivered,137,78.21,151.48,10714.77,803.61,0,No,5
+10886,Electronics,Model-A897,Global Imports,Mexico,Los Angeles,Express,11/10/2024,11/14/2024,11/16/2024,11/15/2024,Delayed,164,18.58,43.21,3047.12,304.71,0,Yes,3
+10887,Apparel,SKU-2885,Global Imports,Germany,Chicago,Air,11/20/2024,11/25/2024,11/27/2024,11/26/2024,Delayed,106,100.83,192.74,10687.98,801.6,0,No,4
+10888,Home Goods,HG-871,National Logistics,China,Houston,Sea,1/15/2025,1/18/2025,2/7/2025,2/7/2025,Delivered,366,89.8,169.22,32866.8,986,0,No,5
+10889,Electronics,Model-A897,Supplier A,Mexico,Phoenix,Air,7/20/2025,7/23/2025,,7/27/2025,Cancelled,143,144.71,222.53,20693.53,1552.01,0,No,
+10890,Home Goods,HG-871,Supplier B,Vietnam,,Sea,6/25/2024,6/27/2024,7/22/2024,7/21/2024,Delayed,399,81.72,170.34,32606.28,978.19,0,No,4
+10891,Home Goods,HG-753,Supplier C,USA,Los Angeles,Express,9/16/2024,9/17/2024,9/19/2024,9/22/2024,Delivered,451,83.13,139.91,37491.63,3749.16,0,No,5
+10892,Home Goods,HG-753,National Logistics,Mexico,Chicago,Sea,6/18/2025,6/22/2025,7/19/2025,7/21/2025,Delivered,50,102.85,190.84,5142.5,154.28,0,No,5
+10893,Apparel,SKU-1750,Global Imports,China,Houston,Sea,3/9/2024,3/10/2024,4/19/2024,4/18/2024,Delayed,290,52.61,84.71,15256.9,457.71,0,No,4
+10894,Apparel,SKU-7098,Supplier C,Vietnam,Phoenix,Express,1/27/2025,1/30/2025,2/1/2025,2/1/2025,Delivered,164,39.97,69.64,6555.08,655.51,0,No,5
+10895,Home Goods,HG-871,Global Imports,Germany,New York,Express,12/12/2023,12/14/2023,12/17/2023,12/20/2023,Delivered,319,96.17,167.07,30678.23,3067.82,0,No,5
+10896,Electronics,Model-C260,Supplier C,China,Los Angeles,Land,4/7/2024,4/12/2024,4/17/2024,4/16/2024,Delayed,455,70.78,167,32204.9,1449.22,0,Yes,3
+10897,Electronics,Model-A897,National Logistics,USA,Chicago,Land,1/7/2025,1/9/2025,1/16/2025,1/19/2025,Delivered,451,32.12,74.83,14486.12,651.88,0,No,5
+10898,Electronics,Model-D274,Supplier C,Germany,Houston,Sea,9/18/2025,9/21/2025,10/30/2025,10/31/2025,Delivered,168,27.61,65.71,4638.48,139.15,0,No,5
+10899,Home Goods,HG-723,Supplier A,Vietnam,Phoenix,Sea,8/29/2025,9/2/2025,9/28/2025,9/30/2025,Delivered,461,42.73,74.64,19698.53,590.96,0,No,5
+10900,Electronics,Model-E903,National Logistics,Vietnam,New York,Land,9/3/2024,9/8/2024,9/15/2024,9/16/2024,Delivered,77,34.17,61.64,2631.09,118.4,0,No,5
+10901,Home Goods,HG-753,National Logistics,China,Los Angeles,Sea,11/13/2023,11/15/2023,12/22/2023,12/24/2023,Delivered,390,11.67,23.6,4551.3,136.54,0,No,5
+10902,Apparel,SKU-6533,Supplier B,Germany,Chicago,Land,2/3/2024,2/6/2024,2/11/2024,2/12/2024,Delivered,489,10.76,16.66,5261.64,236.77,0,No,5
+10903,Home Goods,HG-753,Supplier B,USA,Houston,Land,4/5/2025,4/6/2025,4/12/2025,4/13/2025,Delivered,231,107.43,223.1,24816.33,1116.73,0,No,5
+10904,Electronics,Model-A897,National Logistics,Mexico,Phoenix,Express,8/2/2025,8/6/2025,8/9/2025,8/11/2025,Delivered,469,100.81,193.24,47279.89,4727.99,0,No,5
+10905,Apparel,SKU-8340,Supplier C,Germany,New York,Air,10/9/2023,10/10/2023,10/15/2023,10/17/2023,Delivered,280,35.11,55.06,9830.8,737.31,0,No,5
+10906,Electronics,Model-A897,Supplier B,Mexico,Los Angeles,Air,3/18/2025,3/23/2025,3/30/2025,4/2/2025,Delivered,66,99.14,211.67,6543.24,490.74,0,No,5
+10907,Apparel,SKU-1750,National Logistics,Germany,Chicago,Sea,2/12/2024,2/16/2024,,3/20/2024,Cancelled,468,89.85,196.3,42049.8,1261.49,0,No,
+10908,Electronics,Model-B583,Supplier A,China,Houston,Land,1/12/2024,1/14/2024,1/26/2024,1/30/2024,Delivered,452,95.46,162.97,43147.92,1941.66,0,No,5
+10909,Home Goods,HG-593,Supplier A,Germany,Phoenix,Sea,9/26/2024,9/27/2024,10/27/2024,10/27/2024,Delivered,259,27.78,43.74,7195.02,215.85,0,No,5
+10910,Electronics,Model-E903,Supplier B,Vietnam,New York,Sea,5/11/2025,5/15/2025,,6/24/2025,Cancelled,470,104.58,225.23,49152.6,1474.58,0,No,
+10911,Home Goods,HG-871,Supplier C,Mexico,Los Angeles,Land,1/23/2025,1/25/2025,2/3/2025,2/2/2025,Delayed,177,80.89,170.56,14317.53,644.29,14,No,2
+10912,Home Goods,HG-723,Global Imports,Mexico,Chicago,Land,9/27/2025,9/30/2025,10/9/2025,10/9/2025,Delivered,79,137.43,243.6,10856.97,488.56,4,Yes,2
+10913,Electronics,Model-D274,Supplier A,Vietnam,Houston,Air,12/19/2023,12/20/2023,12/23/2023,12/27/2023,Delivered,240,97.23,182.33,23335.2,1750.14,0,No,5
+10914,Electronics,Model-E903,Supplier B,Germany,Phoenix,Air,11/18/2024,11/22/2024,11/27/2024,11/28/2024,Delivered,174,27.42,63.58,4771.08,357.83,0,No,5
+10915,Electronics,Model-C260,Supplier A,Mexico,New York,Sea,1/7/2025,1/9/2025,2/16/2025,2/18/2025,,434,93.38,174.06,40526.92,1215.81,0,No,5
+10916,Home Goods,HG-723,Supplier A,Vietnam,Los Angeles,Express,10/24/2024,10/26/2024,10/27/2024,10/29/2024,Delivered,73,49.19,93.02,3590.87,359.09,0,No,5
+10917,Apparel,SKU-6533,Global Imports,Germany,Chicago,Air,3/17/2025,3/21/2025,,3/26/2025,Cancelled,131,57.76,129.9,7566.56,567.49,0,No,
+10918,Electronics,Model-E903,Global Imports,Germany,Houston,Air,9/7/2024,9/12/2024,9/16/2024,9/17/2024,Delivered,349,143.54,307.01,50095.46,3757.16,0,No,5
+10919,Apparel,SKU-8340,National Logistics,Vietnam,Phoenix,Air,5/21/2024,5/25/2024,5/27/2024,5/29/2024,Delivered,467,115.01,207.82,53709.67,4028.23,0,No,5
+10920,Home Goods,HG-792,National Logistics,China,New York,Air,5/16/2025,5/18/2025,5/20/2025,5/22/2025,Delivered,478,42.2,103.29,20171.6,1512.87,0,No,5
+10921,Apparel,SKU-2885,Supplier A,USA,Los Angeles,Air,1/13/2024,1/18/2024,1/23/2024,1/25/2024,Delivered,101,115.32,284.55,11647.32,873.55,0,No,5
+10922,Electronics,Model-A897,Global Imports,China,Chicago,Sea,10/6/2024,10/11/2024,11/19/2024,11/20/2024,Delivered,160,54.1,123.12,8656,259.68,0,No,5
+10923,Apparel,SKU-7098,Supplier C,Germany,Houston,Express,11/6/2024,11/9/2024,11/10/2024,11/13/2024,Delivered,69,126.83,216.02,8751.27,875.13,0,No,5
+10924,Apparel,SKU-2885,Supplier B,USA,Phoenix,Express,8/25/2025,8/30/2025,8/31/2025,8/31/2025,Delivered,451,71.14,151.69,32084.14,3208.41,0,No,5
+10925,Home Goods,HG-723,Supplier A,Vietnam,New York,Sea,1/17/2025,1/19/2025,2/28/2025,3/4/2025,Delivered,199,112.81,190.15,22449.19,673.48,0,No,5
+10926,Home Goods,HG-723,Supplier B,Mexico,Los Angeles,Express,3/13/2025,3/17/2025,3/19/2025,3/20/2025,Delivered,199,41.86,80.46,8330.14,833.01,0,No,5
+10927,Home Goods,HG-723,Global Imports,China,Chicago,Sea,11/16/2023,11/18/2023,12/8/2023,12/9/2023,Delivered,317,78.18,124.5,24783.06,743.49,0,No,5
+10928,Electronics,Model-B583,National Logistics,Mexico,Houston,Express,1/14/2025,1/15/2025,1/17/2025,1/16/2025,Delayed,148,110.69,173.1,16382.12,1638.21,0,Yes,3
+10929,Electronics,Model-E903,Supplier C,Vietnam,Phoenix,Sea,9/14/2025,9/17/2025,10/26/2025,10/29/2025,Delivered,156,91.47,184.96,14269.32,428.08,0,No,5
+10930,Apparel,SKU-6533,National Logistics,Vietnam,New York,Express,4/3/2025,4/8/2025,4/10/2025,4/11/2025,Delivered,323,92.52,148.1,29883.96,2988.4,0,No,5
+10931,Electronics,Model-A897,Supplier B,China,Los Angeles,Air,10/19/2023,10/20/2023,10/26/2023,10/25/2023,Delayed,197,117.62,238.94,23171.14,1737.84,0,No,4
+10932,Electronics,Model-C260,National Logistics,China,Chicago,Sea,3/16/2025,3/17/2025,4/18/2025,4/18/2025,Delivered,450,25.61,39.39,11524.5,345.74,0,No,5
+10933,Apparel,SKU-8340,Global Imports,Mexico,Houston,Land,11/2/2023,11/7/2023,,11/13/2023,Cancelled,164,59.09,130.79,9690.76,436.08,0,No,
+10934,Electronics,Model-D274,Supplier A,Mexico,Phoenix,Express,10/10/2023,10/12/2023,10/14/2023,10/17/2023,Delivered,121,32.59,77.95,3943.39,394.34,0,No,5
+10935,Electronics,Model-E903,Global Imports,Mexico,New York,Express,10/29/2024,10/31/2024,11/2/2024,11/2/2024,Delivered,218,51.62,79.36,11253.16,1125.32,0,No,5
+10936,Apparel,SKU-8340,Supplier B,Germany,Los Angeles,Land,11/26/2023,11/30/2023,12/6/2023,12/10/2023,Delivered,140,149.47,336.36,20925.8,941.66,0,No,5
+10937,Apparel,SKU-6533,Global Imports,Mexico,Chicago,Express,2/9/2025,2/14/2025,2/15/2025,2/18/2025,Delivered,492,61.43,115.47,30223.56,3022.36,0,No,5
+10938,Apparel,SKU-1750,National Logistics,China,Houston,Land,12/7/2023,12/11/2023,12/18/2023,12/20/2023,Delivered,225,18.52,32.51,4167,187.52,0,No,5
+10939,Home Goods,HG-593,Supplier B,USA,Phoenix,,6/21/2025,6/23/2025,6/25/2025,6/28/2025,Delivered,452,102.89,238.58,46506.28,3487.97,4,No,3
+10940,Apparel,SKU-7098,National Logistics,China,New York,Express,5/8/2024,5/13/2024,5/16/2024,5/19/2024,Delivered,79,130.69,230.32,10324.51,1032.45,0,No,5
+10941,Electronics,Model-B583,Supplier A,China,Los Angeles,Land,4/19/2025,4/24/2025,5/1/2025,5/5/2025,Delivered,464,96.84,155.1,44933.76,2022.02,0,No,5
+10942,Electronics,Model-B583,National Logistics,USA,Chicago,Sea,2/5/2024,2/6/2024,3/13/2024,3/14/2024,Delivered,377,99.36,193.9,37458.72,1123.76,0,No,5
+10943,Apparel,SKU-7098,Supplier C,Germany,Houston,Land,6/8/2025,6/12/2025,,6/23/2025,Cancelled,382,51.56,78.24,19695.92,886.32,0,No,
+10944,Electronics,Model-C260,Supplier B,Vietnam,Phoenix,Sea,6/26/2025,6/30/2025,8/7/2025,8/9/2025,Delivered,491,68.58,109.55,33672.78,1010.18,0,No,5
+10945,Apparel,SKU-2885,Supplier B,Vietnam,New York,Express,10/30/2024,11/4/2024,11/5/2024,11/5/2024,Delivered,128,115.58,280.1,14794.24,1479.42,0,No,5
+10946,Home Goods,HG-593,Supplier C,Mexico,Los Angeles,Sea,11/19/2024,11/21/2024,12/23/2024,12/23/2024,Delivered,390,92.33,223.05,36008.7,1080.26,0,No,5
+10947,Apparel,SKU-1750,Supplier A,Mexico,Chicago,Air,9/21/2024,9/25/2024,9/27/2024,9/26/2024,Delayed,191,30.07,51.86,5743.37,430.75,0,Yes,3
+10948,Electronics,Model-C260,Global Imports,Vietnam,Houston,Air,3/17/2025,3/19/2025,3/25/2025,3/26/2025,Delivered,466,101.7,227.9,47392.2,3554.41,16,Yes,2
+10949,Home Goods,HG-723,Supplier B,Mexico,Phoenix,Land,4/7/2025,4/10/2025,4/18/2025,4/19/2025,Delivered,419,113.29,188.44,47468.51,2136.08,0,No,5
+10950,Electronics,Model-A897,Supplier A,Mexico,New York,Land,9/18/2024,9/20/2024,9/27/2024,9/27/2024,Delivered,225,87.46,207.51,19678.5,885.53,0,No,5
+10951,Apparel,SKU-1750,Global Imports,USA,Los Angeles,Land,7/13/2024,7/18/2024,7/24/2024,7/26/2024,Delivered,105,145.9,353.32,15319.5,689.38,0,No,5
+10952,Home Goods,HG-753,Supplier C,China,Chicago,Air,7/13/2024,7/17/2024,7/24/2024,7/26/2024,Delivered,210,32.02,59.61,6724.2,504.32,0,No,5
+10953,Electronics,Model-E903,Supplier B,Mexico,Houston,Land,8/4/2024,8/7/2024,8/17/2024,8/16/2024,Delayed,453,101.57,244.84,46011.21,2070.5,0,No,4
+10954,Electronics,Model-A897,Global Imports,USA,Phoenix,Land,5/27/2025,5/30/2025,6/10/2025,6/13/2025,Delivered,150,137.24,325.35,20586,926.37,0,No,5
+10955,Home Goods,HG-753,National Logistics,Vietnam,New York,Express,5/24/2025,5/27/2025,5/30/2025,6/1/2025,Delivered,94,15.33,34.26,1441.02,144.1,0,No,5
+10956,Home Goods,HG-593,National Logistics,Germany,Los Angeles,Express,2/14/2025,2/16/2025,2/17/2025,2/19/2025,Delivered,280,60.33,111.8,16892.4,1689.24,0,No,5
+10957,Apparel,SKU-6533,National Logistics,Mexico,Chicago,Sea,11/12/2023,11/13/2023,12/3/2023,12/7/2023,Delivered,132,55.74,118.25,7357.68,220.73,0,No,5
+10958,Home Goods,HG-723,Supplier B,Germany,Houston,Express,11/3/2023,11/6/2023,11/9/2023,11/12/2023,Delivered,310,57.1,89.11,17701,1770.1,0,No,5
+10959,Apparel,SKU-6533,Global Imports,China,Phoenix,Sea,11/10/2023,11/13/2023,12/19/2023,12/18/2023,Delayed,115,93.02,165.75,10697.3,320.92,0,No,4
+10960,Apparel,SKU-1750,Supplier A,Mexico,New York,Air,7/12/2025,7/16/2025,7/19/2025,7/19/2025,Delivered,284,88.61,154.23,25165.24,1887.39,0,No,5
+10961,Electronics,Model-A897,Supplier C,USA,Los Angeles,Sea,9/4/2025,9/5/2025,10/9/2025,10/8/2025,Delayed,53,69.4,112.81,3678.2,110.35,0,No,4
+10962,Electronics,Model-D274,National Logistics,USA,Chicago,Sea,3/30/2025,4/1/2025,5/2/2025,5/5/2025,Delivered,468,81.99,132.97,38371.32,1151.14,0,No,5
+10963,Home Goods,HG-723,National Logistics,Germany,Houston,Express,5/11/2024,5/12/2024,5/15/2024,5/19/2024,Delivered,210,98.96,153.04,20781.6,2078.16,0,No,5
+10964,Electronics,Model-D274,Global Imports,Mexico,Phoenix,Air,2/16/2025,2/21/2025,2/26/2025,3/1/2025,Delivered,458,132.41,219.01,60643.78,4548.28,0,No,5
+10965,Apparel,SKU-1750,Supplier B,USA,New York,Land,1/24/2024,1/26/2024,2/6/2024,2/10/2024,Delivered,328,131.5,293.16,43132,1940.94,0,No,5
+10966,Home Goods,HG-871,Global Imports,Vietnam,Los Angeles,Land,9/7/2025,9/11/2025,9/18/2025,9/22/2025,Delivered,229,49.07,95.54,11237.03,505.67,0,No,5
+10967,Apparel,SKU-1750,Supplier A,USA,Chicago,Land,6/13/2025,6/18/2025,6/24/2025,6/23/2025,Delayed,456,83.87,186.08,38244.72,1721.01,0,Yes,3
+10968,Home Goods,HG-723,Supplier A,USA,Houston,Sea,6/21/2024,6/25/2024,7/15/2024,7/16/2024,Delivered,460,102.45,176.15,47127,1413.81,0,No,5
+10969,Home Goods,HG-723,Supplier B,Mexico,Phoenix,Air,1/6/2025,1/11/2025,1/16/2025,1/20/2025,Delivered,122,142.41,289.38,17374.02,1303.05,0,No,5
+10970,Home Goods,HG-753,Supplier C,Vietnam,New York,Sea,10/8/2024,10/11/2024,11/8/2024,11/10/2024,Delivered,159,108.22,224.04,17206.98,516.21,0,No,5
+10971,Electronics,Model-E903,Supplier B,Germany,Los Angeles,Sea,6/7/2024,6/9/2024,7/10/2024,7/9/2024,Delayed,253,65.73,137.24,16629.69,498.89,0,No,4
+10972,Electronics,Model-E903,Supplier C,Germany,Chicago,Sea,1/28/2025,1/29/2025,3/10/2025,3/13/2025,Delivered,368,85.88,138.83,31603.84,948.12,0,No,5
+10973,Home Goods,HG-792,Supplier B,Vietnam,Houston,Express,6/25/2024,6/27/2024,6/28/2024,7/1/2024,Delivered,187,108.11,204.82,20216.57,2021.66,0,No,5
+10974,Electronics,Model-B583,Global Imports,China,Phoenix,Express,11/4/2023,11/9/2023,11/12/2023,11/12/2023,Delivered,468,144.99,273.11,67855.32,6785.53,0,No,5
+10975,Apparel,SKU-8340,Supplier C,USA,New York,Land,5/7/2025,5/9/2025,5/16/2025,5/20/2025,Delivered,346,65.82,127.22,22773.72,1024.82,0,No,5
+10976,Electronics,Model-A897,Supplier C,Mexico,Los Angeles,Sea,7/6/2024,7/9/2024,8/5/2024,8/6/2024,Delivered,127,114.36,231.9,14523.72,435.71,0,No,5
+10977,Home Goods,HG-871,Supplier B,China,Chicago,Air,10/11/2023,10/16/2023,10/21/2023,10/24/2023,Delivered,313,58.92,130.34,18441.96,1383.15,0,No,5
+10978,Home Goods,HG-871,Global Imports,China,Houston,Land,7/26/2024,7/28/2024,8/4/2024,8/7/2024,Delivered,339,37.97,57.71,12871.83,579.23,0,No,5
+10979,Apparel,SKU-8340,Supplier A,USA,Phoenix,Sea,12/5/2024,12/8/2024,1/12/2025,1/12/2025,Delivered,182,116.89,233.15,21273.98,638.22,0,No,5
+10980,Electronics,Model-D274,Supplier A,China,New York,Air,8/12/2024,8/14/2024,8/19/2024,8/22/2024,Delivered,162,74.29,156.3,12034.98,902.62,0,No,5
+10981,Apparel,SKU-1750,National Logistics,Vietnam,Los Angeles,Air,12/17/2023,12/19/2023,12/25/2023,12/24/2023,Delayed,335,76.62,153.11,25667.7,1925.08,0,No,4
+10982,Electronics,Model-E903,Supplier A,Germany,Chicago,Air,4/14/2025,4/15/2025,4/22/2025,4/25/2025,Delivered,226,149.79,290.43,33852.54,2538.94,0,No,5
+10983,Electronics,Model-C260,National Logistics,China,Houston,Sea,8/14/2025,8/18/2025,9/9/2025,9/11/2025,Delivered,379,148.57,345.56,56308.03,1689.24,0,No,5
+10984,Home Goods,HG-723,,Vietnam,Phoenix,Sea,1/14/2024,1/17/2024,,2/17/2024,Cancelled,160,49.97,94.65,7995.2,239.86,0,No,
+10985,Home Goods,HG-593,National Logistics,Mexico,New York,Land,7/11/2024,7/15/2024,7/27/2024,7/27/2024,Delivered,415,113.29,217.04,47015.35,2115.69,0,No,5
+10986,Electronics,Model-A897,Supplier B,Germany,Los Angeles,Sea,3/12/2025,3/16/2025,4/22/2025,4/22/2025,Delivered,474,135.08,326.73,64027.92,1920.84,0,No,5
+10987,Electronics,Model-D274,Supplier A,Vietnam,Chicago,Land,9/23/2024,9/26/2024,10/1/2024,9/30/2024,Delayed,110,64.92,136.76,7141.2,321.35,0,No,4
+10988,Electronics,Model-A897,National Logistics,Vietnam,Houston,Sea,12/13/2023,12/16/2023,1/6/2024,1/6/2024,Delivered,71,143.37,250,10179.27,305.38,0,No,5
+10989,Apparel,SKU-1750,Supplier A,Germany,Phoenix,Land,11/7/2024,11/8/2024,11/20/2024,11/23/2024,Delivered,486,28.48,49.87,13841.28,622.86,0,No,5
+10990,Home Goods,HG-871,Supplier B,USA,New York,Express,9/12/2024,9/14/2024,,9/15/2024,Cancelled,449,71.14,162.41,31941.86,3194.19,0,No,
+10991,Apparel,SKU-1750,National Logistics,China,Los Angeles,Air,3/9/2025,3/11/2025,3/14/2025,3/16/2025,Delivered,363,25.87,50.17,9390.81,704.31,21,No,3
+10992,Apparel,SKU-1750,Supplier B,USA,Chicago,Express,4/22/2025,4/26/2025,4/28/2025,5/1/2025,Delivered,249,141.39,284.4,35206.11,3520.61,0,No,5
+10993,Apparel,SKU-1750,Supplier B,China,Houston,Express,4/26/2024,4/29/2024,,5/1/2024,Cancelled,64,52.37,82.17,3351.68,335.17,0,No,
+10994,Electronics,Model-D274,Global Imports,USA,Phoenix,Air,10/7/2024,10/10/2024,10/16/2024,10/19/2024,Delivered,399,44.44,94.76,17731.56,1329.87,0,No,5
+10995,Home Goods,HG-792,Global Imports,Germany,New York,Air,1/7/2025,1/8/2025,1/14/2025,1/14/2025,Delivered,450,85.36,137.08,38412,2880.9,0,No,5
+10996,Home Goods,HG-871,Global Imports,USA,Los Angeles,Sea,2/4/2024,2/9/2024,3/6/2024,3/8/2024,Delivered,110,54.67,106.79,6013.7,180.41,2,No,3
+10997,Electronics,Model-D274,Global Imports,Mexico,Chicago,Land,4/15/2024,4/20/2024,4/28/2024,4/29/2024,Delivered,329,135.09,292.26,44444.61,2000.01,0,No,5
+10998,Home Goods,HG-593,Global Imports,China,Houston,Land,10/14/2024,10/16/2024,10/26/2024,10/26/2024,Delivered,65,103.02,158.29,6696.3,301.33,0,No,5
+10999,Apparel,SKU-1750,Global Imports,Vietnam,Phoenix,Sea,4/26/2024,5/1/2024,5/26/2024,5/29/2024,Delivered,352,25.07,40.61,8824.64,264.74,0,No,5
+10999,Apparel,SKU-1750,Global Imports,Vietnam,Phoenix,Sea,4/26/2024,5/1/2024,5/26/2024,5/29/2024,Delivered,352,25.07,40.61,8824.64,264.74,0,No,5
+10999,Apparel,SKU-1750,Global Imports,Vietnam,Phoenix,Sea,4/26/2024,5/1/2024,5/26/2024,5/29/2024,Delivered,352,25.07,40.61,8824.64,264.74,0,No,5
+10999,Apparel,SKU-1750,Global Imports,Vietnam,Phoenix,Sea,4/26/2024,5/1/2024,5/26/2024,5/29/2024,Delivered,352,25.07,40.61,8824.64,264.74,0,No,5
+10998,Home Goods,HG-593,Global Imports,China,Houston,Land,10/14/2024,10/16/2024,10/26/2024,10/26/2024,Delivered,65,103.02,158.29,6696.3,301.33,0,No,5
+10998,Home Goods,HG-593,Global Imports,China,Houston,Land,10/14/2024,10/16/2024,10/26/2024,10/26/2024,Delivered,65,103.02,158.29,6696.3,301.33,0,No,5
+10998,Home Goods,HG-593,Global Imports,China,Houston,Land,10/14/2024,10/16/2024,10/26/2024,10/26/2024,Delivered,65,103.02,158.29,6696.3,301.33,0,No,5
