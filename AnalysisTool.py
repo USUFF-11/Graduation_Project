@@ -7,7 +7,7 @@ from openai import OpenAI
 # =========================
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="Api_Key"
+    api_key="Api_Key_Here"
 )
 
 st.set_page_config(page_title="AI Data Tool", layout="wide")
