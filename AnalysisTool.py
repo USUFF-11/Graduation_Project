@@ -14,7 +14,7 @@ import re
 # =========================
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="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"
+    api_key="Api_Key_Here"
 )
 
 st.set_page_config(page_title="AI Data Tool", layout="wide")
