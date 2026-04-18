@@ -14,178 +14,94 @@ import re
 # =========================
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="Api_Key_Here"
+    api_key="API_KEY_HERE"
 )
+
+def ask_ai(system_prompt, user_prompt):
+    response = client.chat.completions.create(
+        model="openai/gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": user_prompt}
+        ]
+    )
+    return response.choices[0].message.content
 
 st.set_page_config(page_title="AI Data Tool", layout="wide")
 
 # =========================
-# 📄 PAGE ROUTING
+# ⚡ CACHED FUNCTIONS
 # =========================
-if "page" not in st.session_state:
-    st.session_state.page = "main"
 
-st.markdown("""
-<style>
-    /* Background */
-    .stApp {
-        background-color: #0f1117;
-        color: #e0e0e0;
-    }
+@st.cache_data(show_spinner=False)
+def load_file(file_bytes, file_name):
+    import io
+    file_obj = io.BytesIO(file_bytes)
+    size_mb = len(file_bytes) / (1024 * 1024)
+    if size_mb > 50:
+        chunks = []
+        for chunk in pd.read_csv(file_obj, chunksize=50000, index_col=0):
+            chunks.append(chunk)
+        return pd.concat(chunks, ignore_index=True)
+    else:
+        return pd.read_csv(file_obj, index_col=0)
 
-    /* Title */
-    h1 {
-        color: #7c83fd;
-        font-size: 2.2rem;
-        font-weight: 700;
-        margin-bottom: 0.2rem;
-    }
-
-    /* Subheaders */
-    h2, h3 {
-        color: #a0a8ff;
-        border-bottom: 1px solid #2a2d3e;
-        padding-bottom: 6px;
-        margin-top: 1.5rem;
-    }
-
-    /* Buttons */
-    .stButton > button {
-        background-color: #1e2130;
-        color: #c9d1ff;
-        border: 1px solid #3a3f5c;
-        border-radius: 10px;
-        padding: 10px 16px;
-        font-size: 0.85rem;
-        width: 100%;
-        transition: all 0.2s ease;
-    }
-    .stButton > button:hover {
-        background-color: #7c83fd;
-        color: white;
-        border-color: #7c83fd;
-    }
-
-    /* Text input */
-    .stTextInput > div > div > input {
-        background-color: #1e2130;
-        color: #e0e0e0;
-        border: 1px solid #3a3f5c;
-        border-radius: 10px;
-        padding: 10px 14px;
-    }
-
-    /* File uploader */
-    .stFileUploader {
-        background-color: #1e2130;
-        border: 1px dashed #3a3f5c;
-        border-radius: 12px;
-        padding: 10px;
-    }
-
-    /* Dataframe */
-    .stDataFrame {
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    /* Success box */
-    .stSuccess {
-        background-color: #1a2e1a;
-        border-left: 4px solid #4caf50;
-        border-radius: 8px;
-    }
-
-    /* Spinner */
-    .stSpinner > div {
-        border-top-color: #7c83fd !important;
-    }
-
-    /* Divider */
-    hr {
-        border-color: #2a2d3e;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-st.title("✦ AI Data Analysis Tool")
-
-uploaded_file = st.file_uploader("📂 Upload your data", type=["csv"])
-
-if uploaded_file:
-    st.session_state.uploaded_file = uploaded_file
-
-if st.session_state.page == "main" and "uploaded_file" in st.session_state and st.session_state.uploaded_file:
-    uploaded_file = st.session_state.uploaded_file
-    df = pd.read_csv(uploaded_file, index_col=0)
-
-    # =========================
-    # 📊 SHOW RAW DATA
-    # =========================
-
-    st.subheader("📂 Raw Data")
-    st.caption(f"{len(df)} rows × {len(df.columns)} columns — showing first 500 rows")
-    st.dataframe(df.head(500), use_container_width=True)
-
-    # =========================
-    # 🧹 CLEANING
-    # =========================
+@st.cache_data(show_spinner=False)
+def clean_dataframe(df):
+    cleaning_report = []
 
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df.columns = df.columns.str.strip().str.capitalize().str.replace(" ", "_")
 
-    cleaning_report = []
-
-    # Smart type detection by column name
     date_keywords = ["date", "time", "day", "month", "year", "birth", "created", "updated", "timestamp", "dt"]
     numeric_keywords = ["price", "cost", "salary", "amount", "revenue", "profit", "fee", "rate", "score",
                         "count", "qty", "quantity", "total", "weight", "height", "age", "distance", "duration"]
     bool_keywords = ["is_", "has_", "flag", "active", "enabled", "returned", "damaged"]
 
+    # ⚡ Use sample for type detection on large files
+    sample = df.sample(min(5000, len(df)), random_state=42) if len(df) > 5000 else df
+
     for col in df.columns:
         col_lower = col.lower()
+        if df[col].dtype != object:
+            continue
 
-        # Try date
-        if any(k in col_lower for k in date_keywords) and df[col].dtype == object:
+        if any(k in col_lower for k in date_keywords):
             try:
-                converted = pd.to_datetime(df[col], infer_datetime_format=True, errors="coerce")
+                converted = pd.to_datetime(sample[col], infer_datetime_format=True, errors="coerce")
                 if converted.notna().mean() > 0.7:
-                    df[col] = converted.dt.date
-                    cleaning_report.append(f"📅 `{col}`: converted to **date** based on column name.")
+                    df[col] = pd.to_datetime(df[col], infer_datetime_format=True, errors="coerce").dt.date
+                    cleaning_report.append(f"📅 `{col}`: converted to **date**.")
                     continue
             except:
                 pass
 
-        # Try numeric
-        if any(k in col_lower for k in numeric_keywords) and df[col].dtype == object:
+        if any(k in col_lower for k in numeric_keywords):
             try:
-                converted = pd.to_numeric(df[col].str.replace(",", "").str.replace("$", "").str.strip(), errors="coerce")
+                converted = pd.to_numeric(sample[col].str.replace(",", "").str.replace("$", "").str.strip(), errors="coerce")
                 if converted.notna().mean() > 0.7:
-                    df[col] = converted
-                    cleaning_report.append(f"🔢 `{col}`: converted to **numeric** based on column name.")
+                    df[col] = pd.to_numeric(df[col].str.replace(",", "").str.replace("$", "").str.strip(), errors="coerce")
+                    cleaning_report.append(f"🔢 `{col}`: converted to **numeric**.")
                     continue
             except:
                 pass
 
-        # Try boolean
-        if any(k in col_lower for k in bool_keywords) and df[col].dtype == object:
+        if any(k in col_lower for k in bool_keywords):
             try:
                 bool_map = {"yes": True, "no": False, "true": True, "false": False, "1": True, "0": False}
-                if df[col].str.lower().isin(bool_map.keys()).mean() > 0.7:
+                if sample[col].str.lower().isin(bool_map.keys()).mean() > 0.7:
                     df[col] = df[col].str.lower().map(bool_map)
-                    cleaning_report.append(f"✅ `{col}`: converted to **boolean** based on column name.")
+                    cleaning_report.append(f"✅ `{col}`: converted to **boolean**.")
                     continue
             except:
                 pass
 
-        # Default: try numeric
         try:
-            df[col] = pd.to_numeric(df[col])
+            df[col] = pd.to_numeric(df[col], errors="ignore")
         except:
             pass
 
     duplicates_count = df.duplicated().sum()
-    # Try to find unique identifier column
     id_keywords = ["id", "code", "key", "uid", "ref", "sku"]
     id_candidates = [c for c in df.columns if any(k == c.lower() or c.lower().endswith(k) or c.lower().startswith(k) for k in id_keywords)]
     id_col = max(id_candidates, key=lambda c: df[c].nunique()) if id_candidates else None
@@ -194,22 +110,312 @@ if st.session_state.page == "main" and "uploaded_file" in st.session_state and s
         if id_col:
             cleaning_report.append(f"🗑️ Removed **{duplicates_count}** duplicate rows based on `{id_col}`.")
         else:
-            cleaning_report.append(f"🗑️ Removed **{duplicates_count}** duplicate rows (all columns matched).")
+            cleaning_report.append(f"🗑️ Removed **{duplicates_count}** duplicate rows.")
 
     numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns
     cat_cols = df.select_dtypes(include=['object']).columns
 
+    total_rows = len(df)
     for col in numeric_cols:
         missing = df[col].isnull().sum()
-        if missing > 0:
+        if missing == 0:
+            continue
+        pct = missing / total_rows
+        if pct > 0.3:
+            df.drop(columns=[col], inplace=True)
+            cleaning_report.append(f"🗑️ `{col}`: dropped — **{pct*100:.0f}%** missing values (too many).")
+        elif pct > 0.05:
+            df[col].fillna(df[col].mean(), inplace=True)
+            cleaning_report.append(f"🔢 `{col}`: filled **{missing}** missing values with mean ({pct*100:.0f}% missing).")
+        else:
             df[col].fillna(df[col].median(), inplace=True)
             cleaning_report.append(f"🔢 `{col}`: filled **{missing}** missing values with median.")
 
+    cat_cols = df.select_dtypes(include=['object']).columns
     for col in cat_cols:
+        # Text consistency: strip + title case + normalize common variants
+        df[col] = df[col].astype(str).str.strip()
+        df[col] = df[col].str.replace(r'\s+', ' ', regex=True)  # collapse multiple spaces
+
+        # Normalize common country/value variants
+        replacements = {
+            r'^u\.?s\.?a?\.?$': 'USA', r'^united states.*': 'USA',
+            r'^u\.?k\.?$': 'UK', r'^united kingdom.*': 'UK',
+            r'^nan$': None, r'^none$': None, r'^n/a$': None, r'^-$': None
+        }
+        for pattern, val in replacements.items():
+            mask = df[col].str.lower().str.match(pattern, na=False)
+            if mask.any():
+                df.loc[mask, col] = val
+
         missing = df[col].isnull().sum()
         if missing > 0:
-            df[col].fillna("Unknown", inplace=True)
-            cleaning_report.append(f"🔤 `{col}`: filled **{missing}** missing values with 'Unknown'.")
+            pct = missing / total_rows
+            if pct > 0.3:
+                df.drop(columns=[col], inplace=True)
+                cleaning_report.append(f"🗑️ `{col}`: dropped — **{pct*100:.0f}%** missing values.")
+            else:
+                mode_val = df[col].mode()
+                fill_val = mode_val[0] if len(mode_val) > 0 else "Unknown"
+                df[col].fillna(fill_val, inplace=True)
+                cleaning_report.append(f"🔤 `{col}`: filled **{missing}** missing values with most common value.")
+
+    return df, cleaning_report
+
+@st.cache_data(show_spinner=False)
+def get_context(df):
+    summary = df.describe().round(2).to_string()
+    columns = ", ".join(df.columns)
+    sample_data = df.sample(min(20, len(df))).to_string()
+    return summary, columns, sample_data
+
+# =========================
+# 📄 PAGE ROUTING
+# =========================
+if "page" not in st.session_state:
+    st.session_state.page = "main"
+
+# Splash screen on first load
+if "app_loaded" not in st.session_state:
+    st.markdown("""
+    <style>
+    #splash {
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        background: #080b14; display: flex; flex-direction: column;
+        align-items: center; justify-content: center; z-index: 9999;
+        animation: fadeOut 0.6s ease 1.8s forwards;
+    }
+    @keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
+    .splash-title {
+        font-size: 2.8rem; font-weight: 800;
+        background: linear-gradient(135deg, #7c83fd, #a78bfa);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        margin-bottom: 12px; letter-spacing: -1px;
+    }
+    .splash-sub { color: #4a5180; font-size: 1rem; margin-bottom: 40px; }
+    .splash-bar {
+        width: 220px; height: 3px; background: #1a1f35; border-radius: 99px; overflow: hidden;
+    }
+    .splash-fill {
+        height: 100%; width: 0%;
+        background: linear-gradient(90deg, #7c83fd, #a78bfa);
+        border-radius: 99px;
+        animation: fill 1.8s ease forwards;
+    }
+    @keyframes fill { to { width: 100%; } }
+    </style>
+    <div id="splash">
+        <div class="splash-title">✦ AI Data Analysis Tool</div>
+        <div class="splash-sub">Powered by OpenRouter · Built with Streamlit</div>
+        <div class="splash-bar"><div class="splash-fill"></div></div>
+    </div>
+    """, unsafe_allow_html=True)
+    st.session_state.app_loaded = True
+
+st.markdown("""
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * { font-family: 'Inter', sans-serif !important; }
+
+    /* ── Background ── */
+    .stApp { background-color: #080b14; color: #e2e8f0; }
+    .block-container { padding: 2rem 3rem 3rem 3rem !important; max-width: 1400px !important; }
+
+    /* ── Hide Streamlit default top bar loader ── */
+    div[data-testid="stToolbar"] { display: none !important; }
+    .stProgress > div > div { background: linear-gradient(90deg, #7c83fd, #a78bfa) !important; }
+
+    /* ── Title ── */
+    h1 {
+        background: linear-gradient(135deg, #7c83fd 0%, #a78bfa 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 2.4rem !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.5px;
+        margin-bottom: 0.1rem !important;
+    }
+
+    /* ── Subheaders ── */
+    h2, h3 {
+        color: #c4c9ff !important;
+        font-weight: 700 !important;
+        font-size: 1.15rem !important;
+        letter-spacing: -0.2px;
+        border-bottom: 1px solid #1e2235;
+        padding-bottom: 8px;
+        margin-top: 2rem !important;
+    }
+
+    /* ── Buttons ── */
+    .stButton > button {
+        background: linear-gradient(135deg, #1a1f35 0%, #1e2440 100%);
+        color: #a5b4fc;
+        border: 1px solid #2d3555;
+        border-radius: 12px;
+        padding: 12px 20px;
+        font-size: 0.88rem;
+        font-weight: 600;
+        width: 100%;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        letter-spacing: 0.2px;
+    }
+    .stButton > button:hover {
+        background: linear-gradient(135deg, #7c83fd 0%, #a78bfa 100%);
+        color: white;
+        border-color: transparent;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 25px rgba(124, 131, 253, 0.35);
+    }
+    .stButton > button:active { transform: translateY(0px); }
+
+    /* ── Text input ── */
+    .stTextInput > div > div > input {
+        background-color: #111627;
+        color: #e2e8f0;
+        border: 1px solid #2d3555;
+        border-radius: 12px;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        transition: border-color 0.2s;
+    }
+    .stTextInput > div > div > input:focus {
+        border-color: #7c83fd !important;
+        box-shadow: 0 0 0 3px rgba(124,131,253,0.15) !important;
+    }
+
+    /* ── Selectbox ── */
+    .stSelectbox > div > div {
+        background-color: #111627 !important;
+        border: 1px solid #2d3555 !important;
+        border-radius: 12px !important;
+        color: #e2e8f0 !important;
+    }
+
+    /* ── File uploader ── */
+    .stFileUploader {
+        background: linear-gradient(135deg, #111627 0%, #131929 100%);
+        border: 2px dashed #2d3555;
+        border-radius: 16px;
+        padding: 12px;
+        transition: border-color 0.2s;
+    }
+    .stFileUploader:hover { border-color: #7c83fd; }
+
+    /* ── Dataframe ── */
+    .stDataFrame {
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid #1e2235;
+    }
+
+    /* ── Alerts ── */
+    .stSuccess {
+        background: linear-gradient(135deg, #0d2218 0%, #0f2a1c 100%) !important;
+        border-left: 3px solid #22c55e !important;
+        border-radius: 10px !important;
+    }
+    .stInfo {
+        background: linear-gradient(135deg, #0d1a2e 0%, #0f1f38 100%) !important;
+        border-left: 3px solid #3b82f6 !important;
+        border-radius: 10px !important;
+    }
+    .stWarning {
+        background: linear-gradient(135deg, #1e1608 0%, #251c0a 100%) !important;
+        border-left: 3px solid #f59e0b !important;
+        border-radius: 10px !important;
+    }
+    .stError {
+        background: linear-gradient(135deg, #1e0d0d 0%, #250f0f 100%) !important;
+        border-left: 3px solid #ef4444 !important;
+        border-radius: 10px !important;
+    }
+
+    /* ── Progress bar ── */
+    .stProgress > div > div > div {
+        background: linear-gradient(90deg, #7c83fd, #a78bfa) !important;
+        border-radius: 99px !important;
+    }
+    .stProgress > div > div {
+        background-color: #1e2235 !important;
+        border-radius: 99px !important;
+    }
+
+    /* ── Spinner ── */
+    .stSpinner > div { border-top-color: #7c83fd !important; }
+
+    /* ── Divider ── */
+    hr { border-color: #1e2235 !important; margin: 1.5rem 0 !important; }
+
+    /* ── Slider ── */
+    .stSlider > div > div > div { background: #7c83fd !important; }
+
+    /* ── Caption ── */
+    .stCaption { color: #64748b !important; font-size: 0.8rem !important; }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0f1117; }
+    ::-webkit-scrollbar-thumb { background: #2d3555; border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: #7c83fd; }
+
+    /* ── Hide Streamlit branding ── */
+    #MainMenu { visibility: hidden; }
+    footer { visibility: hidden; }
+    header { visibility: hidden; }
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div style='margin-bottom: 0.5rem;'>
+    <div style='display:flex;align-items:center;gap:12px;margin-bottom:4px'>
+        <span style='font-size:2.4rem;font-weight:800;background:linear-gradient(135deg,#7c83fd,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent'>✦ AI Data Analysis Tool</span>
+    </div>
+    <p style='color:#64748b;font-size:0.9rem;margin:0'>Upload your CSV and get instant insights, predictions, and dashboards — powered by AI.</p>
+</div>
+""", unsafe_allow_html=True)
+
+uploaded_file = st.file_uploader("📂 Upload your data", type=["csv"])
+
+if uploaded_file:
+    # مسح الـ cache لو الملف اتغير
+    prev_name = st.session_state.get("last_file_name", None)
+    prev_size = st.session_state.get("last_file_size", None)
+    if prev_name != uploaded_file.name or prev_size != uploaded_file.size:
+        keys_to_clear = ["auto_insights", "copilot_response", "questions_list",
+                         "dashboard_kpis", "dashboard_charts", "build_dashboard",
+                         "ml_option", "user_path", "df_for_dashboard", "selected_question"]
+        for k in keys_to_clear:
+            st.session_state.pop(k, None)
+        st.session_state.last_file_name = uploaded_file.name
+        st.session_state.last_file_size = uploaded_file.size
+    st.session_state.uploaded_file = uploaded_file
+
+if st.session_state.page == "main" and "uploaded_file" in st.session_state and st.session_state.uploaded_file:
+    uploaded_file = st.session_state.uploaded_file
+
+    file_size_mb = uploaded_file.size / (1024 * 1024)
+
+    # ⚡ Progress bar
+    progress = st.progress(0, text="📂 Loading file...")
+    status = st.empty()
+
+    # Step 1: Load
+    status.info(f"📂 Loading file ({file_size_mb:.0f} MB)... please wait")
+    file_bytes = uploaded_file.getvalue()
+    raw_df = load_file(file_bytes, uploaded_file.name)
+    progress.progress(40, text="✅ File loaded!")
+
+    # Step 2: Clean
+    status.info("🧹 Cleaning data... detecting types and fixing missing values")
+    df, cleaning_report = clean_dataframe(raw_df)
+    progress.progress(80, text="✅ Data cleaned!")
+
+    # Step 3: Done
+    status.success(f"✅ Ready! {len(df):,} rows × {len(df.columns)} columns loaded successfully.")
+    progress.progress(100, text="✅ Done!")
+    progress.empty()
 
     # =========================
     # 📊 SHOW DATA
@@ -258,12 +464,10 @@ if st.session_state.page == "main" and "uploaded_file" in st.session_state and s
         st.stop()
 
     # =========================
-    # 🧠 CONTEXT
+    # 🧠 CONTEXT (cached)
     # =========================
 
-    summary = df.describe().to_string()
-    columns = ", ".join(df.columns)
-    sample_data = df.head(20).to_string()
+    summary, columns, sample_data = get_context(df)
 
     context = f"""
     Dataset Columns:
@@ -277,7 +481,7 @@ if st.session_state.page == "main" and "uploaded_file" in st.session_state and s
     """
 
     if st.session_state.user_path != "ml":
-        st.stop()
+        st.stop()  # ← انتظر لحد ما المستخدم يضغط ML
 
     # =========================
     # 🔍 AUTO INSIGHTS
@@ -285,20 +489,16 @@ if st.session_state.page == "main" and "uploaded_file" in st.session_state and s
     st.subheader("🔍 Insights & Actions")
     if "auto_insights" not in st.session_state:
         with st.spinner("Analyzing your data..."):
-            ins_response = client.chat.completions.create(
-                model="openai/gpt-4o-mini",
-                messages=[
-                    {"role": "system", "content": """You are a senior business analyst. Given a dataset, return exactly 4 insights in this strict format:
+            st.session_state.auto_insights = ask_ai(
+                system_prompt="""You are a senior business analyst. Given a dataset, return exactly 4 insights in this strict format:
 INSIGHT: <one sentence observation about the data>
 ACTION: <one sentence business recommendation>
 CHART: <one of: bar|line|pie — pick the best chart type for this insight>
 CHART_COL: <exact column name from the dataset most relevant to this insight>
 ---
-Repeat 4 times. The FIRST block must be the single most critical insight. No extra text."""},
-                    {"role": "user", "content": f"Columns: {columns}\n\nSummary:\n{summary}\n\nSample:\n{sample_data}"}
-                ]
+Repeat 4 times. The FIRST block must be the single most critical insight. No extra text.""",
+                user_prompt=f"Columns: {columns}\n\nSummary:\n{summary}\n\nSample:\n{sample_data}"
             )
-        st.session_state.auto_insights = ins_response.choices[0].message.content
 
     # Parse insights
     raw = st.session_state.auto_insights
@@ -415,10 +615,8 @@ Repeat 4 times. The FIRST block must be the single most critical insight. No ext
 
     if "copilot_response" not in st.session_state:
         with st.spinner("AI Copilot is reviewing your data..."):
-            cop_response = client.chat.completions.create(
-                model="openai/gpt-4o-mini",
-                messages=[
-                    {"role": "system", "content": """You are an AI business copilot. Analyze the dataset and return exactly this structure:
+            st.session_state.copilot_response = ask_ai(
+                system_prompt="""You are an AI business copilot. Analyze the dataset and return exactly this structure:
 
 PROBLEM: <the biggest problem or risk you detect in the data>
 SOLUTION: <specific action to fix it>
@@ -426,11 +624,9 @@ PRIORITY_1: <most important thing to focus on right now>
 PRIORITY_2: <second most important thing>
 PRIORITY_3: <third most important thing>
 
-Be specific, use actual column names and numbers from the data. No extra text."""},
-                    {"role": "user", "content": f"Columns: {columns}\n\nSummary:\n{summary}\n\nSample:\n{sample_data}"}
-                ]
+Be specific, use actual column names and numbers from the data. No extra text.""",
+                user_prompt=f"Columns: {columns}\n\nSummary:\n{summary}\n\nSample:\n{sample_data}"
             )
-        st.session_state.copilot_response = cop_response.choices[0].message.content
 
     cop_lines = {l.split(":")[0].strip(): ":".join(l.split(":")[1:]).strip()
                  for l in st.session_state.copilot_response.split("\n") if ":" in l}
@@ -454,20 +650,10 @@ Be specific, use actual column names and numbers from the data. No extra text.""
 
     if "questions_list" not in st.session_state:
         with st.spinner("Generating smart questions..."):
-            response = client.chat.completions.create(
-                model="openai/gpt-4o-mini",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "Generate 5 short business questions based on the dataset. One question per line."
-                    },
-                    {
-                        "role": "user",
-                        "content": context
-                    }
-                ]
+            generated_questions = ask_ai(
+                system_prompt="Generate 5 short business questions based on the dataset. One question per line.",
+                user_prompt=context
             )
-        generated_questions = response.choices[0].message.content
         st.session_state.questions_list = [re.sub(r'^\d+[\.\)]\s*', '', q.strip("- ").strip()) for q in generated_questions.split("\n") if q.strip()]
 
     questions_list = st.session_state.questions_list
@@ -506,23 +692,10 @@ Be specific, use actual column names and numbers from the data. No extra text.""
 
     if question and st.session_state.ml_option is None:
         with st.spinner("Analyzing..."):
-
-            response = client.chat.completions.create(
-                model="openai/gpt-4o-mini",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "You are a data analyst. The user gave you a dataset. Answer the question directly using the actual data provided. Give a specific number or fact as the answer first, then a brief explanation if needed. Do NOT say you don't have access to the full dataset. Do NOT suggest how to find the answer. Just answer it."
-                    },
-                    {
-                        "role": "user",
-                        "content": context + "\n\nQuestion: " + question
-                    }
-                ]
+            answer = ask_ai(
+                system_prompt="You are a data analyst. The user gave you a dataset. Answer the question directly using the actual data provided. Give a specific number or fact as the answer first, then a brief explanation if needed. Do NOT say you don't have access to the full dataset. Do NOT suggest how to find the answer. Just answer it.",
+                user_prompt=context + "\n\nQuestion: " + question
             )
-
-            answer = response.choices[0].message.content
-
         st.subheader("🤖 Answer")
         st.write(answer)
 
@@ -592,14 +765,13 @@ Be specific, use actual column names and numbers from the data. No extra text.""
                 st.plotly_chart(fig, use_container_width=True)
             with col_ai:
                 with st.spinner("AI is analyzing the results..."):
-                    ai_exp = client.chat.completions.create(
-                        model="openai/gpt-4o-mini",
-                        messages=[{"role": "system", "content": "You are a business analyst. Reply in this exact format:\nRESULT: <one sentence on model accuracy>\nWHY: <one sentence explaining why the top feature matters most>\nACTION: <one concrete business action to take>"},
-                                   {"role": "user", "content": f"Model predicts '{target}'. MAE: {mae:.2f}, R2: {r2*100:.1f}%. Top feature: {importance.index[0]} ({importance.iloc[0]*100:.1f}%). All features: {importance.index.tolist()}."}]
+                    ai_text = ask_ai(
+                        system_prompt="You are a business analyst. Reply in this exact format:\nRESULT: <one sentence on model accuracy>\nWHY: <one sentence explaining why the top feature matters most>\nACTION: <one concrete business action to take>",
+                        user_prompt=f"Model predicts '{target}'. MAE: {mae:.2f}, R2: {r2*100:.1f}%. Top feature: {importance.index[0]} ({importance.iloc[0]*100:.1f}%). All features: {importance.index.tolist()}."
                     )
-                resp_lines = {l.split(":")[0].strip(): ":".join(l.split(":")[1:]).strip() for l in ai_exp.choices[0].message.content.split("\n") if ":" in l}
+                resp_lines = {l.split(":")[0].strip(): ":".join(l.split(":")[1:]).strip() for l in ai_text.split("\n") if ":" in l}
                 st.info(f"📊 {resp_lines.get('RESULT', '')}")
-                st.warning(f"� {resp_lines.get('WHY', '')}")
+                st.warning(f"🔍 {resp_lines.get('WHY', '')}")
                 st.success(f"✅ {resp_lines.get('ACTION', '')}")
 
     elif ml_option == "Predict a Category":
@@ -670,14 +842,13 @@ Be specific, use actual column names and numbers from the data. No extra text.""
                 st.plotly_chart(fig, use_container_width=True)
             with col_ai:
                 with st.spinner("AI is analyzing the results..."):
-                    ai_exp = client.chat.completions.create(
-                        model="openai/gpt-4o-mini",
-                        messages=[{"role": "system", "content": "You are a business analyst. Reply in this exact format:\nRESULT: <one sentence on model accuracy>\nWHY: <one sentence explaining why the top feature matters most>\nACTION: <one concrete business action to take>"},
-                                   {"role": "user", "content": f"Model predicts '{target}'. Accuracy: {acc*100:.1f}%. Top feature: {importance.index[0]} ({importance.iloc[0]*100:.1f}%). All features: {importance.index.tolist()}."}]
+                    ai_text = ask_ai(
+                        system_prompt="You are a business analyst. Reply in this exact format:\nRESULT: <one sentence on model accuracy>\nWHY: <one sentence explaining why the top feature matters most>\nACTION: <one concrete business action to take>",
+                        user_prompt=f"Model predicts '{target}'. Accuracy: {acc*100:.1f}%. Top feature: {importance.index[0]} ({importance.iloc[0]*100:.1f}%). All features: {importance.index.tolist()}."
                     )
-                resp_lines = {l.split(":")[0].strip(): ":".join(l.split(":")[1:]).strip() for l in ai_exp.choices[0].message.content.split("\n") if ":" in l}
+                resp_lines = {l.split(":")[0].strip(): ":".join(l.split(":")[1:]).strip() for l in ai_text.split("\n") if ":" in l}
                 st.info(f"📊 {resp_lines.get('RESULT', '')}")
-                st.warning(f"� {resp_lines.get('WHY', '')}")
+                st.warning(f"🔍 {resp_lines.get('WHY', '')}")
                 st.success(f"✅ {resp_lines.get('ACTION', '')}")
 
     elif ml_option == "Group Similar Records":
@@ -693,12 +864,11 @@ Be specific, use actual column names and numbers from the data. No extra text.""
             group_summary = df[["Group"] + numeric_cols_list].groupby("Group").mean().round(2)
             st.dataframe(group_summary, use_container_width=True)
             with st.spinner("AI is analyzing the results..."):
-                ai_exp = client.chat.completions.create(
-                    model="openai/gpt-4o-mini",
-                    messages=[{"role": "system", "content": "You are a business analyst. Explain ML results in 2-3 short sentences max. Be direct and actionable. No bullet points, no headers."},
-                               {"role": "user", "content": f"I clustered the data into {n_clusters} groups. Here are the group averages:\n{group_summary.to_string()}\nExplain what each group represents and what the user should do next."}]
+                ai_text = ask_ai(
+                    system_prompt="You are a business analyst. Explain ML results in 2-3 short sentences max. Be direct and actionable. No bullet points, no headers.",
+                    user_prompt=f"I clustered the data into {n_clusters} groups. Here are the group averages:\n{group_summary.to_string()}\nExplain what each group represents and what the user should do next."
                 )
-            st.info("💡 " + ai_exp.choices[0].message.content)
+            st.info("💡 " + ai_text)
 
     elif ml_option == "Find Unusual Records":
         st.markdown("This will highlight records that look different from the rest.")
@@ -711,12 +881,11 @@ Be specific, use actual column names and numbers from the data. No extra text.""
             st.warning(f"Found **{len(anomalies)}** unusual records out of {len(X)}.")
             st.dataframe(anomalies, use_container_width=True)
             with st.spinner("AI is analyzing the results..."):
-                ai_exp = client.chat.completions.create(
-                    model="openai/gpt-4o-mini",
-                    messages=[{"role": "system", "content": "You are a business analyst. Explain ML results in 2-3 short sentences max. Be direct and actionable. No bullet points, no headers."},
-                               {"role": "user", "content": f"Anomaly detection found {len(anomalies)} unusual records out of {len(X)} total. Sample of anomalies:\n{anomalies.head(5).to_string()}\nExplain what this means and what the user should do next."}]
+                ai_text = ask_ai(
+                    system_prompt="You are a business analyst. Explain ML results in 2-3 short sentences max. Be direct and actionable. No bullet points, no headers.",
+                    user_prompt=f"Anomaly detection found {len(anomalies)} unusual records out of {len(X)} total. Sample of anomalies:\n{anomalies.head(5).to_string()}\nExplain what this means and what the user should do next."
                 )
-            st.info("💡 " + ai_exp.choices[0].message.content)
+            st.info("💡 " + ai_text)
 
     # =========================
     # 📊 GENERATE DASHBOARD BTN
@@ -756,28 +925,22 @@ elif st.session_state.page == "dashboard":
     numeric_cols_db = list(df.select_dtypes(include=["int64", "float64"]).columns)
     all_cols_db = list(df.columns)
     cat_cols_db = list(df.select_dtypes(include=["object"]).columns)
-    columns = ", ".join(df.columns)
-    summary = df.describe().to_string()
-    sample_data = df.head(10).to_string()
+    summary, columns, sample_data = get_context(df)
 
     # Step 1: Ask AI for KPI suggestions
     if "dashboard_kpis" not in st.session_state or st.session_state.dashboard_kpis is None:
         with st.spinner("AI is suggesting KPIs for your data..."):
-            kpi_resp = client.chat.completions.create(
-                model="openai/gpt-4o-mini",
-                messages=[
-                    {"role": "system", "content": """You are a BI analyst. Suggest exactly 5 KPIs for this dataset.
+            st.session_state.dashboard_kpis = ask_ai(
+                system_prompt="""You are a BI analyst. Suggest exactly 5 KPIs for this dataset.
 Return in this strict format:
 KPI: <kpi name>
 METRIC: <sum|mean|count|max|min>
 COLUMN: <exact column name>
 LABEL: <short display label>
 ---
-Repeat 5 times. No extra text."""},
-                    {"role": "user", "content": f"Columns: {columns}\nSummary:\n{summary}"}
-                ]
+Repeat 5 times. No extra text.""",
+                user_prompt=f"Columns: {columns}\nSummary:\n{summary}"
             )
-        st.session_state.dashboard_kpis = kpi_resp.choices[0].message.content
 
     # Parse KPIs
     kpi_blocks = [b.strip() for b in st.session_state.dashboard_kpis.split("---") if b.strip()]
@@ -926,9 +1089,10 @@ Repeat 5 times. No extra text."""},
                 except:
                     val_fmt = str(val)
                 kpi_card_cols[i].markdown(f"""
-                <div style='background:#1a1d2e;border:1px solid #2e3250;border-radius:14px;padding:20px 16px;'>
-                    <div style='color:#6b74b2;font-size:0.72rem;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px'>{label}</div>
-                    <div style='color:#e8eaff;font-size:1.8rem;font-weight:800;line-height:1'>{val_fmt}</div>
+                <div style='background:linear-gradient(135deg,#111627 0%,#151c35 100%);border:1px solid #2d3555;border-radius:16px;padding:24px 20px;position:relative;overflow:hidden'>
+                    <div style='position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7c83fd,#a78bfa)'></div>
+                    <div style='color:#64748b;font-size:0.72rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;font-weight:600'>{label}</div>
+                    <div style='color:#f1f5f9;font-size:2rem;font-weight:800;line-height:1;letter-spacing:-1px'>{val_fmt}</div>
                 </div>""", unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
@@ -936,10 +1100,8 @@ Repeat 5 times. No extra text."""},
         # AI generates chart plan
         if "dashboard_charts" not in st.session_state or st.session_state.dashboard_charts is None:
             with st.spinner("AI is building your charts..."):
-                chart_resp = client.chat.completions.create(
-                    model="openai/gpt-4o-mini",
-                    messages=[
-                        {"role": "system", "content": f"""You are a BI dashboard designer. Suggest exactly 4 professional charts.
+                st.session_state.dashboard_charts = ask_ai(
+                    system_prompt=f"""You are a BI dashboard designer. Suggest exactly 4 professional charts.
 Return in this strict format:
 TITLE: <chart title>
 TYPE: <bar|line|pie|scatter|histogram>
@@ -947,11 +1109,9 @@ X: <column name>
 Y: <numeric column name or 'count'>
 COLOR: <categorical column name or 'none'>
 ---
-Repeat 4 times. Only use columns that exist: {columns}. No extra text."""},
-                        {"role": "user", "content": f"Summary:\n{summary}\nSample:\n{sample_data}"}
-                    ]
+Repeat 4 times. Only use columns that exist: {columns}. No extra text.""",
+                    user_prompt=f"Summary:\n{summary}\nSample:\n{sample_data}"
                 )
-            st.session_state.dashboard_charts = chart_resp.choices[0].message.content
 
         chart_blocks = [b.strip() for b in st.session_state.dashboard_charts.split("---") if b.strip()][:4]
 
@@ -960,12 +1120,12 @@ Repeat 4 times. Only use columns that exist: {columns}. No extra text."""},
             r1_left, r1_right = st.columns([2, 1])
             with r1_left:
                 with st.container():
-                    st.markdown("<div style='background:#1a1d2e;border:1px solid #2e3250;border-radius:14px;padding:16px'>", unsafe_allow_html=True)
+                    st.markdown("<div style='background:linear-gradient(135deg,#111627,#131929);border:1px solid #2d3555;border-radius:16px;padding:20px'>", unsafe_allow_html=True)
                     render_chart(chart_blocks[0], height=360)
                     st.markdown("</div>", unsafe_allow_html=True)
             with r1_right:
                 with st.container():
-                    st.markdown("<div style='background:#1a1d2e;border:1px solid #2e3250;border-radius:14px;padding:16px'>", unsafe_allow_html=True)
+                    st.markdown("<div style='background:linear-gradient(135deg,#111627,#131929);border:1px solid #2d3555;border-radius:16px;padding:20px'>", unsafe_allow_html=True)
                     render_chart(chart_blocks[1], height=360)
                     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -975,10 +1135,10 @@ Repeat 4 times. Only use columns that exist: {columns}. No extra text."""},
         if len(chart_blocks) >= 4:
             r2_left, r2_right = st.columns(2)
             with r2_left:
-                st.markdown("<div style='background:#1a1d2e;border:1px solid #2e3250;border-radius:14px;padding:16px'>", unsafe_allow_html=True)
+                st.markdown("<div style='background:linear-gradient(135deg,#111627,#131929);border:1px solid #2d3555;border-radius:16px;padding:20px'>", unsafe_allow_html=True)
                 render_chart(chart_blocks[2], height=300)
                 st.markdown("</div>", unsafe_allow_html=True)
             with r2_right:
-                st.markdown("<div style='background:#1a1d2e;border:1px solid #2e3250;border-radius:14px;padding:16px'>", unsafe_allow_html=True)
+                st.markdown("<div style='background:linear-gradient(135deg,#111627,#131929);border:1px solid #2d3555;border-radius:16px;padding:20px'>", unsafe_allow_html=True)
                 render_chart(chart_blocks[3], height=300)
                 st.markdown("</div>", unsafe_allow_html=True)
