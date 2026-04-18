@@ -47,118 +47,163 @@ def load_file(file_bytes, file_name):
         return pd.read_csv(file_obj, index_col=0)
 
 @st.cache_data(show_spinner=False)
+def get_meaningful_missing_cols(date_cols, columns_context):
+    """Ask AI which date columns should keep their missing values as meaningful."""
+    if not date_cols:
+        return []
+    system = """You are a data analyst. Given a list of date column names, decide which ones have MEANINGFUL missing values 
+(i.e. missing = event hasn't happened yet, like delivery not done, shipment not sent, etc.)
+vs columns where missing = data error (like birth date, order date, created date).
+
+Return ONLY a comma-separated list of column names that should keep their missing values. No explanation."""
+    user = f"All columns in dataset: {columns_context}\nDate columns to analyze: {', '.join(date_cols)}"
+    try:
+        result = ask_ai(system, user)
+        return [c.strip() for c in result.split(",") if c.strip() in date_cols]
+    except:
+        return []
+
 def clean_dataframe(df):
     cleaning_report = []
 
-    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    df.columns = df.columns.str.strip().str.capitalize().str.replace(" ", "_")
+    # ── 1. Remove unnamed columns ──────────────────────────────
+    unnamed = [c for c in df.columns if 'Unnamed' in str(c)]
+    if unnamed:
+        df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
 
-    date_keywords = ["date", "time", "day", "month", "year", "birth", "created", "updated", "timestamp", "dt"]
-    numeric_keywords = ["price", "cost", "salary", "amount", "revenue", "profit", "fee", "rate", "score",
-                        "count", "qty", "quantity", "total", "weight", "height", "age", "distance", "duration"]
-    bool_keywords = ["is_", "has_", "flag", "active", "enabled", "returned", "damaged"]
+    # ── 2. Standardize column names ────────────────────────────
+    df.columns = df.columns.str.strip().str.capitalize().str.replace(r'\s+', '_', regex=True)
 
-    # ⚡ Use sample for type detection on large files
+    # ── 3. Remove constant columns ─────────────────────────────
+    const_cols = [c for c in df.columns if df[c].nunique() <= 1]
+    if const_cols:
+        df.drop(columns=const_cols, inplace=True)
+        cleaning_report.append(f"🗑️ Removed **{len(const_cols)}** constant column(s): {', '.join(f'`{c}`' for c in const_cols)}")
+
+    # ── 4. Smart type detection by column name ─────────────────
+    date_kw    = ["date", "time", "day", "month", "year", "birth", "created", "updated", "timestamp", "dt"]
+    numeric_kw = ["price", "cost", "salary", "amount", "revenue", "profit", "fee", "rate", "score",
+                  "qty", "quantity", "total", "weight", "height", "age", "distance", "duration", "units"]
+    bool_kw    = ["is_", "has_", "flag", "active", "enabled", "returned", "damaged"]
+
     sample = df.sample(min(5000, len(df)), random_state=42) if len(df) > 5000 else df
 
-    for col in df.columns:
-        col_lower = col.lower()
+    # Pre-detect date columns and ask AI which ones have meaningful missing
+    potential_date_cols = [c for c in df.columns if df[c].dtype == object and any(k in c.lower() for k in date_kw)]
+    meaningful_missing_cols = get_meaningful_missing_cols(potential_date_cols, ", ".join(df.columns))
+
+    for col in list(df.columns):
         if df[col].dtype != object:
             continue
+        col_lower = col.lower()
 
-        if any(k in col_lower for k in date_keywords):
+        # Date
+        if any(k in col_lower for k in date_kw):
             try:
                 converted = pd.to_datetime(sample[col], infer_datetime_format=True, errors="coerce")
                 if converted.notna().mean() > 0.7:
                     df[col] = pd.to_datetime(df[col], infer_datetime_format=True, errors="coerce").dt.date
-                    cleaning_report.append(f"📅 `{col}`: converted to **date**.")
+                    missing_dates = df[col].isnull().sum()
+                    if missing_dates > 0 and col not in meaningful_missing_cols:
+                        df[col] = pd.Series(df[col]).fillna(method='ffill').fillna(method='bfill')
+                        cleaning_report.append(f"📅 `{col}`: converted to **date** + filled **{missing_dates}** missing with forward fill.")
+                    else:
+                        if missing_dates > 0:
+                            df[col] = df[col].astype(object).where(df[col].notna(), other=float('nan'))
+                        cleaning_report.append(f"📅 `{col}`: converted to **date**." + (f" (**{missing_dates}** missing kept — meaningful absence.)" if missing_dates > 0 else ""))
                     continue
-            except:
-                pass
+            except: pass
 
-        if any(k in col_lower for k in numeric_keywords):
+        # Numeric
+        if any(k in col_lower for k in numeric_kw):
             try:
-                converted = pd.to_numeric(sample[col].str.replace(",", "").str.replace("$", "").str.strip(), errors="coerce")
+                cleaned = sample[col].astype(str).str.replace(r'[$,€£\s]', '', regex=True)
+                converted = pd.to_numeric(cleaned, errors="coerce")
                 if converted.notna().mean() > 0.7:
-                    df[col] = pd.to_numeric(df[col].str.replace(",", "").str.replace("$", "").str.strip(), errors="coerce")
+                    df[col] = pd.to_numeric(df[col].astype(str).str.replace(r'[$,€£\s]', '', regex=True), errors="coerce")
                     cleaning_report.append(f"🔢 `{col}`: converted to **numeric**.")
                     continue
-            except:
-                pass
+            except: pass
 
-        if any(k in col_lower for k in bool_keywords):
+        # Boolean
+        if any(k in col_lower for k in bool_kw):
             try:
                 bool_map = {"yes": True, "no": False, "true": True, "false": False, "1": True, "0": False}
-                if sample[col].str.lower().isin(bool_map.keys()).mean() > 0.7:
-                    df[col] = df[col].str.lower().map(bool_map)
+                if sample[col].astype(str).str.lower().isin(bool_map).mean() > 0.7:
+                    df[col] = df[col].astype(str).str.lower().map(bool_map)
                     cleaning_report.append(f"✅ `{col}`: converted to **boolean**.")
                     continue
-            except:
-                pass
+            except: pass
 
+        # Default numeric attempt
         try:
             df[col] = pd.to_numeric(df[col], errors="ignore")
-        except:
-            pass
+        except: pass
 
-    duplicates_count = df.duplicated().sum()
-    id_keywords = ["id", "code", "key", "uid", "ref", "sku"]
-    id_candidates = [c for c in df.columns if any(k == c.lower() or c.lower().endswith(k) or c.lower().startswith(k) for k in id_keywords)]
+    # ── 5. Duplicates ──────────────────────────────────────────
+    dup_count = df.duplicated().sum()
+    id_kw = ["id", "code", "key", "uid", "ref", "sku"]
+    id_candidates = [c for c in df.columns if any(k == c.lower() or c.lower().endswith(k) or c.lower().startswith(k) for k in id_kw)]
     id_col = max(id_candidates, key=lambda c: df[c].nunique()) if id_candidates else None
     df = df.drop_duplicates()
-    if duplicates_count > 0:
-        if id_col:
-            cleaning_report.append(f"🗑️ Removed **{duplicates_count}** duplicate rows based on `{id_col}`.")
-        else:
-            cleaning_report.append(f"🗑️ Removed **{duplicates_count}** duplicate rows.")
-
-    numeric_cols = df.select_dtypes(include=['int64', 'float64']).columns
-    cat_cols = df.select_dtypes(include=['object']).columns
+    if dup_count > 0:
+        base = f"🗑️ Removed **{dup_count}** duplicate rows"
+        cleaning_report.append(f"{base} based on `{id_col}`." if id_col else f"{base}.")
 
     total_rows = len(df)
-    for col in numeric_cols:
+
+    # ── 6. Numeric: missing values + outlier capping ───────────
+    for col in list(df.select_dtypes(include=['int64', 'float64']).columns):
         missing = df[col].isnull().sum()
-        if missing == 0:
-            continue
-        pct = missing / total_rows
-        if pct > 0.3:
-            df.drop(columns=[col], inplace=True)
-            cleaning_report.append(f"🗑️ `{col}`: dropped — **{pct*100:.0f}%** missing values (too many).")
-        elif pct > 0.05:
-            df[col].fillna(df[col].mean(), inplace=True)
-            cleaning_report.append(f"🔢 `{col}`: filled **{missing}** missing values with mean ({pct*100:.0f}% missing).")
-        else:
-            df[col].fillna(df[col].median(), inplace=True)
-            cleaning_report.append(f"🔢 `{col}`: filled **{missing}** missing values with median.")
+        if missing > 0:
+            pct = missing / total_rows
+            if pct > 0.4:
+                df.drop(columns=[col], inplace=True)
+                cleaning_report.append(f"🗑️ `{col}`: dropped — **{pct*100:.0f}%** missing.")
+                continue
+            fill_val = df[col].mean() if pct > 0.05 else df[col].median()
+            method   = "mean" if pct > 0.05 else "median"
+            df[col].fillna(fill_val, inplace=True)
+            cleaning_report.append(f"🔢 `{col}`: filled **{missing}** missing with {method}.")
 
-    cat_cols = df.select_dtypes(include=['object']).columns
-    for col in cat_cols:
-        # Text consistency: strip + title case + normalize common variants
-        df[col] = df[col].astype(str).str.strip()
-        df[col] = df[col].str.replace(r'\s+', ' ', regex=True)  # collapse multiple spaces
+        # IQR outlier capping
+        Q1, Q3 = df[col].quantile(0.25), df[col].quantile(0.75)
+        IQR = Q3 - Q1
+        if IQR > 0:
+            lower, upper = Q1 - 3 * IQR, Q3 + 3 * IQR
+            outliers = ((df[col] < lower) | (df[col] > upper)).sum()
+            if outliers > 0:
+                df[col] = df[col].clip(lower, upper)
+                cleaning_report.append(f"� `{col}`: capped **{outliers}** outliers (IQR method).")
 
-        # Normalize common country/value variants
-        replacements = {
+    # ── 7. Categorical: text consistency + missing ─────────────
+    for col in list(df.select_dtypes(include=['object']).columns):
+        df[col] = df[col].astype(str).str.strip().str.replace(r'\s+', ' ', regex=True)
+
+        # Normalize common variants
+        norm_map = {
             r'^u\.?s\.?a?\.?$': 'USA', r'^united states.*': 'USA',
-            r'^u\.?k\.?$': 'UK', r'^united kingdom.*': 'UK',
-            r'^nan$': None, r'^none$': None, r'^n/a$': None, r'^-$': None
+            r'^u\.?k\.?$': 'UK',       r'^united kingdom.*': 'UK',
+            r'^nan$': None, r'^none$': None, r'^n/a$': None,
+            r'^-$': None,  r'^$': None
         }
-        for pattern, val in replacements.items():
-            mask = df[col].str.lower().str.match(pattern, na=False)
+        for pattern, val in norm_map.items():
+            mask = df[col].str.lower().str.fullmatch(pattern.strip('^$'), na=False) if '.*' not in pattern \
+                   else df[col].str.lower().str.match(pattern, na=False)
             if mask.any():
                 df.loc[mask, col] = val
 
         missing = df[col].isnull().sum()
         if missing > 0:
             pct = missing / total_rows
-            if pct > 0.3:
+            if pct > 0.4:
                 df.drop(columns=[col], inplace=True)
-                cleaning_report.append(f"🗑️ `{col}`: dropped — **{pct*100:.0f}%** missing values.")
+                cleaning_report.append(f"🗑️ `{col}`: dropped — **{pct*100:.0f}%** missing.")
             else:
                 mode_val = df[col].mode()
                 fill_val = mode_val[0] if len(mode_val) > 0 else "Unknown"
                 df[col].fillna(fill_val, inplace=True)
-                cleaning_report.append(f"🔤 `{col}`: filled **{missing}** missing values with most common value.")
+                cleaning_report.append(f"🔤 `{col}`: filled **{missing}** missing with most common value.")
 
     return df, cleaning_report
 
@@ -206,7 +251,7 @@ if "app_loaded" not in st.session_state:
     </style>
     <div id="splash">
         <div class="splash-title">✦ AI Data Analysis Tool</div>
-        <div class="splash-sub">Powered by OpenRouter · Built with Streamlit</div>
+        <div class="splash-sub">Your AI-powered Data Analyst</div>
         <div class="splash-bar"><div class="splash-fill"></div></div>
     </div>
     """, unsafe_allow_html=True)
