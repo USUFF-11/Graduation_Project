@@ -14,7 +14,7 @@ import re
 # =========================
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key=""
+    api_key="API_KEY_HERE"
 )
 
 def ask_ai(system_prompt, user_prompt):
@@ -29,8 +29,20 @@ def ask_ai(system_prompt, user_prompt):
 
 st.set_page_config(page_title="AI Data Tool", layout="wide")
 
+# Hide Streamlit default UI elements
+st.markdown("""
+    <style>
+        header[data-testid="stHeader"] { display: none !important; }
+        #MainMenu { display: none !important; }
+        footer { display: none !important; }
+        [data-testid="stToolbar"] { display: none !important; }
+        [data-testid="manage-app-button"] { display: none !important; }
+        .stDeployButton { display: none !important; }
+    </style>
+""", unsafe_allow_html=True)
+
 def load_css(file_name):
-    with open(file_nameو encoding="utf-8") as f:
+    with open(file_name, encoding="utf-8") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 load_css("Style.css")
@@ -93,9 +105,8 @@ def clean_dataframe(df):
 
     sample = df.sample(min(5000, len(df)), random_state=42) if len(df) > 5000 else df
 
-    # Pre-detect date columns and ask AI which ones have meaningful missing
+    # Pre-detect date columns
     potential_date_cols = [c for c in df.columns if df[c].dtype == object and any(k in c.lower() for k in date_kw)]
-    meaningful_missing_cols = get_meaningful_missing_cols(potential_date_cols, ", ".join(df.columns))
 
     for col in list(df.columns):
         if df[col].dtype != object:
@@ -109,13 +120,7 @@ def clean_dataframe(df):
                 if converted.notna().mean() > 0.7:
                     df[col] = pd.to_datetime(df[col], infer_datetime_format=True, errors="coerce").dt.date
                     missing_dates = df[col].isnull().sum()
-                    if missing_dates > 0 and col not in meaningful_missing_cols:
-                        df[col] = pd.Series(df[col]).fillna(method='ffill').fillna(method='bfill')
-                        cleaning_report.append(f"📅 `{col}`: converted to **date** + filled **{missing_dates}** missing with forward fill.")
-                    else:
-                        if missing_dates > 0:
-                            df[col] = df[col].astype(object).where(df[col].notna(), other=float('nan'))
-                        cleaning_report.append(f"📅 `{col}`: converted to **date**." + (f" (**{missing_dates}** missing kept — meaningful absence.)" if missing_dates > 0 else ""))
+                    cleaning_report.append(f"📅 `{col}`: converted to **date**." + (f" (**{missing_dates}** missing kept.)" if missing_dates > 0 else ""))
                     continue
             except: pass
 
@@ -171,15 +176,14 @@ def clean_dataframe(df):
             df[col].fillna(fill_val, inplace=True)
             cleaning_report.append(f"🔢 `{col}`: filled **{missing}** missing with {method}.")
 
-        # IQR outlier capping
+        # IQR outlier detection (no capping — just report)
         Q1, Q3 = df[col].quantile(0.25), df[col].quantile(0.75)
         IQR = Q3 - Q1
         if IQR > 0:
             lower, upper = Q1 - 3 * IQR, Q3 + 3 * IQR
             outliers = ((df[col] < lower) | (df[col] > upper)).sum()
             if outliers > 0:
-                df[col] = df[col].clip(lower, upper)
-                cleaning_report.append(f"� `{col}`: capped **{outliers}** outliers (IQR method).")
+                cleaning_report.append(f"⚠️ `{col}`: **{outliers}** outliers detected (values outside normal range). Not modified.")
 
     # ── 7. Categorical: text consistency + missing ─────────────
     for col in list(df.select_dtypes(include=['object']).columns):
@@ -205,10 +209,17 @@ def clean_dataframe(df):
                 df.drop(columns=[col], inplace=True)
                 cleaning_report.append(f"🗑️ `{col}`: dropped — **{pct*100:.0f}%** missing.")
             else:
-                mode_val = df[col].mode()
-                fill_val = mode_val[0] if len(mode_val) > 0 else "Unknown"
-                df[col].fillna(fill_val, inplace=True)
-                cleaning_report.append(f"🔤 `{col}`: filled **{missing}** missing with most common value.")
+                # Skip ID-like columns — filling them with mode makes no sense
+                is_id_col = any(k == col.lower() or col.lower().endswith(k) or col.lower().startswith(k)
+                                for k in ["id", "code", "key", "uid", "ref", "sku"])
+                high_cardinality = df[col].nunique() / total_rows > 0.8
+                if is_id_col or high_cardinality:
+                    cleaning_report.append(f"⚠️ `{col}`: **{missing}** missing — skipped (ID/unique column).")
+                else:
+                    mode_val = df[col].mode()
+                    fill_val = mode_val[0] if len(mode_val) > 0 else "Unknown"
+                    df[col].fillna(fill_val, inplace=True)
+                    cleaning_report.append(f"🔤 `{col}`: filled **{missing}** missing with most common value.")
 
     return df, cleaning_report
 
@@ -216,7 +227,7 @@ def clean_dataframe(df):
 def get_context(df):
     summary = df.describe().round(2).to_string()
     columns = ", ".join(df.columns)
-    sample_data = df.sample(min(20, len(df))).to_string()
+    sample_data = df.sample(min(5, len(df))).to_string()
     return summary, columns, sample_data
 
 # =========================
@@ -260,25 +271,27 @@ if st.session_state.page == "main" and "uploaded_file" in st.session_state and s
 
     file_size_mb = uploaded_file.size / (1024 * 1024)
 
-    # ⚡ Progress bar
-    progress = st.progress(0, text="📂 Loading file...")
-    status = st.empty()
-
-    # Step 1: Load
-    status.info(f"📂 Loading file ({file_size_mb:.0f} MB)... please wait")
+    # Load & Clean
     file_bytes = uploaded_file.getvalue()
-    raw_df = load_file(file_bytes, uploaded_file.name)
-    progress.progress(40, text="✅ File loaded!")
+    with st.spinner("Processing your data..."):
+        raw_df = load_file(file_bytes, uploaded_file.name)
+        df, cleaning_report = clean_dataframe(raw_df)
 
-    # Step 2: Clean
-    status.info("🧹 Cleaning data... detecting types and fixing missing values")
-    df, cleaning_report = clean_dataframe(raw_df)
-    progress.progress(80, text="✅ Data cleaned!")
-
-    # Step 3: Done
-    status.success(f"✅ Ready! {len(df):,} rows × {len(df.columns)} columns loaded successfully.")
-    progress.progress(100, text="✅ Done!")
-    progress.empty()
+    st.markdown(f"""
+        <div style="
+            display: flex; align-items: center; gap: 16px;
+            background: linear-gradient(135deg, rgba(31,170,138,0.15), rgba(11,58,47,0.3));
+            border: 1px solid rgba(31,170,138,0.4);
+            border-radius: 14px; padding: 16px 24px; margin: 12px 0;
+        ">
+            <div>
+                <div style="color: #7DE6B0; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;">Data Loaded Successfully</div>
+                <div style="color: #E6F1EC; font-size: 1.4rem; font-weight: 700; margin-top: 2px;">
+                    {len(df):,} rows &nbsp;×&nbsp; {len(df.columns)} columns
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 
 
     # =========================
@@ -287,17 +300,101 @@ if st.session_state.page == "main" and "uploaded_file" in st.session_state and s
 
     st.markdown('<div class="section-title">📊 Cleaned Data</div>', unsafe_allow_html=True)
     st.caption(f"{len(df)} rows × {len(df.columns)} columns — showing first 500 rows")
-    st.dataframe(df.head(500), use_container_width=True)
+    # Display with 1 decimal for float columns, without changing actual data
+    display_df = df.head(500).copy()
+    for col in display_df.select_dtypes(include='float').columns:
+        display_df[col] = display_df[col].round(1)
+    st.dataframe(display_df, use_container_width=True)
 
     csv = df.to_csv(index=False).encode("utf-8")
     st.download_button("⬇️ Export Cleaned Data", data=csv, file_name="cleaned_data.csv", mime="text/csv")
 
     st.subheader("🧹 Cleaning Report")
     if cleaning_report:
-        for item in cleaning_report:
-            st.markdown(item)
+        import re
+
+        def clean_text(text):
+            text = re.sub(r'[^\x00-\x7F\u00C0-\u024F\u1E00-\u1EFF]+', '', text)
+            text = re.sub(r'\*\*(.*?)\*\*', r'\1', text)
+            text = text.replace('`', '')
+            return text.strip()
+
+        def extract_col(text):
+            # Extract column name (first word-like token before colon)
+            m = re.search(r'([A-Za-z_][A-Za-z0-9_]*)\s*:', clean_text(text))
+            return m.group(1) if m else clean_text(text)
+
+        # ── Categorize ──────────────────────────────────────────
+        converted_date    = [i for i in cleaning_report if "converted to" in i.lower() and "date" in i.lower()]
+        converted_numeric = [i for i in cleaning_report if "converted to" in i.lower() and "numeric" in i.lower()]
+        converted_bool    = [i for i in cleaning_report if "converted to" in i.lower() and "boolean" in i.lower()]
+
+        removed_dup  = [i for i in cleaning_report if "duplicate" in i.lower()]
+        removed_col  = [i for i in cleaning_report if ("dropped" in i.lower() or ("removed" in i.lower() and "duplicate" not in i.lower()))]
+
+        filled_median  = [i for i in cleaning_report if "median" in i.lower()]
+        filled_mean    = [i for i in cleaning_report if "mean" in i.lower()]
+        filled_mode    = [i for i in cleaning_report if "most common" in i.lower()]
+        filled_outlier = [i for i in cleaning_report if "capped" in i.lower() or "outlier" in i.lower()]
+
+        def render_subgroup(label, items):
+            if not items:
+                return ""
+            cols_html = "".join(
+                f'<span style="display:inline-block; background:rgba(31,170,138,0.12); '
+                f'border:1px solid rgba(31,170,138,0.25); border-radius:6px; '
+                f'padding:2px 10px; margin:3px 3px 3px 0; color:#c8e6d4; font-size:0.78rem;">'
+                f'{extract_col(i)}</span>'
+                for i in items
+            )
+            return f"""
+                <div style="margin-bottom:10px;">
+                    <div style="color:#7DE6B0; font-size:0.72rem; letter-spacing:1px;
+                                text-transform:uppercase; margin-bottom:5px;">{label}</div>
+                    <div>{cols_html}</div>
+                </div>
+            """
+
+        def render_card(title, subgroups):
+            body = "".join(render_subgroup(lbl, items) for lbl, items in subgroups)
+            if not body.strip().replace('<div style="margin-bottom:10px;"></div>', ''):
+                body = '<div style="color:#4a7a62; font-size:0.84rem;">No changes</div>'
+            return f"""
+                <div style="background:rgba(15,35,28,0.6); border:1px solid rgba(31,170,138,0.25);
+                            border-radius:12px; padding:18px 20px; min-height:120px;">
+                    <div style="color:#E6F1EC; font-size:0.75rem; font-weight:600;
+                                letter-spacing:1.5px; text-transform:uppercase; margin-bottom:14px;">
+                        {title}
+                    </div>
+                    {body}
+                </div>
+            """
+
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            st.markdown(render_card("Data Type Converted", [
+                ("Date",    converted_date),
+                ("Numeric", converted_numeric),
+                ("Boolean", converted_bool),
+            ]), unsafe_allow_html=True)
+
+        with col2:
+            st.markdown(render_card("Removed", [
+                ("Duplicate Rows", removed_dup),
+                ("Columns",        removed_col),
+            ]), unsafe_allow_html=True)
+
+        with col3:
+            st.markdown(render_card("Filled Missing Values", [
+                ("Median",         filled_median),
+                ("Mean",           filled_mean),
+                ("Most Common",    filled_mode),
+                ("Capped Outliers",filled_outlier),
+            ]), unsafe_allow_html=True)
+
     else:
-        st.success("✅ Data is clean! No issues found.")
+        st.success("Data is clean! No issues found.")
     # =========================
     # 🛤️ PATH SELECTION
     # =========================
@@ -536,7 +633,9 @@ Be specific, use actual column names and numbers from the data. No extra text.""
     cols = st.columns(2)
 
     for i, q in enumerate(questions_list):
-        if cols[i % 2].button(q):
+        # Clean backticks and markdown from question display
+        clean_q = re.sub(r'`([^`]+)`', r'\1', q)
+        if cols[i % 2].button(clean_q, key=f"q_btn_{i}"):
             st.session_state.selected_question = q
 
     # =========================
@@ -556,14 +655,86 @@ Be specific, use actual column names and numbers from the data. No extra text.""
     # 🤖 AI ANSWER
     # =========================
 
-    if question and st.session_state.ml_option is None:
+    ask_clicked = st.button("Ask", key="ask_btn")
+
+    if ask_clicked and question:
         with st.spinner("Analyzing..."):
+            q_lower = question.lower()
+            pre_computed = ""
+
+            for col in df.columns:
+                if col.lower() in q_lower:
+                    if pd.api.types.is_numeric_dtype(df[col]):
+                        pre_computed += (
+                            f"{col} — sum: {df[col].sum():,.2f}, "
+                            f"mean: {df[col].mean():,.2f}, "
+                            f"min: {df[col].min():,.2f}, "
+                            f"max: {df[col].max():,.2f}, "
+                            f"count: {df[col].count():,}\n"
+                        )
+                    else:
+                        vc = df[col].value_counts().head(15).to_string()
+                        pre_computed += f"{col} value counts:\n{vc}\n"
+
+            # Group-by analysis: if question mentions two columns, compute groupby
+            mentioned_cols = [c for c in df.columns if c.lower() in q_lower]
+            if len(mentioned_cols) >= 2:
+                cat_col = next((c for c in mentioned_cols if df[c].dtype == object), None)
+                num_col = next((c for c in mentioned_cols if pd.api.types.is_numeric_dtype(df[c])), None)
+                if cat_col and num_col:
+                    grp = df.groupby(cat_col)[num_col].agg(['sum','mean','count']).round(2).to_string()
+                    pre_computed += f"\nGrouped {num_col} by {cat_col}:\n{grp}\n"
+
+            # Date range filtering
+            import re as _re
+            date_pattern = _re.findall(r'\d{1,2}/\d{1,2}/\d{4}', question)
+            if len(date_pattern) >= 2:
+                try:
+                    d1 = pd.to_datetime(date_pattern[0])
+                    d2 = pd.to_datetime(date_pattern[1])
+                    for col in df.columns:
+                        try:
+                            parsed = pd.to_datetime(df[col], errors='coerce')
+                            if parsed.notna().mean() > 0.7:
+                                mask = (parsed >= d1) & (parsed <= d2)
+                                filtered = df[mask]
+                                pre_computed += f"\nRows where {col} between {date_pattern[0]} and {date_pattern[1]}: {len(filtered):,} rows\n"
+                                pre_computed += filtered.head(20).to_string() + "\n"
+                                break
+                        except: pass
+                except: pass
+
+            targeted_context = f"Dataset: {len(df):,} rows × {len(df.columns)} columns\nColumns: {', '.join(df.columns)}\n\n"
+            targeted_context += f"Numeric summary:\n{df.describe().round(2).to_string()}\n\n"
+            if pre_computed:
+                targeted_context += f"Computed data for this question:\n{pre_computed}\n"
+
             answer = ask_ai(
-                system_prompt="You are a data analyst. The user gave you a dataset. Answer the question directly using the actual data provided. Give a specific number or fact as the answer first, then a brief explanation if needed. Do NOT say you don't have access to the full dataset. Do NOT suggest how to find the answer. Just answer it.",
-                user_prompt=context + "\n\nQuestion: " + question
+                system_prompt="""You are a data analyst. Answer in maximum 3 sentences. Be direct — start with the actual number or fact from the computed data provided. Do NOT say you need more data. No intros, no bullet points.""",
+                user_prompt=targeted_context + "\n\nQuestion: " + question
             )
-        st.subheader("🤖 Answer")
-        st.write(answer)
+            st.session_state.last_answer = answer
+            st.session_state.last_question = question
+    elif not question:
+        st.session_state.pop("last_answer", None)
+        st.session_state.pop("last_question", None)
+
+    if "last_answer" in st.session_state and st.session_state.get("last_question") == question and question:
+        clean_answer = st.session_state.last_answer.replace("\\$", "$").replace("\\_", "_").replace("\\*", "*")
+        st.markdown(f"""
+            <div style="
+                background: rgba(15,35,28,0.6);
+                border: 1px solid rgba(31,170,138,0.25);
+                border-radius: 12px;
+                padding: 18px 22px;
+                margin-top: 12px;
+                color: #c8e6d4;
+                font-size: 0.95rem;
+                line-height: 1.7;
+            ">
+                {clean_answer.replace(chr(10), '<br>')}
+            </div>
+        """, unsafe_allow_html=True)
 
     # =========================
     # 🤖 MACHINE LEARNING
