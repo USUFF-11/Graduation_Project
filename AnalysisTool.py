@@ -14,7 +14,7 @@ import re
 # =========================
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="API_KEY_HERE"
+    api_key=""
 )
 
 def ask_ai(system_prompt, user_prompt):
@@ -29,6 +29,11 @@ def ask_ai(system_prompt, user_prompt):
 
 st.set_page_config(page_title="AI Data Tool", layout="wide")
 
+def load_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+load_css("Style.css")
 # =========================
 # ⚡ CACHED FUNCTIONS
 # =========================
@@ -221,205 +226,18 @@ if "page" not in st.session_state:
     st.session_state.page = "main"
 
 # Splash screen on first load
+
 if "app_loaded" not in st.session_state:
     st.markdown("""
-    <style>
-    #splash {
-        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-        background: #080b14; display: flex; flex-direction: column;
-        align-items: center; justify-content: center; z-index: 9999;
-        animation: fadeOut 0.6s ease 1.8s forwards;
-    }
-    @keyframes fadeOut { to { opacity: 0; pointer-events: none; } }
-    .splash-title {
-        font-size: 2.8rem; font-weight: 800;
-        background: linear-gradient(135deg, #7c83fd, #a78bfa);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        margin-bottom: 12px; letter-spacing: -1px;
-    }
-    .splash-sub { color: #4a5180; font-size: 1rem; margin-bottom: 40px; }
-    .splash-bar {
-        width: 220px; height: 3px; background: #1a1f35; border-radius: 99px; overflow: hidden;
-    }
-    .splash-fill {
-        height: 100%; width: 0%;
-        background: linear-gradient(90deg, #7c83fd, #a78bfa);
-        border-radius: 99px;
-        animation: fill 1.8s ease forwards;
-    }
-    @keyframes fill { to { width: 100%; } }
-    </style>
     <div id="splash">
-        <div class="splash-title">✦ AI Data Analysis Tool</div>
-        <div class="splash-sub">Your AI-powered Data Analyst</div>
-        <div class="splash-bar"><div class="splash-fill"></div></div>
+      <div class="splash-title">✦ AI Data Analysis Tool</div>
+      <div class="splash-sub">Your AI-powered Data Analyst</div>
+      <div class="splash-bar"><div class="splash-fill"></div></div>
     </div>
     """, unsafe_allow_html=True)
     st.session_state.app_loaded = True
 
-st.markdown("""
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-
-    * { font-family: 'Inter', sans-serif !important; }
-
-    /* ── Background ── */
-    .stApp { background-color: #080b14; color: #e2e8f0; }
-    .block-container { padding: 2rem 3rem 3rem 3rem !important; max-width: 1400px !important; }
-
-    /* ── Hide Streamlit default top bar loader ── */
-    div[data-testid="stToolbar"] { display: none !important; }
-    .stProgress > div > div { background: linear-gradient(90deg, #7c83fd, #a78bfa) !important; }
-
-    /* ── Title ── */
-    h1 {
-        background: linear-gradient(135deg, #7c83fd 0%, #a78bfa 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 2.4rem !important;
-        font-weight: 800 !important;
-        letter-spacing: -0.5px;
-        margin-bottom: 0.1rem !important;
-    }
-
-    /* ── Subheaders ── */
-    h2, h3 {
-        color: #c4c9ff !important;
-        font-weight: 700 !important;
-        font-size: 1.15rem !important;
-        letter-spacing: -0.2px;
-        border-bottom: 1px solid #1e2235;
-        padding-bottom: 8px;
-        margin-top: 2rem !important;
-    }
-
-    /* ── Buttons ── */
-    .stButton > button {
-        background: linear-gradient(135deg, #1a1f35 0%, #1e2440 100%);
-        color: #a5b4fc;
-        border: 1px solid #2d3555;
-        border-radius: 12px;
-        padding: 12px 20px;
-        font-size: 0.88rem;
-        font-weight: 600;
-        width: 100%;
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-        letter-spacing: 0.2px;
-    }
-    .stButton > button:hover {
-        background: linear-gradient(135deg, #7c83fd 0%, #a78bfa 100%);
-        color: white;
-        border-color: transparent;
-        transform: translateY(-1px);
-        box-shadow: 0 8px 25px rgba(124, 131, 253, 0.35);
-    }
-    .stButton > button:active { transform: translateY(0px); }
-
-    /* ── Text input ── */
-    .stTextInput > div > div > input {
-        background-color: #111627;
-        color: #e2e8f0;
-        border: 1px solid #2d3555;
-        border-radius: 12px;
-        padding: 12px 16px;
-        font-size: 0.9rem;
-        transition: border-color 0.2s;
-    }
-    .stTextInput > div > div > input:focus {
-        border-color: #7c83fd !important;
-        box-shadow: 0 0 0 3px rgba(124,131,253,0.15) !important;
-    }
-
-    /* ── Selectbox ── */
-    .stSelectbox > div > div {
-        background-color: #111627 !important;
-        border: 1px solid #2d3555 !important;
-        border-radius: 12px !important;
-        color: #e2e8f0 !important;
-    }
-
-    /* ── File uploader ── */
-    .stFileUploader {
-        background: linear-gradient(135deg, #111627 0%, #131929 100%);
-        border: 2px dashed #2d3555;
-        border-radius: 16px;
-        padding: 12px;
-        transition: border-color 0.2s;
-    }
-    .stFileUploader:hover { border-color: #7c83fd; }
-
-    /* ── Dataframe ── */
-    .stDataFrame {
-        border-radius: 14px;
-        overflow: hidden;
-        border: 1px solid #1e2235;
-    }
-
-    /* ── Alerts ── */
-    .stSuccess {
-        background: linear-gradient(135deg, #0d2218 0%, #0f2a1c 100%) !important;
-        border-left: 3px solid #22c55e !important;
-        border-radius: 10px !important;
-    }
-    .stInfo {
-        background: linear-gradient(135deg, #0d1a2e 0%, #0f1f38 100%) !important;
-        border-left: 3px solid #3b82f6 !important;
-        border-radius: 10px !important;
-    }
-    .stWarning {
-        background: linear-gradient(135deg, #1e1608 0%, #251c0a 100%) !important;
-        border-left: 3px solid #f59e0b !important;
-        border-radius: 10px !important;
-    }
-    .stError {
-        background: linear-gradient(135deg, #1e0d0d 0%, #250f0f 100%) !important;
-        border-left: 3px solid #ef4444 !important;
-        border-radius: 10px !important;
-    }
-
-    /* ── Progress bar ── */
-    .stProgress > div > div > div {
-        background: linear-gradient(90deg, #7c83fd, #a78bfa) !important;
-        border-radius: 99px !important;
-    }
-    .stProgress > div > div {
-        background-color: #1e2235 !important;
-        border-radius: 99px !important;
-    }
-
-    /* ── Spinner ── */
-    .stSpinner > div { border-top-color: #7c83fd !important; }
-
-    /* ── Divider ── */
-    hr { border-color: #1e2235 !important; margin: 1.5rem 0 !important; }
-
-    /* ── Slider ── */
-    .stSlider > div > div > div { background: #7c83fd !important; }
-
-    /* ── Caption ── */
-    .stCaption { color: #64748b !important; font-size: 0.8rem !important; }
-
-    /* ── Scrollbar ── */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #0f1117; }
-    ::-webkit-scrollbar-thumb { background: #2d3555; border-radius: 99px; }
-    ::-webkit-scrollbar-thumb:hover { background: #7c83fd; }
-
-    /* ── Hide Streamlit branding ── */
-    #MainMenu { visibility: hidden; }
-    footer { visibility: hidden; }
-    header { visibility: hidden; }
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<div style='margin-bottom: 0.5rem;'>
-    <div style='display:flex;align-items:center;gap:12px;margin-bottom:4px'>
-        <span style='font-size:2.4rem;font-weight:800;background:linear-gradient(135deg,#7c83fd,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent'>✦ AI Data Analysis Tool</span>
-    </div>
-    <p style='color:#64748b;font-size:0.9rem;margin:0'>Upload your CSV and get instant insights, predictions, and dashboards — powered by AI.</p>
-</div>
-""", unsafe_allow_html=True)
+st.title("✦ AI Data Analysis Tool")
 
 uploaded_file = st.file_uploader("📂 Upload your data", type=["csv"])
 
@@ -462,11 +280,12 @@ if st.session_state.page == "main" and "uploaded_file" in st.session_state and s
     progress.progress(100, text="✅ Done!")
     progress.empty()
 
+
     # =========================
     # 📊 SHOW DATA
     # =========================
 
-    st.subheader("📊 Cleaned Data")
+    st.markdown('<div class="section-title">📊 Cleaned Data</div>', unsafe_allow_html=True)
     st.caption(f"{len(df)} rows × {len(df.columns)} columns — showing first 500 rows")
     st.dataframe(df.head(500), use_container_width=True)
 
@@ -479,7 +298,6 @@ if st.session_state.page == "main" and "uploaded_file" in st.session_state and s
             st.markdown(item)
     else:
         st.success("✅ Data is clean! No issues found.")
-
     # =========================
     # 🛤️ PATH SELECTION
     # =========================
@@ -490,6 +308,7 @@ if st.session_state.page == "main" and "uploaded_file" in st.session_state and s
     if "user_path" not in st.session_state:
         st.session_state.user_path = None
 
+    st.markdown('<div class="inf"> Choose Workflow</div>', unsafe_allow_html=True)
     path_col1, path_col2 = st.columns(2)
     with path_col1:
         if st.button("📊 Quick Dashboard\nBuild a dashboard directly from your data", key="path_dashboard", use_container_width=True):
@@ -531,10 +350,10 @@ if st.session_state.page == "main" and "uploaded_file" in st.session_state and s
     # =========================
     # 🔍 AUTO INSIGHTS
     # =========================
-    st.subheader("🔍 Insights & Actions")
+    st.markdown('<div class="section-title">🔍 AI Insights Engine</div>', unsafe_allow_html=True)
     if "auto_insights" not in st.session_state:
         with st.spinner("Analyzing your data..."):
-            st.session_state.auto_insights = ask_ai(
+             st.session_state.auto_insights = ask_ai(
                 system_prompt="""You are a senior business analyst. Given a dataset, return exactly 4 insights in this strict format:
 INSIGHT: <one sentence observation about the data>
 ACTION: <one sentence business recommendation>
@@ -557,8 +376,11 @@ Repeat 4 times. The FIRST block must be the single most critical insight. No ext
         chart_col  = lines.get("CHART_COL", "").strip()
 
         if idx == 0:
-            st.markdown("""<div style='background:linear-gradient(90deg,#2a1f5e,#1e2130);border:1px solid #7c83fd;border-radius:12px;padding:16px 20px;margin-bottom:8px'>
-            <span style='color:#f5c542;font-size:1rem;font-weight:700'>⭐ Most Important Insight</span></div>""", unsafe_allow_html=True)
+            st.markdown("""
+            <div class="insight-header">
+               <span>⭐ Most Important Insight</span>
+            </div>
+            """, unsafe_allow_html=True)
             col_text, col_chart_col = st.columns([1, 1.2])
             with col_text:
                 st.warning(f"💡 {insight}")
@@ -601,49 +423,49 @@ Repeat 4 times. The FIRST block must be the single most critical insight. No ext
                             y_col = num_cols_avail[0]
                             ts = date_df.groupby("_period")[y_col].sum().reset_index()
                             ts.columns = ["Date", y_col]
-                            fig = px.line(ts, x="Date", y=y_col, color_discrete_sequence=["#7c83fd"])
+                            fig = px.line(ts, x="Date", y=y_col, color_discrete_sequence=["#E6F1EC", "#7DE6B0", "#1FAA8A", "#178F6F", "#0B3A2F"])
                         else:
                             ts = date_df["_period"].value_counts().sort_index().reset_index()
                             ts.columns = ["Date", "count"]
-                            fig = px.line(ts, x="Date", y="count", color_discrete_sequence=["#7c83fd"])
+                            fig = px.line(ts, x="Date", y="count", color_discrete_sequence=["#E6F1EC", "#7DE6B0", "#1FAA8A", "#178F6F", "#0B3A2F"])
 
                     elif is_numeric and n_unique > 20:
                         if any(k in col_lower for k in ["score", "rate", "avg", "satisfaction", "rating"]):
                             agg_label = "Average"
                             agg_val = round(col_data.mean(), 2)
                             fig = px.bar(pd.DataFrame({chart_col: [chart_col], agg_label: [agg_val]}),
-                                         x=chart_col, y=agg_label, color_discrete_sequence=["#7c83fd"])
+                                         x=chart_col, y=agg_label, color_discrete_sequence=["#1FAA8A"])
                         else:
                             cat_cols_avail = [c for c in plot_df.select_dtypes(include="object").columns]
                             if cat_cols_avail:
                                 grp_col = cat_cols_avail[0]
                                 grp = plot_df[plot_df[grp_col].astype(str) != "Unknown"].groupby(grp_col)[chart_col].sum().reset_index().sort_values(chart_col, ascending=False).head(8)
                                 fig = px.bar(grp, x=grp_col, y=chart_col,
-                                             color=chart_col, color_continuous_scale="Blues")
+                                             color=chart_col, color_continuous_scale=["#1FAA8A","#178F6F","#0B3A2F"])
                             else:
-                                fig = px.histogram(col_data, x=chart_col, color_discrete_sequence=["#7c83fd"])
+                                fig = px.histogram(col_data, x=chart_col, color_discrete_sequence=["#E6F1EC", "#7DE6B0", "#1FAA8A", "#178F6F", "#0B3A2F"])
 
                     elif is_numeric and n_unique <= 20:
                         grp = col_data.value_counts().sort_index().reset_index()
                         grp.columns = [chart_col, "count"]
                         fig = px.bar(grp, x=chart_col, y="count",
-                                     color="count", color_continuous_scale="Blues",
+                                     color="count", color_continuous_scale=["#1FAA8A","#178F6F", "#0B3A2F"],
                                      labels={"count": "Number of Records"})
                     else:
                         if chart_type == "pie":
                             grp = col_data.value_counts().head(6).reset_index()
                             grp.columns = [chart_col, "count"]
                             fig = px.pie(grp, names=chart_col, values="count",
-                                         color_discrete_sequence=px.colors.sequential.Purples_r)
+                                         color_discrete_sequence=["#1FAA8A","#178F6F","#0B3A2F","#7DE6B0","#7FD1A6"])
                         else:
                             grp = col_data.value_counts().head(8).reset_index()
                             grp.columns = [chart_col, "count"]
                             fig = px.bar(grp, x=chart_col, y="count",
-                                         color="count", color_continuous_scale="Blues")
+                                         color="count", color_continuous_scale=["#1FAA8A","#178F6F", "#0B3A2F"])
 
                     fig.update_layout(
                         plot_bgcolor="#0f1117", paper_bgcolor="#0f1117",
-                        font_color="#e0e0e0", coloraxis_showscale=False,
+                        font_color="#E6F1EC", coloraxis_showscale=False,
                         margin=dict(l=10, r=10, t=10, b=10), height=220
                     )
                     st.plotly_chart(fig, use_container_width=True)
@@ -655,7 +477,7 @@ Repeat 4 times. The FIRST block must be the single most critical insight. No ext
     # 🤖 AI COPILOT
     # =========================
 
-    st.subheader("🤖 AI Copilot")
+    st.markdown('<div class="section-title">🤖 AI Copilot</div>', unsafe_allow_html=True)
     st.caption("Your AI analyst — detects problems, suggests solutions, and ranks priorities.")
 
     if "copilot_response" not in st.session_state:
@@ -688,7 +510,6 @@ Be specific, use actual column names and numbers from the data. No extra text.""
                 st.markdown(f"`#{rank}` {val}")
 
     st.divider()
-
     # =========================
     # 🤖 GENERATE QUESTIONS
     # =========================
@@ -748,8 +569,7 @@ Be specific, use actual column names and numbers from the data. No extra text.""
     # 🤖 MACHINE LEARNING
     # =========================
 
-    st.subheader("🤖 Smart Predictions & Analysis")
-
+    st.markdown('<div class="section-title">⚙️ Machine Learning Studio</div>', unsafe_allow_html=True)
     ml_options = {
         "Predict a Number": "Forecast a numeric value like price or cost",
         "Predict a Category": "Classify records into categories like status or type",
@@ -768,8 +588,7 @@ Be specific, use actual column names and numbers from the data. No extra text.""
                 st.session_state.selected_question = None
                 st.rerun()
             if st.session_state.ml_option == label:
-                st.markdown(f"<div style='text-align:center;font-size:0.72rem;color:#7c83fd;margin-top:-10px'>▲ selected</div>", unsafe_allow_html=True)
-
+                st.markdown(f"<div class='selected-badge'>▲ selected</div>", unsafe_allow_html=True)
     ml_option = st.session_state.ml_option
 
     numeric_cols_list = list(df.select_dtypes(include=['int64', 'float64']).columns)
@@ -798,12 +617,12 @@ Be specific, use actual column names and numbers from the data. No extra text.""
                 fig = px.bar(
                     imp_df, x="Importance", y="Feature", orientation="h",
                     text=imp_df["Importance"].apply(lambda x: f"{x}%"),
-                    color="Importance", color_continuous_scale="Blues"
+                    color="Importance", color_continuous_scale=["#1FAA8A","#178F6F", "#0B3A2F"]
                 )
                 fig.update_traces(textposition="outside", hovertemplate="<b>%{y}</b><br>Importance: %{x}%<extra></extra>")
                 fig.update_layout(
-                    plot_bgcolor="#0f1117", paper_bgcolor="#0f1117",
-                    font_color="#e0e0e0", coloraxis_showscale=False,
+                    plot_bgcolor="#0f1715", paper_bgcolor="#0f1715",
+                    font_color="#E6F1EC", coloraxis_showscale=False,
                     xaxis=dict(ticksuffix="%"),
                     yaxis=dict(autorange="reversed"), margin=dict(l=10, r=10, t=10, b=10)
                 )
@@ -864,7 +683,6 @@ Be specific, use actual column names and numbers from the data. No extra text.""
                 model = rf
                 acc = rf_acc
                 model_name = "Random Forest"
-
             st.success(f"Prediction accuracy: **{acc*100:.1f}%** (using {model_name})")
             importance = pd.Series(model.feature_importances_, index=features).sort_values(ascending=False).head(5)
             col_chart, col_ai = st.columns([1.2, 1])
@@ -875,12 +693,12 @@ Be specific, use actual column names and numbers from the data. No extra text.""
                 fig = px.bar(
                     imp_df, x="Importance", y="Feature", orientation="h",
                     text=imp_df["Importance"].apply(lambda x: f"{x}%"),
-                    color="Importance", color_continuous_scale="Purples"
+                    color="Importance", color_continuous_scale=[ "#E6F1EC","#7DE6B0","#1FAA8A","#178F6F","#0B3A2F"]
                 )
                 fig.update_traces(textposition="outside", hovertemplate="<b>%{y}</b><br>Importance: %{x}%<extra></extra>")
                 fig.update_layout(
-                    plot_bgcolor="#0f1117", paper_bgcolor="#0f1117",
-                    font_color="#e0e0e0", coloraxis_showscale=False,
+                    plot_bgcolor="#0f1715", paper_bgcolor="#0f1715",
+                    font_color="#E6F1EC", coloraxis_showscale=False,
                     xaxis=dict(ticksuffix="%"),
                     yaxis=dict(autorange="reversed"), margin=dict(l=10, r=10, t=10, b=10)
                 )
@@ -939,12 +757,13 @@ Be specific, use actual column names and numbers from the data. No extra text.""
     st.markdown("<br>", unsafe_allow_html=True)
     col_center = st.columns([1, 2, 1])[1]
     with col_center:
+        st.markdown('<div>', unsafe_allow_html=True)
         if st.button("📊 Generate a Dashboard", use_container_width=True, key="go_dashboard"):
-            st.session_state.df_for_dashboard = df
-            st.session_state.ml_done = True
-            st.session_state.page = "dashboard"
-            st.rerun()
-
+             st.session_state.df_for_dashboard = df
+             st.session_state.ml_done = True
+             st.session_state.page = "dashboard"
+             st.rerun()
+        st.markdown("</div>", unsafe_allow_html=True)
 
 # =========================
 # 📊 DASHBOARD PAGE
@@ -986,7 +805,6 @@ LABEL: <short display label>
 Repeat 5 times. No extra text.""",
                 user_prompt=f"Columns: {columns}\nSummary:\n{summary}"
             )
-
     # Parse KPIs
     kpi_blocks = [b.strip() for b in st.session_state.dashboard_kpis.split("---") if b.strip()]
     kpis = []
@@ -1061,7 +879,7 @@ Repeat 5 times. No extra text.""",
             if y_col not in df.columns and y_col != "count":
                 num_fallback = [c for c in df.select_dtypes(include="number").columns if c != x_col]
                 y_col = num_fallback[0] if num_fallback else "count"
-            st.markdown(f"<div style='color:#a0a8ff;font-size:0.85rem;font-weight:600;margin-bottom:4px'>{title}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div class='chart-title'>{title}</div>", unsafe_allow_html=True)
             try:
                 plot_df = df.copy()
                 # Remove Unknown values
@@ -1081,33 +899,33 @@ Repeat 5 times. No extra text.""",
                     grp = plot_df[x_col].value_counts().head(7).reset_index()
                     grp.columns = [x_col, "count"]
                     fig = px.pie(grp, names=x_col, values="count",
-                                 color_discrete_sequence=px.colors.sequential.Purples_r, hole=0.4)
+                                 color_discrete_sequence=["#1FAA8A","#178F6F","#0B3A2F","#7DE6B0","#7FD1A6"], hole=0.4)
                 elif ctype == "scatter":
                     fig = px.scatter(plot_df, x=x_col, y=y_col, color=color_col,
-                                     color_discrete_sequence=px.colors.qualitative.Pastel)
+                                     color_discrete_sequence=["#7DE6B0","#7FD1A6","#1FAA8A","#178F6F"])
                 elif ctype == "histogram":
                     fig = px.histogram(plot_df, x=x_col, color=color_col,
-                                       color_discrete_sequence=["#7c83fd"])
+                                       color_discrete_sequence=["#E6F1EC", "#7DE6B0", "#1FAA8A", "#178F6F", "#0B3A2F"])
                 elif ctype == "line":
                     if y_col == "count":
                         grp = plot_df[x_col].value_counts().sort_index().reset_index()
                         grp.columns = [x_col, "count"]
-                        fig = px.line(grp, x=x_col, y="count", color_discrete_sequence=["#7c83fd"])
+                        fig = px.line(grp, x=x_col, y="count", color_discrete_sequence=["#E6F1EC", "#7DE6B0", "#1FAA8A", "#178F6F", "#0B3A2F"])
                     else:
                         grp = plot_df.groupby(x_col)[y_col].sum().reset_index()
-                        fig = px.line(grp, x=x_col, y=y_col, color_discrete_sequence=["#7c83fd"])
+                        fig = px.line(grp, x=x_col, y=y_col, color_discrete_sequence=["#E6F1EC", "#7DE6B0", "#1FAA8A", "#178F6F", "#0B3A2F"])
                 else:
                     if y_col == "count":
                         grp = plot_df[x_col].value_counts().head(10).reset_index()
                         grp.columns = [x_col, "count"]
-                        fig = px.bar(grp, x=x_col, y="count", color="count", color_continuous_scale="Blues")
+                        fig = px.bar(grp, x=x_col, y="count", color="count", color_continuous_scale=["#1FAA8A", "#178F6F","#0B3A2F"])
                     else:
                         grp = plot_df.groupby(x_col)[y_col].sum().reset_index().sort_values(y_col, ascending=False).head(10)
-                        fig = px.bar(grp, x=x_col, y=y_col, color=color_col,
-                                     color_continuous_scale="Blues" if not color_col else None)
+                        fig = px.bar(grp, x=x_col, y=y_col, color=color_col if color_col else y_col,
+                                     color_continuous_scale=["#1FAA8A", "#178F6F","#0B3A2F"] if not color_col else None)
                 fig.update_layout(
-                    plot_bgcolor="#13151f", paper_bgcolor="#13151f",
-                    font_color="#e0e0e0", coloraxis_showscale=False,
+                    plot_bgcolor= "#020504", paper_bgcolor="#020504", 
+                    font_color="#E6F1EC", coloraxis_showscale=False,
                     margin=dict(l=10, r=10, t=10, b=10), height=height,
                     showlegend=True, legend=dict(font=dict(size=10))
                 )
@@ -1134,11 +952,11 @@ Repeat 5 times. No extra text.""",
                 except:
                     val_fmt = str(val)
                 kpi_card_cols[i].markdown(f"""
-                <div style='background:linear-gradient(135deg,#111627 0%,#151c35 100%);border:1px solid #2d3555;border-radius:16px;padding:24px 20px;position:relative;overflow:hidden'>
-                    <div style='position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#7c83fd,#a78bfa)'></div>
-                    <div style='color:#64748b;font-size:0.72rem;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;font-weight:600'>{label}</div>
-                    <div style='color:#f1f5f9;font-size:2rem;font-weight:800;line-height:1;letter-spacing:-1px'>{val_fmt}</div>
-                </div>""", unsafe_allow_html=True)
+                <div class="kpi-card">
+                    <div class="kpi-label">{label}</div>
+                    <div class="kpi-value">{val_fmt}</div>
+                </div>
+                """, unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -1159,20 +977,15 @@ Repeat 4 times. Only use columns that exist: {columns}. No extra text.""",
                 )
 
         chart_blocks = [b.strip() for b in st.session_state.dashboard_charts.split("---") if b.strip()][:4]
-
         # ── ROW 1: big chart left (2/3) + tall chart right (1/3) ──
         if len(chart_blocks) >= 2:
             r1_left, r1_right = st.columns([2, 1])
             with r1_left:
                 with st.container():
-                    st.markdown("<div style='background:linear-gradient(135deg,#111627,#131929);border:1px solid #2d3555;border-radius:16px;padding:20px'>", unsafe_allow_html=True)
                     render_chart(chart_blocks[0], height=360)
-                    st.markdown("</div>", unsafe_allow_html=True)
             with r1_right:
                 with st.container():
-                    st.markdown("<div style='background:linear-gradient(135deg,#111627,#131929);border:1px solid #2d3555;border-radius:16px;padding:20px'>", unsafe_allow_html=True)
                     render_chart(chart_blocks[1], height=360)
-                    st.markdown("</div>", unsafe_allow_html=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -1180,10 +993,6 @@ Repeat 4 times. Only use columns that exist: {columns}. No extra text.""",
         if len(chart_blocks) >= 4:
             r2_left, r2_right = st.columns(2)
             with r2_left:
-                st.markdown("<div style='background:linear-gradient(135deg,#111627,#131929);border:1px solid #2d3555;border-radius:16px;padding:20px'>", unsafe_allow_html=True)
                 render_chart(chart_blocks[2], height=300)
-                st.markdown("</div>", unsafe_allow_html=True)
             with r2_right:
-                st.markdown("<div style='background:linear-gradient(135deg,#111627,#131929);border:1px solid #2d3555;border-radius:16px;padding:20px'>", unsafe_allow_html=True)
                 render_chart(chart_blocks[3], height=300)
-                st.markdown("</div>", unsafe_allow_html=True)
