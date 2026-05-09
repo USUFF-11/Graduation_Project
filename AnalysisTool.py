@@ -2,32 +2,67 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 from openai import OpenAI
-from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier, IsolationForest, GradientBoostingClassifier
-from sklearn.cluster import KMeans
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.metrics import mean_absolute_error, r2_score, accuracy_score
-from sklearn.preprocessing import StandardScaler, LabelEncoder
 import re
+import numpy as np
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error, accuracy_score, precision_score, recall_score, f1_score
+from sklearn.linear_model import LinearRegression, Ridge, LogisticRegression
+from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
+from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier
+import warnings
+warnings.filterwarnings('ignore')
+
+try:
+    from xgboost import XGBRegressor, XGBClassifier
+    XGB_AVAILABLE = True
+except ImportError:
+    XGB_AVAILABLE = False
 
 # =========================
 # 🔐 OPENROUTER CONFIG
 # =========================
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
-    api_key="API_KEY_HERE"
+    api_key="API KEY HERE"
 )
 
-def ask_ai(system_prompt, user_prompt):
-    response = client.chat.completions.create(
-        model="openai/gpt-4o-mini",
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ]
-    )
-    return response.choices[0].message.content
+def ask_ai(system_prompt, user_prompt, stream=False):
+    if stream:
+        # Streaming mode — yields text chunks and prints reasoning tokens at the end
+        full_response = ""
+        reasoning_tokens = None
+        with client.chat.completions.create(
+            model="openai/gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            stream=True,
+            stream_options={"include_usage": True},
+        ) as stream_resp:
+            for chunk in stream_resp:
+                delta = chunk.choices[0].delta if chunk.choices else None
+                if delta and delta.content:
+                    full_response += delta.content
+                # Capture usage/reasoning tokens from the final chunk
+                if hasattr(chunk, "usage") and chunk.usage:
+                    usage = chunk.usage
+                    if hasattr(usage, "completion_tokens_details"):
+                        details = usage.completion_tokens_details
+                        reasoning_tokens = getattr(details, "reasoning_tokens", None)
+        return full_response, reasoning_tokens
+    else:
+        response = client.chat.completions.create(
+            model="openai/gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ]
+        )
+        return response.choices[0].message.content
 
-st.set_page_config(page_title="AI Data Tool", layout="wide")
+st.set_page_config(page_title="AI Data Tool", layout="wide", page_icon="ChatGPT Image May 9, 2026, 11_21_34 PM.png")
 
 # Hide Streamlit default UI elements
 st.markdown("""
@@ -98,9 +133,10 @@ def clean_dataframe(df):
         cleaning_report.append(f"🗑️ Removed **{len(const_cols)}** constant column(s): {', '.join(f'`{c}`' for c in const_cols)}")
 
     # ── 4. Smart type detection by column name ─────────────────
-    date_kw    = ["date", "time", "day", "month", "year", "birth", "created", "updated", "timestamp", "dt"]
+    date_kw    = ["date", "time", "birth", "created", "updated", "timestamp", "dt"]
     numeric_kw = ["price", "cost", "salary", "amount", "revenue", "profit", "fee", "rate", "score",
-                  "qty", "quantity", "total", "weight", "height", "age", "distance", "duration", "units"]
+                  "qty", "quantity", "total", "weight", "height", "age", "distance", "duration", "units",
+                  "year", "month", "day"]
     bool_kw    = ["is_", "has_", "flag", "active", "enabled", "returned", "damaged"]
 
     sample = df.sample(min(5000, len(df)), random_state=42) if len(df) > 5000 else df
@@ -167,7 +203,7 @@ def clean_dataframe(df):
         missing = df[col].isnull().sum()
         if missing > 0:
             pct = missing / total_rows
-            if pct > 0.4:
+            if pct > 0.6:
                 df.drop(columns=[col], inplace=True)
                 cleaning_report.append(f"🗑️ `{col}`: dropped — **{pct*100:.0f}%** missing.")
                 continue
@@ -176,14 +212,17 @@ def clean_dataframe(df):
             df[col].fillna(fill_val, inplace=True)
             cleaning_report.append(f"🔢 `{col}`: filled **{missing}** missing with {method}.")
 
-        # IQR outlier detection (no capping — just report)
-        Q1, Q3 = df[col].quantile(0.25), df[col].quantile(0.75)
+        # IQR outlier capping
+        Q1 = df[col].quantile(0.25)
+        Q3 = df[col].quantile(0.75)
         IQR = Q3 - Q1
         if IQR > 0:
-            lower, upper = Q1 - 3 * IQR, Q3 + 3 * IQR
+            lower = Q1 - 1.5 * IQR
+            upper = Q3 + 1.5 * IQR
             outliers = ((df[col] < lower) | (df[col] > upper)).sum()
             if outliers > 0:
-                cleaning_report.append(f"⚠️ `{col}`: **{outliers}** outliers detected (values outside normal range). Not modified.")
+                df[col] = df[col].clip(lower=lower, upper=upper)
+                cleaning_report.append(f"✂️ `{col}`: capped **{outliers}** outliers using IQR.")
 
     # ── 7. Categorical: text consistency + missing ─────────────
     for col in list(df.select_dtypes(include=['object']).columns):
@@ -205,21 +244,11 @@ def clean_dataframe(df):
         missing = df[col].isnull().sum()
         if missing > 0:
             pct = missing / total_rows
-            if pct > 0.4:
+            if pct > 0.6:
                 df.drop(columns=[col], inplace=True)
                 cleaning_report.append(f"🗑️ `{col}`: dropped — **{pct*100:.0f}%** missing.")
             else:
-                # Skip ID-like columns — filling them with mode makes no sense
-                is_id_col = any(k == col.lower() or col.lower().endswith(k) or col.lower().startswith(k)
-                                for k in ["id", "code", "key", "uid", "ref", "sku"])
-                high_cardinality = df[col].nunique() / total_rows > 0.8
-                if is_id_col or high_cardinality:
-                    cleaning_report.append(f"⚠️ `{col}`: **{missing}** missing — skipped (ID/unique column).")
-                else:
-                    mode_val = df[col].mode()
-                    fill_val = mode_val[0] if len(mode_val) > 0 else "Unknown"
-                    df[col].fillna(fill_val, inplace=True)
-                    cleaning_report.append(f"🔤 `{col}`: filled **{missing}** missing with most common value.")
+                cleaning_report.append(f"⚠️ `{col}`: **{missing}** missing values kept as-is.")
 
     return df, cleaning_report
 
@@ -248,18 +277,47 @@ if "app_loaded" not in st.session_state:
     """, unsafe_allow_html=True)
     st.session_state.app_loaded = True
 
+import os as _os
+_LOGO_PATH = next((_f for _f in _os.listdir(".") if _f.lower().endswith(".png") and _f != "logo.png"), None)
+if _LOGO_PATH and _os.path.exists(_LOGO_PATH):
+    import base64 as _b64
+    with open(_LOGO_PATH, "rb") as _f:
+        _logo_b64 = _b64.b64encode(_f.read()).decode()
+    st.markdown(f"""
+        <!-- Watermark in center -->
+        <div style="position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); z-index:0; pointer-events:none;">
+            <img src="data:image/png;base64,{_logo_b64}" style="width:1200px; height:1200px; object-fit:contain; opacity:0.08; filter: drop-shadow(0px 0px 30px rgba(31,170,138,0.9)) drop-shadow(0px 0px 60px rgba(31,170,138,0.6)) drop-shadow(0px 0px 100px rgba(31,170,138,0.4));">
+        </div>
+    """, unsafe_allow_html=True)
+
 st.title("✦ AI Data Analysis Tool")
 
 uploaded_file = st.file_uploader("📂 Upload your data", type=["csv"])
+
+# If file is removed, clear everything
+if uploaded_file is None and "uploaded_file" in st.session_state:
+    keys_to_clear = [
+        "uploaded_file", "last_file_name", "last_file_size",
+        "questions_list", "dashboard_kpis", "dashboard_charts", "build_dashboard",
+        "user_path", "df_for_dashboard", "selected_question",
+        "df_for_ml", "ml_results", "ml_target_col", "ml_chat", "ml_trained",
+        "ml_leaderboard", "last_answer", "last_question", "last_reasoning_tokens",
+        "app_loaded"
+    ]
+    for k in keys_to_clear:
+        st.session_state.pop(k, None)
+    st.session_state.page = "main"
+    st.rerun()
 
 if uploaded_file:
     # مسح الـ cache لو الملف اتغير
     prev_name = st.session_state.get("last_file_name", None)
     prev_size = st.session_state.get("last_file_size", None)
     if prev_name != uploaded_file.name or prev_size != uploaded_file.size:
-        keys_to_clear = ["auto_insights", "copilot_response", "questions_list",
+        keys_to_clear = ["questions_list",
                          "dashboard_kpis", "dashboard_charts", "build_dashboard",
-                         "ml_option", "user_path", "df_for_dashboard", "selected_question"]
+                         "user_path", "df_for_dashboard", "selected_question",
+                         "df_for_ml", "ml_results", "ml_target_col"]
         for k in keys_to_clear:
             st.session_state.pop(k, None)
         st.session_state.last_file_name = uploaded_file.name
@@ -399,31 +457,6 @@ if st.session_state.page == "main" and "uploaded_file" in st.session_state and s
     # 🛤️ PATH SELECTION
     # =========================
 
-    st.divider()
-    st.subheader("🛤️ What would you like to do next?")
-
-    if "user_path" not in st.session_state:
-        st.session_state.user_path = None
-
-    st.markdown('<div class="inf"> Choose Workflow</div>', unsafe_allow_html=True)
-    path_col1, path_col2 = st.columns(2)
-    with path_col1:
-        if st.button("📊 Quick Dashboard\nBuild a dashboard directly from your data", key="path_dashboard", use_container_width=True):
-            st.session_state.user_path = "dashboard"
-    with path_col2:
-        if st.button("🤖 Analyze & Build Dashboard\nRun ML analysis ", key="path_ml", use_container_width=True):
-            st.session_state.user_path = "ml"
-
-    st.divider()
-
-    if st.session_state.user_path == "dashboard":
-        st.session_state.df_for_dashboard = df
-        st.session_state.page = "dashboard"
-        st.rerun()
-
-    if st.session_state.user_path not in ["ml", None]:
-        st.stop()
-
     # =========================
     # 🧠 CONTEXT (cached)
     # =========================
@@ -441,172 +474,6 @@ if st.session_state.page == "main" and "uploaded_file" in st.session_state and s
     {sample_data}
     """
 
-    if st.session_state.user_path != "ml":
-        st.stop()  # ← انتظر لحد ما المستخدم يضغط ML
-
-    # =========================
-    # 🔍 AUTO INSIGHTS
-    # =========================
-    st.markdown('<div class="section-title">🔍 AI Insights Engine</div>', unsafe_allow_html=True)
-    if "auto_insights" not in st.session_state:
-        with st.spinner("Analyzing your data..."):
-             st.session_state.auto_insights = ask_ai(
-                system_prompt="""You are a senior business analyst. Given a dataset, return exactly 4 insights in this strict format:
-INSIGHT: <one sentence observation about the data>
-ACTION: <one sentence business recommendation>
-CHART: <one of: bar|line|pie — pick the best chart type for this insight>
-CHART_COL: <exact column name from the dataset most relevant to this insight>
----
-Repeat 4 times. The FIRST block must be the single most critical insight. No extra text.""",
-                user_prompt=f"Columns: {columns}\n\nSummary:\n{summary}\n\nSample:\n{sample_data}"
-            )
-
-    # Parse insights
-    raw = st.session_state.auto_insights
-    blocks = [b.strip() for b in raw.split("---") if b.strip()]
-
-    for idx, block in enumerate(blocks[:4]):
-        lines = {l.split(":")[0].strip(): ":".join(l.split(":")[1:]).strip() for l in block.split("\n") if ":" in l}
-        insight    = lines.get("INSIGHT", "")
-        action     = lines.get("ACTION", "")
-        chart_type = lines.get("CHART", "bar").lower()
-        chart_col  = lines.get("CHART_COL", "").strip()
-
-        if idx == 0:
-            st.markdown("""
-            <div class="insight-header">
-               <span>⭐ Most Important Insight</span>
-            </div>
-            """, unsafe_allow_html=True)
-            col_text, col_chart_col = st.columns([1, 1.2])
-            with col_text:
-                st.warning(f"💡 {insight}")
-                st.success(f"✅ {action}")
-        else:
-            col_text, col_chart_col = st.columns([1, 1.2])
-            with col_text:
-                st.info(f"💡 {insight}")
-                st.success(f"✅ {action}")
-
-        with col_chart_col:
-            if chart_col in df.columns:
-                try:
-                    col_data = df[chart_col].dropna()
-                    col_data = col_data[col_data.astype(str) != "Unknown"]
-                    plot_df = df[df[chart_col].astype(str) != "Unknown"].copy()
-                    is_numeric = pd.api.types.is_numeric_dtype(col_data)
-                    n_unique = col_data.nunique()
-                    col_lower = chart_col.lower()
-
-                    # Detect date columns
-                    is_date = False
-                    if not is_numeric:
-                        try:
-                            parsed = pd.to_datetime(col_data, infer_datetime_format=True, errors="coerce")
-                            if parsed.notna().mean() > 0.7:
-                                is_date = True
-                                col_data = parsed
-                        except:
-                            pass
-
-                    if is_date:
-                        # Time series → group by month/year and sum or count
-                        date_df = df.copy()
-                        date_df[chart_col] = pd.to_datetime(date_df[chart_col], errors="coerce")
-                        date_df = date_df.dropna(subset=[chart_col])
-                        date_df["_period"] = date_df[chart_col].dt.to_period("M").astype(str)
-                        num_cols_avail = [c for c in date_df.select_dtypes(include="number").columns]
-                        if num_cols_avail:
-                            y_col = num_cols_avail[0]
-                            ts = date_df.groupby("_period")[y_col].sum().reset_index()
-                            ts.columns = ["Date", y_col]
-                            fig = px.line(ts, x="Date", y=y_col, color_discrete_sequence=["#E6F1EC", "#7DE6B0", "#1FAA8A", "#178F6F", "#0B3A2F"])
-                        else:
-                            ts = date_df["_period"].value_counts().sort_index().reset_index()
-                            ts.columns = ["Date", "count"]
-                            fig = px.line(ts, x="Date", y="count", color_discrete_sequence=["#E6F1EC", "#7DE6B0", "#1FAA8A", "#178F6F", "#0B3A2F"])
-
-                    elif is_numeric and n_unique > 20:
-                        if any(k in col_lower for k in ["score", "rate", "avg", "satisfaction", "rating"]):
-                            agg_label = "Average"
-                            agg_val = round(col_data.mean(), 2)
-                            fig = px.bar(pd.DataFrame({chart_col: [chart_col], agg_label: [agg_val]}),
-                                         x=chart_col, y=agg_label, color_discrete_sequence=["#1FAA8A"])
-                        else:
-                            cat_cols_avail = [c for c in plot_df.select_dtypes(include="object").columns]
-                            if cat_cols_avail:
-                                grp_col = cat_cols_avail[0]
-                                grp = plot_df[plot_df[grp_col].astype(str) != "Unknown"].groupby(grp_col)[chart_col].sum().reset_index().sort_values(chart_col, ascending=False).head(8)
-                                fig = px.bar(grp, x=grp_col, y=chart_col,
-                                             color=chart_col, color_continuous_scale=["#1FAA8A","#178F6F","#0B3A2F"])
-                            else:
-                                fig = px.histogram(col_data, x=chart_col, color_discrete_sequence=["#E6F1EC", "#7DE6B0", "#1FAA8A", "#178F6F", "#0B3A2F"])
-
-                    elif is_numeric and n_unique <= 20:
-                        grp = col_data.value_counts().sort_index().reset_index()
-                        grp.columns = [chart_col, "count"]
-                        fig = px.bar(grp, x=chart_col, y="count",
-                                     color="count", color_continuous_scale=["#1FAA8A","#178F6F", "#0B3A2F"],
-                                     labels={"count": "Number of Records"})
-                    else:
-                        if chart_type == "pie":
-                            grp = col_data.value_counts().head(6).reset_index()
-                            grp.columns = [chart_col, "count"]
-                            fig = px.pie(grp, names=chart_col, values="count",
-                                         color_discrete_sequence=["#1FAA8A","#178F6F","#0B3A2F","#7DE6B0","#7FD1A6"])
-                        else:
-                            grp = col_data.value_counts().head(8).reset_index()
-                            grp.columns = [chart_col, "count"]
-                            fig = px.bar(grp, x=chart_col, y="count",
-                                         color="count", color_continuous_scale=["#1FAA8A","#178F6F", "#0B3A2F"])
-
-                    fig.update_layout(
-                        plot_bgcolor="#0f1117", paper_bgcolor="#0f1117",
-                        font_color="#E6F1EC", coloraxis_showscale=False,
-                        margin=dict(l=10, r=10, t=10, b=10), height=220
-                    )
-                    st.plotly_chart(fig, use_container_width=True)
-                except:
-                    pass
-        st.divider()
-
-    # =========================
-    # 🤖 AI COPILOT
-    # =========================
-
-    st.markdown('<div class="section-title">🤖 AI Copilot</div>', unsafe_allow_html=True)
-    st.caption("Your AI analyst — detects problems, suggests solutions, and ranks priorities.")
-
-    if "copilot_response" not in st.session_state:
-        with st.spinner("AI Copilot is reviewing your data..."):
-            st.session_state.copilot_response = ask_ai(
-                system_prompt="""You are an AI business copilot. Analyze the dataset and return exactly this structure:
-
-PROBLEM: <the biggest problem or risk you detect in the data>
-SOLUTION: <specific action to fix it>
-PRIORITY_1: <most important thing to focus on right now>
-PRIORITY_2: <second most important thing>
-PRIORITY_3: <third most important thing>
-
-Be specific, use actual column names and numbers from the data. No extra text.""",
-                user_prompt=f"Columns: {columns}\n\nSummary:\n{summary}\n\nSample:\n{sample_data}"
-            )
-
-    cop_lines = {l.split(":")[0].strip(): ":".join(l.split(":")[1:]).strip()
-                 for l in st.session_state.copilot_response.split("\n") if ":" in l}
-
-    c1, c2 = st.columns(2)
-    with c1:
-        st.error(f"🚨 Problem detected: {cop_lines.get('PROBLEM', '')}")
-        st.success(f"💊 Suggested fix: {cop_lines.get('SOLUTION', '')}")
-    with c2:
-        st.markdown("**📋 Ranked Priorities:**")
-        for rank, key in enumerate(["PRIORITY_1", "PRIORITY_2", "PRIORITY_3"], 1):
-            val = cop_lines.get(key, "")
-            if val:
-                st.markdown(f"`#{rank}` {val}")
-
-    st.divider()
     # =========================
     # 🤖 GENERATE QUESTIONS
     # =========================
@@ -709,18 +576,21 @@ Be specific, use actual column names and numbers from the data. No extra text.""
             if pre_computed:
                 targeted_context += f"Computed data for this question:\n{pre_computed}\n"
 
-            answer = ask_ai(
+            answer, reasoning_tokens = ask_ai(
                 system_prompt="""You are a data analyst. Answer in maximum 3 sentences. Be direct — start with the actual number or fact from the computed data provided. Do NOT say you need more data. No intros, no bullet points.""",
-                user_prompt=targeted_context + "\n\nQuestion: " + question
+                user_prompt=targeted_context + "\n\nQuestion: " + question,
+                stream=True
             )
             st.session_state.last_answer = answer
             st.session_state.last_question = question
+            st.session_state.last_reasoning_tokens = reasoning_tokens
     elif not question:
         st.session_state.pop("last_answer", None)
         st.session_state.pop("last_question", None)
 
     if "last_answer" in st.session_state and st.session_state.get("last_question") == question and question:
         clean_answer = st.session_state.last_answer.replace("\\$", "$").replace("\\_", "_").replace("\\*", "*")
+        reasoning_tokens = st.session_state.get("last_reasoning_tokens")
         st.markdown(f"""
             <div style="
                 background: rgba(15,35,28,0.6);
@@ -737,204 +607,21 @@ Be specific, use actual column names and numbers from the data. No extra text.""
         """, unsafe_allow_html=True)
 
     # =========================
-    # 🤖 MACHINE LEARNING
-    # =========================
-
-    st.markdown('<div class="section-title">⚙️ Machine Learning Studio</div>', unsafe_allow_html=True)
-    ml_options = {
-        "Predict a Number": "Forecast a numeric value like price or cost",
-        "Predict a Category": "Classify records into categories like status or type",
-        "Group Similar Records": "Cluster your data into meaningful segments",
-        "Find Unusual Records": "Detect anomalies and outliers in your data"
-    }
-
-    if "ml_option" not in st.session_state:
-        st.session_state.ml_option = None
-
-    cols_ml = st.columns(4)
-    for i, (label, desc) in enumerate(ml_options.items()):
-        with cols_ml[i]:
-            if st.button(label, key=f"ml_btn_{i}", use_container_width=True):
-                st.session_state.ml_option = label
-                st.session_state.selected_question = None
-                st.rerun()
-            if st.session_state.ml_option == label:
-                st.markdown(f"<div class='selected-badge'>▲ selected</div>", unsafe_allow_html=True)
-    ml_option = st.session_state.ml_option
-
-    numeric_cols_list = list(df.select_dtypes(include=['int64', 'float64']).columns)
-    all_cols_list = list(df.columns)
-
-    if ml_option == "Predict a Number":
-        st.markdown("Pick the column you want to predict (e.g. price, cost, quantity):")
-        target = st.selectbox("Column to predict", numeric_cols_list, key="reg_target")
-        features = [c for c in numeric_cols_list if c != target]
-        if st.button("Run", key="run_reg") and features:
-            X = df[features].dropna()
-            y = df.loc[X.index, target]
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-            model = RandomForestRegressor(n_estimators=100, random_state=42)
-            model.fit(X_train, y_train)
-            preds = model.predict(X_test)
-            mae = mean_absolute_error(y_test, preds)
-            r2 = r2_score(y_test, preds)
-            st.success(f"Average prediction error: **{mae:.2f}** | Accuracy score: **{r2*100:.1f}%**")
-            importance = pd.Series(model.feature_importances_, index=features).sort_values(ascending=False).head(5)
-            col_chart, col_ai = st.columns([1.2, 1])
-            with col_chart:
-                st.markdown("**Top factors affecting the prediction:**")
-                imp_df = importance.reset_index().rename(columns={"index": "Feature", 0: "Importance"})
-                imp_df["Importance"] = (imp_df["Importance"] * 100).round(1)
-                fig = px.bar(
-                    imp_df, x="Importance", y="Feature", orientation="h",
-                    text=imp_df["Importance"].apply(lambda x: f"{x}%"),
-                    color="Importance", color_continuous_scale=["#1FAA8A","#178F6F", "#0B3A2F"]
-                )
-                fig.update_traces(textposition="outside", hovertemplate="<b>%{y}</b><br>Importance: %{x}%<extra></extra>")
-                fig.update_layout(
-                    plot_bgcolor="#0f1715", paper_bgcolor="#0f1715",
-                    font_color="#E6F1EC", coloraxis_showscale=False,
-                    xaxis=dict(ticksuffix="%"),
-                    yaxis=dict(autorange="reversed"), margin=dict(l=10, r=10, t=10, b=10)
-                )
-                st.plotly_chart(fig, use_container_width=True)
-            with col_ai:
-                with st.spinner("AI is analyzing the results..."):
-                    ai_text = ask_ai(
-                        system_prompt="You are a business analyst. Reply in this exact format:\nRESULT: <one sentence on model accuracy>\nWHY: <one sentence explaining why the top feature matters most>\nACTION: <one concrete business action to take>",
-                        user_prompt=f"Model predicts '{target}'. MAE: {mae:.2f}, R2: {r2*100:.1f}%. Top feature: {importance.index[0]} ({importance.iloc[0]*100:.1f}%). All features: {importance.index.tolist()}."
-                    )
-                resp_lines = {l.split(":")[0].strip(): ":".join(l.split(":")[1:]).strip() for l in ai_text.split("\n") if ":" in l}
-                st.info(f"📊 {resp_lines.get('RESULT', '')}")
-                st.warning(f"🔍 {resp_lines.get('WHY', '')}")
-                st.success(f"✅ {resp_lines.get('ACTION', '')}")
-
-    elif ml_option == "Predict a Category":
-        cat_cols_list = list(df.select_dtypes(include=['object']).columns)
-        st.markdown("Pick the column you want to predict (e.g. status, category):")
-        target = st.selectbox("Column to predict", cat_cols_list, key="clf_target")
-        if st.button("Run", key="run_clf"):
-            df_ml = df.copy()
-
-            # Feature Engineering
-            num_cols = list(df_ml.select_dtypes(include=['int64', 'float64']).columns)
-            if "Unitprice" in df_ml.columns and "Unitcost" in df_ml.columns:
-                df_ml["Profit_margin"] = df_ml["Unitprice"] - df_ml["Unitcost"]
-            if "Unitsordered" in df_ml.columns and "Unitprice" in df_ml.columns:
-                df_ml["Revenue"] = df_ml["Unitsordered"] * df_ml["Unitprice"]
-
-            # Label Encode categorical columns (except target)
-            other_cats = [c for c in df_ml.select_dtypes(include=['object']).columns if c != target]
-            for col in other_cats:
-                le = LabelEncoder()
-                df_ml[col] = le.fit_transform(df_ml[col].astype(str))
-
-            features = list(df_ml.select_dtypes(include=['int64', 'float64']).columns)
-            features = [f for f in features if f != target]
-
-            X = df_ml[features].dropna()
-            le_target = LabelEncoder()
-            y = le_target.fit_transform(df_ml.loc[X.index, target].astype(str))
-
-            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-            # Try GradientBoosting vs RandomForest, pick best
-            rf = RandomForestClassifier(n_estimators=200, max_depth=10, random_state=42)
-            gb = GradientBoostingClassifier(n_estimators=200, learning_rate=0.05, random_state=42)
-            rf.fit(X_train, y_train)
-            gb.fit(X_train, y_train)
-            rf_acc = accuracy_score(y_test, rf.predict(X_test))
-            gb_acc = accuracy_score(y_test, gb.predict(X_test))
-
-            if gb_acc >= rf_acc:
-                model = gb
-                acc = gb_acc
-                model_name = "Gradient Boosting"
-            else:
-                model = rf
-                acc = rf_acc
-                model_name = "Random Forest"
-            st.success(f"Prediction accuracy: **{acc*100:.1f}%** (using {model_name})")
-            importance = pd.Series(model.feature_importances_, index=features).sort_values(ascending=False).head(5)
-            col_chart, col_ai = st.columns([1.2, 1])
-            with col_chart:
-                st.markdown("**Top factors affecting the prediction:**")
-                imp_df = importance.reset_index().rename(columns={"index": "Feature", 0: "Importance"})
-                imp_df["Importance"] = (imp_df["Importance"] * 100).round(1)
-                fig = px.bar(
-                    imp_df, x="Importance", y="Feature", orientation="h",
-                    text=imp_df["Importance"].apply(lambda x: f"{x}%"),
-                    color="Importance", color_continuous_scale=[ "#E6F1EC","#7DE6B0","#1FAA8A","#178F6F","#0B3A2F"]
-                )
-                fig.update_traces(textposition="outside", hovertemplate="<b>%{y}</b><br>Importance: %{x}%<extra></extra>")
-                fig.update_layout(
-                    plot_bgcolor="#0f1715", paper_bgcolor="#0f1715",
-                    font_color="#E6F1EC", coloraxis_showscale=False,
-                    xaxis=dict(ticksuffix="%"),
-                    yaxis=dict(autorange="reversed"), margin=dict(l=10, r=10, t=10, b=10)
-                )
-                st.plotly_chart(fig, use_container_width=True)
-            with col_ai:
-                with st.spinner("AI is analyzing the results..."):
-                    ai_text = ask_ai(
-                        system_prompt="You are a business analyst. Reply in this exact format:\nRESULT: <one sentence on model accuracy>\nWHY: <one sentence explaining why the top feature matters most>\nACTION: <one concrete business action to take>",
-                        user_prompt=f"Model predicts '{target}'. Accuracy: {acc*100:.1f}%. Top feature: {importance.index[0]} ({importance.iloc[0]*100:.1f}%). All features: {importance.index.tolist()}."
-                    )
-                resp_lines = {l.split(":")[0].strip(): ":".join(l.split(":")[1:]).strip() for l in ai_text.split("\n") if ":" in l}
-                st.info(f"📊 {resp_lines.get('RESULT', '')}")
-                st.warning(f"🔍 {resp_lines.get('WHY', '')}")
-                st.success(f"✅ {resp_lines.get('ACTION', '')}")
-
-    elif ml_option == "Group Similar Records":
-        st.markdown("How many groups do you want to split your data into?")
-        n_clusters = st.slider("Number of groups", 2, 8, 3, key="n_clusters")
-        if st.button("Run", key="run_cluster") and numeric_cols_list:
-            X = df[numeric_cols_list].dropna()
-            scaler = StandardScaler()
-            X_scaled = scaler.fit_transform(X)
-            model = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
-            df.loc[X.index, "Group"] = model.fit_predict(X_scaled).astype(str)
-            st.success(f"Records grouped into **{n_clusters}** groups.")
-            group_summary = df[["Group"] + numeric_cols_list].groupby("Group").mean().round(2)
-            st.dataframe(group_summary, use_container_width=True)
-            with st.spinner("AI is analyzing the results..."):
-                ai_text = ask_ai(
-                    system_prompt="You are a business analyst. Explain ML results in 2-3 short sentences max. Be direct and actionable. No bullet points, no headers.",
-                    user_prompt=f"I clustered the data into {n_clusters} groups. Here are the group averages:\n{group_summary.to_string()}\nExplain what each group represents and what the user should do next."
-                )
-            st.info("💡 " + ai_text)
-
-    elif ml_option == "Find Unusual Records":
-        st.markdown("This will highlight records that look different from the rest.")
-        contamination = st.slider("Sensitivity (higher = more flagged)", 0.01, 0.2, 0.05, key="contam")
-        if st.button("Run", key="run_anomaly") and numeric_cols_list:
-            X = df[numeric_cols_list].dropna()
-            model = IsolationForest(contamination=contamination, random_state=42)
-            preds = model.fit_predict(X)
-            anomalies = df.loc[X.index][preds == -1]
-            st.warning(f"Found **{len(anomalies)}** unusual records out of {len(X)}.")
-            st.dataframe(anomalies, use_container_width=True)
-            with st.spinner("AI is analyzing the results..."):
-                ai_text = ask_ai(
-                    system_prompt="You are a business analyst. Explain ML results in 2-3 short sentences max. Be direct and actionable. No bullet points, no headers.",
-                    user_prompt=f"Anomaly detection found {len(anomalies)} unusual records out of {len(X)} total. Sample of anomalies:\n{anomalies.head(5).to_string()}\nExplain what this means and what the user should do next."
-                )
-            st.info("💡 " + ai_text)
-
-    # =========================
     # 📊 GENERATE DASHBOARD BTN
     # =========================
     st.divider()
     st.markdown("<br>", unsafe_allow_html=True)
     col_center = st.columns([1, 2, 1])[1]
     with col_center:
-        st.markdown('<div>', unsafe_allow_html=True)
         if st.button("📊 Generate a Dashboard", use_container_width=True, key="go_dashboard"):
              st.session_state.df_for_dashboard = df
-             st.session_state.ml_done = True
              st.session_state.page = "dashboard"
              st.rerun()
-        st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("🤖 ML Prediction Studio", use_container_width=True, key="go_ml"):
+            st.session_state.df_for_ml = df
+            st.session_state.page = "ml"
+            st.rerun()
 
 # =========================
 # 📊 DASHBOARD PAGE
@@ -995,13 +682,13 @@ Repeat 5 times. No extra text.""",
     for i in range(st.session_state.kpi_count):
         with kpi_cols[i]:
             kpi = kpis[i] if i < len(kpis) else {}
-            default_col = kpi.get("COLUMN", all_cols_db[0])
+            default_col = kpi.get("COLUMN", numeric_cols_db[0] if numeric_cols_db else "")
             default_metric = kpi.get("METRIC", "sum")
             default_label = kpi.get("LABEL", f"KPI {i+1}")
             label_inp = st.text_input("Label", value=default_label, key=f"kpi_label_{i}")
             col_sel = st.selectbox("Column",
-                                   options=all_cols_db,
-                                   index=all_cols_db.index(default_col) if default_col in all_cols_db else 0,
+                                   options=numeric_cols_db if numeric_cols_db else [""],
+                                   index=numeric_cols_db.index(default_col) if default_col in numeric_cols_db else 0,
                                    key=f"kpi_col_{i}")
             metric_sel = st.selectbox("Metric", ["sum", "mean", "count", "max", "min"],
                                       index=["sum", "mean", "count", "max", "min"].index(default_metric) if default_metric in ["sum", "mean", "count", "max", "min"] else 0,
@@ -1043,66 +730,218 @@ Repeat 5 times. No extra text.""",
 
             x_col = resolve_col(x_col)
             y_col = resolve_col(y_col)
-            color_col = resolve_col(color_col) if color_col and color_col != "none" else None
-            color_col = color_col if color_col in df.columns else None
+            color_col = resolve_col(color_col) if color_col and color_col.lower() != "none" else None
+
+            # Validate color_col: must be categorical, not numeric, not same as x/y
+            if color_col:
+                if color_col not in df.columns:
+                    color_col = None
+                elif pd.api.types.is_numeric_dtype(df[color_col]):
+                    color_col = None
+                elif color_col == x_col or color_col == y_col:
+                    color_col = None
+                elif df[color_col].nunique() > 15:
+                    color_col = None  # too many categories → legend becomes unreadable
 
             # fallback if y_col not found → use first numeric col
             if y_col not in df.columns and y_col != "count":
                 num_fallback = [c for c in df.select_dtypes(include="number").columns if c != x_col]
                 y_col = num_fallback[0] if num_fallback else "count"
+
             st.markdown(f"<div class='chart-title'>{title}</div>", unsafe_allow_html=True)
+
+            PALETTE = ["#1FAA8A", "#7DE6B0", "#178F6F", "#7FD1A6", "#0B3A2F",
+                       "#4ecba0", "#2d8f6f", "#a8f0d0", "#0d5c42", "#5de0b0"]
+            SCALE   = ["#1FAA8A", "#178F6F", "#0B3A2F"]
+
+            BASE_LAYOUT = dict(
+                plot_bgcolor="#020504", paper_bgcolor="#020504",
+                font=dict(color="#E6F1EC", size=12),
+                coloraxis_showscale=False,
+                margin=dict(l=10, r=10, t=10, b=40),
+                height=height,
+                legend=dict(
+                    title=dict(font=dict(color="#7DE6B0", size=11)),
+                    font=dict(color="#E6F1EC", size=11),
+                    bgcolor="rgba(15,35,28,0.85)",
+                    bordercolor="rgba(31,170,138,0.4)",
+                    borderwidth=1,
+                    orientation="v",
+                    x=1.01, y=1,
+                    xanchor="left",
+                    yanchor="top",
+                    itemsizing="constant",
+                    tracegroupgap=4
+                ),
+                xaxis=dict(
+                    tickfont=dict(color="#91c3a2", size=11),
+                    gridcolor="rgba(31,170,138,0.08)",
+                    linecolor="rgba(31,170,138,0.15)"
+                ),
+                yaxis=dict(
+                    tickfont=dict(color="#91c3a2", size=11),
+                    gridcolor="rgba(31,170,138,0.08)",
+                    linecolor="rgba(31,170,138,0.15)"
+                )
+            )
+
             try:
                 plot_df = df.copy()
-                # Remove Unknown values
+                # Remove Unknown values from categorical columns
                 for c in plot_df.select_dtypes(include="object").columns:
-                    plot_df = plot_df[plot_df[c] != "Unknown"]
+                    plot_df = plot_df[plot_df[c].astype(str).str.strip() != "Unknown"]
+
+                # Convert date-like x columns to period strings
                 if x_col in plot_df.columns:
                     try:
-                        # Only convert to date if column name suggests it's a date
                         col_lower_x = x_col.lower()
-                        date_hints = ["date", "time", "day", "month", "year", "created", "updated", "birth", "timestamp"]
+                        date_hints = ["date", "time", "created", "updated", "birth", "timestamp"]
                         if any(k in col_lower_x for k in date_hints):
                             parsed = pd.to_datetime(plot_df[x_col], errors="coerce")
                             if parsed.notna().mean() > 0.7:
                                 plot_df[x_col] = parsed.dt.to_period("M").astype(str)
-                    except: pass
+                    except:
+                        pass
+
+                # Force line chart for year/date columns
+                if x_col and "year" in x_col.lower():
+                    ctype = "line"
+
+                if ctype == "scatter":
+                    ctype = "bar"
+                if ctype == "histogram":
+                    ctype = "bar"
+
                 if ctype == "pie":
                     grp = plot_df[x_col].value_counts().head(7).reset_index()
                     grp.columns = [x_col, "count"]
-                    fig = px.pie(grp, names=x_col, values="count",
-                                 color_discrete_sequence=["#1FAA8A","#178F6F","#0B3A2F","#7DE6B0","#7FD1A6"], hole=0.4)
+                    fig = px.pie(
+                        grp, names=x_col, values="count",
+                        color_discrete_sequence=PALETTE, hole=0.4
+                    )
+                    fig.update_traces(
+                        textposition="inside",
+                        textinfo="percent+label",
+                        textfont=dict(color="#E6F1EC", size=11),
+                        pull=[0.03] * len(grp)
+                    )
+                    fig.update_layout(**BASE_LAYOUT)
+                    fig.update_layout(
+                        showlegend=True,
+                        legend=dict(
+                            font=dict(color="#E6F1EC", size=11),
+                            bgcolor="rgba(15,35,28,0.85)",
+                            bordercolor="rgba(31,170,138,0.4)",
+                            borderwidth=1,
+                            title=dict(text=x_col, font=dict(color="#7DE6B0", size=11)),
+                            itemsizing="constant"
+                        )
+                    )
+
                 elif ctype == "scatter":
-                    fig = px.scatter(plot_df, x=x_col, y=y_col, color=color_col,
-                                     color_discrete_sequence=["#7DE6B0","#7FD1A6","#1FAA8A","#178F6F"])
+                    if x_col in plot_df.columns and y_col in plot_df.columns:
+                        fig = px.scatter(
+                            plot_df, x=x_col, y=y_col,
+                            color=color_col,
+                            color_discrete_sequence=PALETTE,
+                            opacity=0.75,
+                            labels={x_col: x_col, y_col: y_col, color_col: color_col} if color_col else None
+                        )
+                        fig.update_traces(marker=dict(size=7))
+                        fig.update_layout(**BASE_LAYOUT)
+                        fig.update_layout(
+                            showlegend=color_col is not None,
+                            legend=dict(title=dict(text=color_col or "", font=dict(color="#7DE6B0", size=11))) if color_col else {}
+                        )
+                    else:
+                        raise ValueError(f"Columns not found: {x_col}, {y_col}")
+
                 elif ctype == "histogram":
-                    fig = px.histogram(plot_df, x=x_col, color=color_col,
-                                       color_discrete_sequence=["#E6F1EC", "#7DE6B0", "#1FAA8A", "#178F6F", "#0B3A2F"])
+                    if x_col in plot_df.columns:
+                        fig = px.histogram(
+                            plot_df, x=x_col,
+                            color=color_col,
+                            color_discrete_sequence=PALETTE,
+                            nbins=30,
+                            labels={x_col: x_col, color_col: color_col} if color_col else None
+                        )
+                        fig.update_layout(**BASE_LAYOUT)
+                        fig.update_layout(
+                            showlegend=color_col is not None,
+                            bargap=0.05,
+                            legend=dict(title=dict(text=color_col or "", font=dict(color="#7DE6B0", size=11))) if color_col else {}
+                        )
+                    else:
+                        raise ValueError(f"Column not found: {x_col}")
+
                 elif ctype == "line":
                     if y_col == "count":
                         grp = plot_df[x_col].value_counts().sort_index().reset_index()
                         grp.columns = [x_col, "count"]
-                        fig = px.line(grp, x=x_col, y="count", color_discrete_sequence=["#E6F1EC", "#7DE6B0", "#1FAA8A", "#178F6F", "#0B3A2F"])
+                        fig = px.line(grp, x=x_col, y="count",
+                                      color_discrete_sequence=PALETTE,
+                                      markers=True)
+                        fig.update_layout(**BASE_LAYOUT)
+                        fig.update_layout(showlegend=False)
                     else:
-                        grp = plot_df.groupby(x_col)[y_col].sum().reset_index()
-                        fig = px.line(grp, x=x_col, y=y_col, color_discrete_sequence=["#E6F1EC", "#7DE6B0", "#1FAA8A", "#178F6F", "#0B3A2F"])
-                else:
+                        if color_col:
+                            grp = plot_df.groupby([x_col, color_col])[y_col].sum().reset_index()
+                            fig = px.line(grp, x=x_col, y=y_col, color=color_col,
+                                          color_discrete_sequence=PALETTE, markers=True,
+                                          labels={color_col: color_col})
+                            fig.update_layout(**BASE_LAYOUT)
+                            fig.update_layout(
+                                showlegend=True,
+                                legend=dict(title=dict(text=color_col, font=dict(color="#7DE6B0", size=11)))
+                            )
+                        else:
+                            grp = plot_df.groupby(x_col)[y_col].sum().reset_index()
+                            fig = px.line(grp, x=x_col, y=y_col,
+                                          color_discrete_sequence=PALETTE, markers=True)
+                            fig.update_layout(**BASE_LAYOUT)
+                            fig.update_layout(showlegend=False)
+                    fig.update_traces(line=dict(width=2.5))
+
+                else:  # bar (default)
                     if y_col == "count":
                         grp = plot_df[x_col].value_counts().head(10).reset_index()
                         grp.columns = [x_col, "count"]
-                        fig = px.bar(grp, x=x_col, y="count", color="count", color_continuous_scale=["#1FAA8A", "#178F6F","#0B3A2F"])
+                        if color_col:
+                            fig = px.bar(grp, x=x_col, y="count",
+                                         color_discrete_sequence=PALETTE)
+                        else:
+                            fig = px.bar(grp, x=x_col, y="count",
+                                         color="count", color_continuous_scale=SCALE)
+                        fig.update_layout(**BASE_LAYOUT)
+                        fig.update_layout(showlegend=False, bargap=0.15)
                     else:
-                        grp = plot_df.groupby(x_col)[y_col].sum().reset_index().sort_values(y_col, ascending=False).head(10)
-                        fig = px.bar(grp, x=x_col, y=y_col, color=color_col if color_col else y_col,
-                                     color_continuous_scale=["#1FAA8A", "#178F6F","#0B3A2F"] if not color_col else None)
-                fig.update_layout(
-                    plot_bgcolor= "#020504", paper_bgcolor="#020504", 
-                    font_color="#E6F1EC", coloraxis_showscale=False,
-                    margin=dict(l=10, r=10, t=10, b=10), height=height,
-                    showlegend=True, legend=dict(font=dict(size=10))
-                )
+                        if color_col:
+                            grp = plot_df.groupby([x_col, color_col])[y_col].sum().reset_index()
+                            grp = grp.sort_values(y_col, ascending=False)
+                            # Limit to top 10 x values to keep chart readable
+                            top_x = grp.groupby(x_col)[y_col].sum().nlargest(10).index
+                            grp = grp[grp[x_col].isin(top_x)]
+                            fig = px.bar(grp, x=x_col, y=y_col, color=color_col,
+                                         color_discrete_sequence=PALETTE, barmode="group",
+                                         labels={color_col: color_col})
+                            fig.update_layout(**BASE_LAYOUT)
+                            fig.update_layout(
+                                showlegend=True,
+                                bargap=0.15,
+                                legend=dict(title=dict(text=color_col, font=dict(color="#7DE6B0", size=11)))
+                            )
+                        else:
+                            grp = plot_df.groupby(x_col)[y_col].sum().reset_index()
+                            grp = grp.sort_values(y_col, ascending=False).head(10)
+                            fig = px.bar(grp, x=x_col, y=y_col,
+                                         color=y_col, color_continuous_scale=SCALE)
+                            fig.update_layout(**BASE_LAYOUT)
+                            fig.update_layout(showlegend=False, bargap=0.15)
+
                 st.plotly_chart(fig, use_container_width=True)
+
             except Exception as e:
-                st.caption(f"Could not render: {e}")
+                st.caption(f"Could not render chart: {e}")
 
         # ── KPI ROW ──────────────────────────────────────────
         n = len(confirmed_kpis)
@@ -1133,17 +972,39 @@ Repeat 5 times. No extra text.""",
 
         # AI generates chart plan
         if "dashboard_charts" not in st.session_state or st.session_state.dashboard_charts is None:
+            # Build a rich schema description so the AI picks meaningful charts
+            col_info_lines = []
+            for c in df.columns:
+                dtype = "numeric" if pd.api.types.is_numeric_dtype(df[c]) else "categorical"
+                n_unique = df[c].nunique()
+                col_info_lines.append(f"  - {c} ({dtype}, {n_unique} unique values)")
+            col_schema = "\n".join(col_info_lines)
+
             with st.spinner("AI is building your charts..."):
                 st.session_state.dashboard_charts = ask_ai(
-                    system_prompt=f"""You are a BI dashboard designer. Suggest exactly 4 professional charts.
+                    system_prompt=f"""You are a BI dashboard designer. Suggest exactly 4 professional, meaningful charts.
+
+RULES:
+- bar chart: use when X is categorical (≤ 20 unique values) and Y is a numeric column that is DIRECTLY related to X (e.g. sales by region, quantity by product). Do NOT compare unrelated columns.
+- line chart: use ONLY when X is a date/time column. Y must be a numeric column that changes over time (e.g. revenue over time). Never use line for non-date X.
+- pie chart: use ONLY when X is categorical with 3–7 unique values and you want to show proportions of a whole. Y must be 'count' or a numeric column summed per category.
+- COLOR field: use a categorical column ONLY if it adds a meaningful third dimension (e.g. sales by region colored by product category). The color column must be logically related to both X and Y. Otherwise write 'none'.
+- Do NOT use a numeric column as COLOR.
+- Do NOT pair columns that have no logical business relationship.
+- Each chart must tell one clear, specific business story using columns that are naturally related.
+- Prefer charts that show the most impactful business metrics (revenue, quantity, performance, trends).
+
 Return in this strict format:
-TITLE: <chart title>
+TITLE: <descriptive chart title explaining what it shows>
 TYPE: <bar|line|pie|scatter|histogram>
 X: <column name>
 Y: <numeric column name or 'count'>
 COLOR: <categorical column name or 'none'>
 ---
-Repeat 4 times. Only use columns that exist: {columns}. No extra text.""",
+Repeat 4 times. Only use columns that exist in the schema below. No extra text.
+
+Available columns with types:
+{col_schema}""",
                     user_prompt=f"Summary:\n{summary}\nSample:\n{sample_data}"
                 )
 
@@ -1167,3 +1028,354 @@ Repeat 4 times. Only use columns that exist: {columns}. No extra text.""",
                 render_chart(chart_blocks[2], height=300)
             with r2_right:
                 render_chart(chart_blocks[3], height=300)
+
+# =========================
+# 🤖 ML CHAT PAGE
+# =========================
+elif st.session_state.page == "ml":
+    import json as _json
+
+    if st.button("← Back to Analysis"):
+        st.session_state.page = "main"
+        st.session_state.user_path = None
+        for k in ["ml_chat", "ml_trained", "ml_leaderboard", "ml_target_col", "ml_data_type", "ml_task_type", "ml_step", "ml_feature_cols", "ml_ai_features_done"]:
+            st.session_state.pop(k, None)
+        st.rerun()
+
+    st.title("🤖 ML Studio")
+
+    df = st.session_state.get("df_for_ml", None)
+    if df is None:
+        st.warning("No data found. Please go back and upload a file.")
+        st.stop()
+
+    num_cols = list(df.select_dtypes(include=["int64", "float64"]).columns)
+    cat_cols = list(df.select_dtypes(include=["object"]).columns)
+    all_cols = list(df.columns)
+
+    if "ml_step" not in st.session_state:
+        st.session_state.ml_step = "select_target"
+
+    with st.expander("📋 Dataset Overview", expanded=True):
+        st.write(f"**Rows:** {len(df):,} | **Columns:** {len(df.columns)}")
+        st.dataframe(df.head(10), use_container_width=True)
+
+    # ============================================================
+    # STEP 1: Select Target → AI picks features → Review → Detect type
+    # ============================================================
+    if st.session_state.ml_step == "select_target":
+        st.subheader("🎯 Step 1: Select Target & AI Feature Selection")
+        st.caption("Choose the column to predict — AI will suggest the most useful features for it.")
+
+        target_col = st.selectbox("Target Column (what to predict)", options=[""] + all_cols, key="ml_target_selector")
+
+        if "ml_ai_features_done" not in st.session_state:
+            st.session_state.ml_ai_features_done = False
+
+        # Button to trigger AI feature suggestion
+        if target_col and not st.session_state.ml_ai_features_done:
+            if st.button("🤖 Auto-Select Useful Features", use_container_width=True):
+                with st.spinner("🧠 AI is analyzing which features are useful for predicting this target..."):
+                    col_info = "\n".join(
+                        [f"- {c}: {'numeric' if c in num_cols else 'categorical'} "
+                         f"({df[c].nunique()} unique, e.g. {str(df[c].dropna().iloc[0]) if len(df[c].dropna())>0 else 'N/A'})"
+                         for c in all_cols if c != target_col]
+                    )
+                    sys = (
+                        "You are an expert ML feature selector. Given a target column and a list of available columns, "
+                        "select ONLY the columns that are useful features for predicting the target.\n\n"
+                        "Rules:\n"
+                        "- Exclude: ID columns (OrderID, ProductID, CustomerID, etc.), raw dates, and anything that leaks the target\n"
+                        "- Include: columns that have predictive value (numeric measurements, categories like shipping mode, region, etc.)\n"
+                        "- Return ONLY valid JSON array of column names, no markdown\n"
+                        'Example: ["col1", "col2", "col3"]'
+                    )
+                    usr = f"Target: {target_col}\n\nAvailable columns:\n{col_info}"
+                    raw = ask_ai(sys, usr)
+                    raw_clean = re.sub(r"```json|```", "", raw).strip()
+                    # Hard exclusion list — these are NEVER useful as features
+                    _hard_exclude = {"id", "orderid", "productid", "customerid", "userid", "sku"}
+                    try:
+                        suggested = _json.loads(raw_clean)
+                        suggested = [c for c in suggested if c in all_cols and c != target_col and c.lower().strip() not in _hard_exclude]
+                    except:
+                        suggested = [c for c in all_cols if c != target_col and c.lower().strip() not in _hard_exclude]
+                    if len(suggested) < 1:
+                        suggested = [c for c in all_cols if c != target_col and c.lower().strip() not in _hard_exclude]
+                    st.session_state.ml_feature_cols = suggested
+                    st.session_state.ml_ai_features_done = True
+                    st.rerun()
+
+        # Show multiselect with AI suggestions (user can modify)
+        if st.session_state.ml_ai_features_done and target_col:
+            remaining = [c for c in all_cols if c != target_col]
+            feature_cols = st.multiselect(
+                "📌 Suggested Features (you can add/remove):",
+                options=remaining,
+                default=st.session_state.ml_feature_cols,
+                key="ml_feat_selector"
+            )
+
+            if len(feature_cols) >= 1:
+                if st.button("🔍 Detect Data Type & Continue", use_container_width=True):
+                    with st.spinner("🤖 AI is analyzing your data type..."):
+                        col_info_full = "\n".join(
+                            [f"- {c}: {'numeric' if c in num_cols else 'categorical'} "
+                             f"({df[c].nunique()} unique, e.g. {str(df[c].dropna().iloc[0]) if len(df[c].dropna())>0 else 'N/A'})"
+                             for c in all_cols]
+                        )
+                        sys = (
+                            "You are an ML expert. Based on the dataset columns and the selected target column, "
+                            "determine the learning type:\n"
+                            "- SUPERVISED: target has clear labels/values for prediction\n"
+                            "- UNSUPERVISED: no clear target or it's an identifier\n"
+                            "- SEMISUPERVISED: only some rows have labels\n"
+                            "Return ONLY the word: SUPERVISED, UNSUPERVISED, or SEMISUPERVISED."
+                        )
+                        usr = f"Target column: {target_col}\n\nColumns:\n{col_info_full}"
+                        raw = ask_ai(sys, usr).strip().upper()
+                        if "SEMI" in raw:
+                            data_type = "SEMISUPERVISED"
+                        elif "UNSUPERVISED" in raw:
+                            data_type = "UNSUPERVISED"
+                        else:
+                            data_type = "SUPERVISED"
+
+                    st.session_state.ml_target_col = target_col
+                    st.session_state.ml_feature_cols = feature_cols
+                    st.session_state.ml_data_type = data_type
+                    st.session_state.ml_step = "task_selection"
+                    st.rerun()
+            else:
+                st.warning("Please select at least one feature column.")
+
+        # Reset button
+        if st.session_state.ml_ai_features_done and st.button("🔄 Try a different target"):
+            st.session_state.ml_ai_features_done = False
+            st.session_state.pop("ml_feature_cols", None)
+            st.rerun()
+
+    # ============================================================
+    # STEP 2: Show DATA TYPE + Choose Task
+    # ============================================================
+    elif st.session_state.ml_step == "task_selection":
+        data_type = st.session_state.ml_data_type
+        target_col = st.session_state.ml_target_col
+
+        type_colors = {"SUPERVISED": "#1FAA8A", "UNSUPERVISED": "#FFA500", "SEMISUPERVISED": "#9B59B6"}
+        color = type_colors.get(data_type, "#1FAA8A")
+
+        st.markdown(f"""
+        <div style="
+            background: linear-gradient(135deg, rgba(31,170,138,0.12), rgba(11,58,47,0.25));
+            border: 2px solid {color};
+            border-radius: 14px; padding: 20px 24px; margin: 12px 0; text-align: center;
+        ">
+            <div style="color: #888; font-size: 0.8rem; letter-spacing: 2px;">DATA TYPE</div>
+            <div style="color: {color}; font-size: 2.2rem; font-weight: 800;">{data_type}</div>
+            <div style="color: #c8e6d4; font-size: 0.95rem; margin-top: 6px;">Target: <code>{target_col}</code></div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        if data_type == "SUPERVISED":
+            st.subheader("📌 Step 2: Choose Task Type")
+            task_type = st.radio(
+                "Select task:",
+                ["classification", "regression"],
+                format_func=lambda x: "🏷️ Classification" if x == "classification" else "📈 Regression",
+                horizontal=True,
+            )
+            if st.button("🚀 Train 3 Models", use_container_width=True):
+                st.session_state.ml_task_type = task_type
+                st.session_state.ml_step = "training"
+                st.rerun()
+        else:
+            st.warning(f"⚠️ {data_type} learning is not supported yet. This tool focuses on SUPERVISED learning.")
+            if st.button("◀️ Try Again"):
+                st.session_state.ml_step = "select_target"
+                st.rerun()
+
+    # ============================================================
+    # STEP 3: Train 3 Models & Show Best
+    # ============================================================
+    elif st.session_state.ml_step == "training":
+        target_col = st.session_state.ml_target_col
+        feature_cols = st.session_state.ml_feature_cols
+        task_type = st.session_state.ml_task_type
+        is_regression = (task_type == "regression")
+
+        # Safety filter: remove any ID-like columns that slipped through
+        _hard_exclude = {"id", "orderid", "productid", "customerid", "userid", "sku"}
+        feature_cols = [c for c in feature_cols if c.lower().strip() not in _hard_exclude]
+
+        if len(feature_cols) < 1:
+            st.error("❌ No feature columns selected.")
+            st.stop()
+
+        with st.spinner(f"Training 3 {task_type} models..."):
+            ml_df = df[feature_cols + [target_col]].dropna().copy()
+            if len(ml_df) < 30:
+                st.error(f"❌ Not enough data ({len(ml_df)} rows). Need at least 30.")
+                st.stop()
+
+            X = ml_df[feature_cols].copy()
+            y = ml_df[target_col].copy()
+
+            cats_in_feats = [c for c in feature_cols if c in cat_cols]
+            if cats_in_feats:
+                X = pd.get_dummies(X, columns=cats_in_feats, drop_first=True)
+
+            le = None
+            if not is_regression:
+                if y.dtype == object:
+                    le = LabelEncoder()
+                    y = le.fit_transform(y)
+                else:
+                    y = y.astype(int)
+
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+            scaler = StandardScaler()
+            X_train_s = scaler.fit_transform(X_train)
+            X_test_s = scaler.transform(X_test)
+
+            if is_regression:
+                model_configs = [
+                    ("Linear Regression", LinearRegression(), {"fit_intercept": [True]}),
+                    ("Random Forest", RandomForestRegressor(random_state=42, n_jobs=-1),
+                     {"n_estimators": [100, 200, 300], "max_depth": [None, 10, 20]}),
+                    ("XGBoost", XGBRegressor(random_state=42, verbosity=0),
+                     {"n_estimators": [100, 200], "max_depth": [3, 6], "learning_rate": [0.05, 0.1]}),
+                ]
+                scoring = "r2"
+                sort_col = "R²"
+            else:
+                model_configs = [
+                    ("Logistic Regression", LogisticRegression(max_iter=2000, random_state=42, n_jobs=-1),
+                     {"C": [0.1, 1, 10]}),
+                    ("Random Forest", RandomForestClassifier(random_state=42, n_jobs=-1),
+                     {"n_estimators": [100, 200, 300], "max_depth": [None, 10, 20]}),
+                    ("XGBoost", XGBClassifier(random_state=42, verbosity=0),
+                     {"n_estimators": [100, 200], "max_depth": [3, 6], "learning_rate": [0.05, 0.1]}),
+                ]
+                scoring = "accuracy"
+                sort_col = "Accuracy"
+
+            leaderboard = []
+            best_model, best_score, best_name = None, -np.inf, ""
+
+            progress_bar = st.progress(0)
+            for i, (name, model, param_grid) in enumerate(model_configs):
+                gs = GridSearchCV(model, param_grid, cv=3, scoring=scoring, n_jobs=-1, verbose=0)
+                gs.fit(X_train_s, y_train)
+                best = gs.best_estimator_
+                y_pred = best.predict(X_test_s)
+
+                if is_regression:
+                    score = r2_score(y_test, y_pred)
+                    leaderboard.append({
+                        "Model": name, "R²": round(score, 4),
+                        "RMSE": round(float(np.sqrt(mean_squared_error(y_test, y_pred))), 2),
+                        "MAE": round(float(mean_absolute_error(y_test, y_pred)), 2),
+                        "Best Params": str(gs.best_params_),
+                    })
+                else:
+                    score = accuracy_score(y_test, y_pred)
+                    leaderboard.append({
+                        "Model": name,
+                        "Accuracy": round(score, 4),
+                        "Precision": round(float(precision_score(y_test, y_pred, average="weighted", zero_division=0)), 4),
+                        "Recall": round(float(recall_score(y_test, y_pred, average="weighted", zero_division=0)), 4),
+                        "F1": round(float(f1_score(y_test, y_pred, average="weighted", zero_division=0)), 4),
+                        "Best Params": str(gs.best_params_),
+                    })
+
+                if score > best_score:
+                    best_score, best_model, best_name = score, best, name
+                progress_bar.progress((i + 1) / len(model_configs))
+
+            progress_bar.empty()
+
+            st.session_state.ml_trained = {
+                "model": best_model, "name": best_name,
+                "scaler": scaler, "feats": list(X.columns),
+                "cats": cats_in_feats, "orig_feats": feature_cols,
+                "is_reg": is_regression, "le": le,
+                "target": target_col, "sort_col": sort_col,
+                "best_score": best_score,
+            }
+            st.session_state.ml_leaderboard = leaderboard
+            st.session_state.ml_step = "results"
+            st.rerun()
+
+    # ============================================================
+    # STEP 4: Show Results + Prediction
+    # ============================================================
+    elif st.session_state.ml_step == "results":
+        target_col = st.session_state.ml_target_col
+        task_type = st.session_state.ml_task_type
+        ml_trained = st.session_state.ml_trained
+        leaderboard = st.session_state.ml_leaderboard
+        is_regression = ml_trained["is_reg"]
+        best_name = ml_trained["name"]
+        best_score = ml_trained["best_score"]
+        sort_col = ml_trained["sort_col"]
+
+        st.markdown(f"""
+        <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:16px;">
+            <span style="background:#1FAA8A; padding:3px 14px; border-radius:20px; color:white; font-weight:600; font-size:0.8rem;">SUPERVISED</span>
+            <span style="background:rgba(31,170,138,0.15); padding:3px 14px; border-radius:20px; color:#c8e6d4; font-size:0.8rem;">
+                {'📈 Regression' if is_regression else '🏷️ Classification'}
+            </span>
+            <span style="background:rgba(31,170,138,0.15); padding:3px 14px; border-radius:20px; color:#c8e6d4; font-size:0.8rem;">
+                🎯 {target_col}
+            </span>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.divider()
+        st.subheader("🔮 Make a Prediction")
+        st.caption("Enter values for each feature to predict:")
+
+        input_vals = {}
+        pred_cols = st.columns(3)
+        for i, feat in enumerate(ml_trained["orig_feats"]):
+            with pred_cols[i % 3]:
+                sample_val = df[feat].dropna().iloc[0] if len(df[feat].dropna()) > 0 else 0
+                if feat in num_cols:
+                    input_vals[feat] = st.number_input(
+                        feat,
+                        value=float(sample_val) if isinstance(sample_val, (int, float)) else 0.0,
+                        key=f"pred_{feat}"
+                    )
+                else:
+                    unique_vals = df[feat].dropna().unique().tolist()
+                    input_vals[feat] = st.selectbox(feat, options=unique_vals, key=f"pred_{feat}")
+
+        if st.button("🔮 Predict", use_container_width=True, type="primary"):
+            try:
+                inp = pd.DataFrame([input_vals])
+                if ml_trained["cats"]:
+                    inp = pd.get_dummies(inp, columns=ml_trained["cats"], drop_first=True)
+                for c in ml_trained["feats"]:
+                    if c not in inp.columns:
+                        inp[c] = 0
+                inp = inp[ml_trained["feats"]]
+                pred = ml_trained["model"].predict(ml_trained["scaler"].transform(inp))
+
+                if is_regression:
+                    pred_label = f"**{pred[0]:,.2f}**"
+                elif ml_trained["le"] is not None:
+                    pred_label = f"**{ml_trained['le'].inverse_transform(pred.astype(int))[0]}**"
+                else:
+                    pred_label = f"**{int(pred[0])}**"
+
+                st.success(f"🔮 Prediction for `{target_col}`: {pred_label}")
+                st.caption("⚠️ AI Data Analysis Tool can make mistakes.")
+            except Exception as e:
+                st.error(f"❌ Prediction error: {e}")
+
+        st.divider()
+        if st.button("◀️ Start Over"):
+            for k in ["ml_target_col", "ml_feature_cols", "ml_trained", "ml_leaderboard", "ml_data_type", "ml_task_type", "ml_step", "ml_ai_features_done"]:
+                st.session_state.pop(k, None)
+            st.rerun()
