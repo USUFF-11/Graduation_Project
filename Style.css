@@ -516,3 +516,62 @@ div[data-testid="stToolbar"] {
 .card, .kpi-card {
     animation: fadeInUp 0.4s ease-out;
 }
+
+/* =========================
+   ML BADGE
+========================= */
+.ml-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(31,170,138,0.2), rgba(11,58,47,0.4));
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 6px 18px;
+    color: var(--text-accent);
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 8px 0;
+}
+
+/* =========================
+   ML PREDICTION CARD
+========================= */
+.ml-pred-card {
+    background: linear-gradient(135deg, rgba(31,170,138,0.2), rgba(11,58,47,0.4));
+    border: 2px solid rgba(31,170,138,0.5);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-top: 16px;
+    animation: fadeInUp 0.4s ease-out;
+}
+
+.ml-pred-value {
+    color: var(--text-heading);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 8px 0;
+    line-height: 1.2;
+}
+
+/* =========================
+   ML STATUS & PROGRESS
+========================= */
+div[data-testid="stStatusWidget"] {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+}
+
+/* =========================
+   ML LEADERBOARD TABLE
+========================= */
+[data-testid="stDataFrame"] td {
+    font-size: 0.85rem !important;
+}
+
+/* Highlight best model row */
+[data-testid="stDataFrame"] tr {
+    transition: all 0.2s ease;
+}
+
+
